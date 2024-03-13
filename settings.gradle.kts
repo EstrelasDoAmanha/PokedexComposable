@@ -6,6 +6,12 @@ pluginManagement {
     }
 }
 dependencyResolutionManagement {
+    versionCatalogs {
+        create("deps") {
+            from(files("./gradle/catalog.toml"))
+        }
+    }
+
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         google()
