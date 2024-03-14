@@ -25,7 +25,7 @@ composeBom = "2023.08.00"
 # Third Party
 ktor = "2.3.9"
 koinBom = "3.5.3"
-
+coilCompose = "2.5.0"
 # Test
 junit = "4.13.2"
 junitExt = "1.1.5"
@@ -48,6 +48,7 @@ composeUiTooling = { module = "androidx.compose.ui:ui-tooling" }
 composeUiTestManifest = { module = "androidx.compose.ui:ui-test-manifest" }
 composeUiToolingPreview = { module = "androidx.compose.ui:ui-tooling-preview" }
 composeMaterial3 = { module = "androidx.compose.material3:material3" }
+navigationCompose = { module = "androidx.navigation:navigation-compose" }
 
 # Third Party
 ktor = { module = "io.ktor:ktor-server-netty", version.ref = "ktor" }
@@ -56,6 +57,7 @@ koin_android = { module = "io.insert-koin:koin-android" }
 koin_compose = { module = "io.insert-koin:koin-androidx-compose" }
 koin_coroutines = { module = "io.insert-koin:koin-core-coroutines" }
 koin_navigation = { module = "io.insert-koin:koin-androidx-navigation" }
+io_coil_kt_coil_compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coilCompose" }
 
 # Test
 junit = { module = "junit:junit", version.ref = "junit" }
