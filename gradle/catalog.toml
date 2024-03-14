@@ -24,6 +24,7 @@ composeBom = "2023.08.00"
 
 # Third Party
 ktor = "2.3.9"
+koinBom = "3.5.3"
 
 # Test
 junit = "4.13.2"
@@ -50,6 +51,11 @@ composeMaterial3 = { module = "androidx.compose.material3:material3" }
 
 # Third Party
 ktor = { module = "io.ktor:ktor-server-netty", version.ref = "ktor" }
+koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koinBom" }
+koin_android = { module = "io.insert-koin:koin-android" }
+koin_compose = { module = "io.insert-koin:koin-androidx-compose" }
+koin_coroutines = { module = "io.insert-koin:koin-core-coroutines" }
+koin_navigation = { module = "io.insert-koin:koin-androidx-navigation" }
 
 # Test
 junit = { module = "junit:junit", version.ref = "junit" }

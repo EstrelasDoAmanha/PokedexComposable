@@ -59,6 +59,11 @@ dependencies {
     implementation(deps.composeUiGraphics)
     implementation(deps.composeUiToolingPreview)
     implementation(deps.composeMaterial3)
+    implementation(platform(deps.koin.bom))
+    implementation(deps.koin.compose)
+    implementation(deps.koin.android)
+    implementation(deps.koin.coroutines)
+    implementation(deps.koin.navigation)
 
     testImplementation(deps.junit)
     androidTestImplementation(deps.junitExt)
