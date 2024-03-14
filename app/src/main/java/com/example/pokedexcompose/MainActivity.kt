@@ -6,7 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.navigation.compose.rememberNavController
-import com.example.pokedexcompose.ui.navigation.ProkemonNavHost
+import com.example.pokedexcompose.ui.navigation.PokemonNavHost
 import com.example.pokedexcompose.ui.theme.PokedexComposeTheme
 
 class MainActivity : ComponentActivity() {
@@ -16,7 +16,7 @@ class MainActivity : ComponentActivity() {
             PokedexComposeTheme {
                 val navController = rememberNavController()
                 Surface(color = MaterialTheme.colorScheme.background) {
-                    ProkemonNavHost(navController)
+                    PokemonNavHost(navController)
                 }
             }
         }

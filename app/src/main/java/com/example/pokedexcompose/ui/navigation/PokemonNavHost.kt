@@ -7,7 +7,7 @@ import com.example.pokedexcompose.ui.list.pokemonList
 import com.example.pokedexcompose.ui.list.pokemonListRoute
 
 @Composable
-fun ProkemonNavHost(navController: NavHostController) {
+fun PokemonNavHost(navController: NavHostController) {
     NavHost(
         navController = navController,
         startDestination = pokemonListRoute
