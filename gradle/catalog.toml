@@ -26,6 +26,8 @@ composeBom = "2023.08.00"
 
 # Third Party
 ktor = "2.3.9"
+koinBom = "3.5.3"
+coilCompose = "2.5.0"
 
 # Test
 junit = "4.13.2"
@@ -52,6 +54,7 @@ composeUiTooling = { module = "androidx.compose.ui:ui-tooling" }
 composeUiTestManifest = { module = "androidx.compose.ui:ui-test-manifest" }
 composeUiToolingPreview = { module = "androidx.compose.ui:ui-tooling-preview" }
 composeMaterial3 = { module = "androidx.compose.material3:material3" }
+navigationCompose = { module = "androidx.navigation:navigation-compose" }
 
 # Third Party
 ktorClientCore = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
@@ -59,6 +62,12 @@ ktorClientLogging = { module = "io.ktor:ktor-client-logging", version.ref = "kto
 ktorClientAndroid = { module = "io.ktor:ktor-client-android", version.ref = "ktor" }
 ktorClientNegotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
 ktorSerialization = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
+koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koinBom" }
+koin_android = { module = "io.insert-koin:koin-android" }
+koin_compose = { module = "io.insert-koin:koin-androidx-compose" }
+koin_coroutines = { module = "io.insert-koin:koin-core-coroutines" }
+koin_navigation = { module = "io.insert-koin:koin-androidx-navigation" }
+io_coil_kt_coil_compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coilCompose" }
 
 # Test
 junit = { module = "junit:junit", version.ref = "junit" }

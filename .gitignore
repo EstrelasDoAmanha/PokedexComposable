@@ -9,6 +9,7 @@
 /.idea/assetWizardSettings.xml
 .idea/
 ./idea/*
+.idea/sonarlint/**
 /.idea/gradle.xml
 /.idea/misc.xml
 .DS_Store
