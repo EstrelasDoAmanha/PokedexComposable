@@ -1,13 +1,7 @@
 package com.example.pokedexcompose.ui.list
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.NavOptions
@@ -25,7 +19,7 @@ fun NavGraphBuilder.pokemonList(
     }
 }
 
-fun NavHostController.navigateToDrawTeams(
+fun NavHostController.navigateToPokemonList(
     navOptions: NavOptions? = null
 ) {
     navigate(pokemonListRoute, navOptions)
