@@ -1,4 +1,4 @@
-package com.example.pokedexcompose.di
+package com.example.pokedexcompose.ui.list.di
 
 import com.example.pokedexcompose.ui.list.ListScreenViewModel
 import org.koin.androidx.viewmodel.dsl.viewModelOf

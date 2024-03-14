@@ -31,9 +31,7 @@ fun ListScreen(
             items(uiState.list.size) { index ->
                 Card(
                     colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(4.dp)
+                    modifier = Modifier.fillMaxWidth().padding(4.dp)
                 ) {
                     Column {
                         AsyncImage(
@@ -43,9 +41,7 @@ fun ListScreen(
                         Text(
                             text = uiState.list[index].name,
                             fontSize = 12.sp,
-                            modifier = Modifier
-                                .padding(16.dp)
-                                .fillMaxWidth(),
+                            modifier = Modifier.padding(16.dp).fillMaxWidth(),
                             textAlign = TextAlign.Center
                         )
                     }
