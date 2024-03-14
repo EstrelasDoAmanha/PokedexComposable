@@ -1,6 +1,7 @@
 plugins {
     alias(deps.plugins.androidApplication)
     alias(deps.plugins.kotlinAndroid)
+    alias(deps.plugins.kotlinSerialization)
 }
 
 android {

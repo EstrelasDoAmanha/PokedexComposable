@@ -20,4 +20,7 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "PokedexCompose"
-include(":app")
+include(
+    ":app",
+    ":network"
+)
