@@ -76,4 +76,6 @@ dependencies {
 
     debugImplementation(deps.composeUiTooling)
     debugImplementation(deps.composeUiTestManifest)
+
+    implementation(project(":network"))
 }

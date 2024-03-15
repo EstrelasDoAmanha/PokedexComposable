@@ -15,4 +15,7 @@ dependencies {
     implementation(deps.ktorClientAndroid)
     implementation(deps.ktorClientNegotiation)
     implementation(deps.ktorSerialization)
+
+    implementation(platform(deps.koin.bom))
+    implementation(deps.koin.core)
 }

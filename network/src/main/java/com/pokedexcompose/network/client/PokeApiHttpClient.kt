@@ -36,15 +36,6 @@ class PokeApiHttpClient : KtorHttpClient {
             }
         }
 
-    fun bla () {
-        httpClient.get {
-            url {
-
-            }
-        }.body<>()
-    }
-
-
     override val koinName: String
         get() = "pokeApiKtorHttpClient"
 }
