@@ -10,11 +10,11 @@ java {
 }
 
 dependencies {
-    implementation(deps.ktorClientCore)
-    implementation(deps.ktorClientLogging)
-    implementation(deps.ktorClientAndroid)
-    implementation(deps.ktorClientNegotiation)
-    implementation(deps.ktorSerialization)
+    implementation(deps.ktor.client.core)
+    implementation(deps.ktor.client.logging)
+    implementation(deps.ktor.client.android)
+    implementation(deps.ktor.client.negotiation)
+    implementation(deps.ktor.serialization)
 
     implementation(platform(deps.koin.bom))
     implementation(deps.koin.core)

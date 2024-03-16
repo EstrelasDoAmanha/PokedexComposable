@@ -57,11 +57,11 @@ composeMaterial3 = { module = "androidx.compose.material3:material3" }
 navigationCompose = { module = "androidx.navigation:navigation-compose" }
 
 # Third Party
-ktorClientCore = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
-ktorClientLogging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
-ktorClientAndroid = { module = "io.ktor:ktor-client-android", version.ref = "ktor" }
-ktorClientNegotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
-ktorSerialization = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
+ktor_client_core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+ktor_client_logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
+ktor_client_android = { module = "io.ktor:ktor-client-android", version.ref = "ktor" }
+ktor_client_negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
+ktor_serialization = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
 koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koinBom" }
 koin_core = { module = "io.insert-koin:koin-core" }
 koin_android = { module = "io.insert-koin:koin-android" }
