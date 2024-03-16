@@ -1,5 +1,5 @@
 package com.example.pokedexcompose.data.local
-import com.example.pokedexcompose.data.model.Pokemon
+import com.example.pokedexcompose.domain.model.Pokemon
 
 val results = listOf(
     Pokemon("spearow", "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/shiny/25.gif"),

@@ -2,7 +2,7 @@ package com.example.pokedexcompose.ui.list
 
 import androidx.lifecycle.ViewModel
 import com.example.pokedexcompose.data.local.results
-import com.example.pokedexcompose.data.model.Pokemon
+import com.example.pokedexcompose.domain.model.Pokemon
 import kotlinx.coroutines.flow.MutableStateFlow
 
 class ListScreenViewModel() : ViewModel() {
