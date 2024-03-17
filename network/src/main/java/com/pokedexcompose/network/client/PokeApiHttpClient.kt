@@ -36,7 +36,7 @@ class PokeApiHttpClient : KtorHttpClient {
                 }
                 install(HttpRequestRetry) {
                     retryOnServerErrors(maxRetries = 3)
-                    retryIf { request, response ->
+                    retryIf { _, response ->
                         !response.status.isSuccess()
                     }
                     exponentialDelay()

@@ -15,7 +15,6 @@ import io.ktor.http.HttpMethod
 import io.ktor.http.URLBuilder
 import io.ktor.http.appendPathSegments
 import io.ktor.http.contentType
-import java.lang.Exception
 
 @DslMarker
 annotation class KtorClientDsl
@@ -41,12 +40,8 @@ suspend inline fun <reified Body, reified T> HttpClient.postRequest(
 ): T =
     this.post(configuration.url) {
         contentType(configuration.contentType)
-        url { pathSegments(configuration.pathSegments) }
-        parameters(configuration.parameters)
-        headers(configuration.headers)
-        if (configuration.host.isNotEmpty()) host = configuration.host
-        if (configuration.port != -1) port = configuration.port
         configuration.body?.let { setBody(it) }
+        commonSettings(configuration)
     }.body()
 
 suspend inline fun <reified Body, reified T> HttpClient.getRequest(
@@ -54,10 +49,7 @@ suspend inline fun <reified Body, reified T> HttpClient.getRequest(
 ): T =
     this.get(configuration.url) {
         url { pathSegments(configuration.pathSegments) }
-        parameters(configuration.parameters)
-        headers(configuration.headers)
-        if (configuration.host.isNotEmpty()) host = configuration.host
-        if (configuration.port != -1) port = configuration.port
+        commonSettings(configuration)
     }.body()
 
 fun HttpRequestBuilder.parameters(
@@ -79,4 +71,12 @@ fun URLBuilder.pathSegments(
 ): URLBuilder {
     segments.forEach { appendPathSegments(it.first, it.second) }
     return this
+}
+
+inline fun <reified Body> HttpRequestBuilder.commonSettings(configuration: KtorClientDslModel<Body>) {
+    url { pathSegments(configuration.pathSegments) }
+    parameters(configuration.parameters)
+    headers(configuration.headers)
+    if (configuration.host.isNotEmpty()) host = configuration.host
+    if (configuration.port != -1) port = configuration.port
 }
