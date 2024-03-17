@@ -1,6 +1,7 @@
 plugins {
     alias(deps.plugins.androidApplication)
     alias(deps.plugins.kotlinAndroid)
+    alias(deps.plugins.kotlinSerialization)
 }
 
 android {
@@ -75,4 +76,6 @@ dependencies {
 
     debugImplementation(deps.composeUiTooling)
     debugImplementation(deps.composeUiTestManifest)
+
+    implementation(project(":network"))
 }

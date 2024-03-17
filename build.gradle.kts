@@ -2,4 +2,6 @@
 plugins {
     alias(deps.plugins.androidApplication) apply false
     alias(deps.plugins.kotlinAndroid) apply false
+    alias(deps.plugins.kotlinJvm) apply false
+    alias(deps.plugins.kotlinSerialization) apply false
 }
