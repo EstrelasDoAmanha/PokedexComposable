@@ -69,6 +69,7 @@ koin_compose = { module = "io.insert-koin:koin-androidx-compose" }
 koin_coroutines = { module = "io.insert-koin:koin-core-coroutines" }
 koin_navigation = { module = "io.insert-koin:koin-androidx-navigation" }
 io_coil_kt_coil_compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coilCompose" }
+io_coil_kt_coil_gif = { group = "io.coil-kt", name = "coil-gif", version.ref = "coilCompose" }
 
 # Test
 junit = { module = "junit:junit", version.ref = "junit" }

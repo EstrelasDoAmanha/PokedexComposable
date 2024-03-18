@@ -1,5 +1,7 @@
 package com.example.pokedexcompose.ui.list
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.navigation.NavGraphBuilder
@@ -10,6 +12,7 @@ import org.koin.androidx.compose.koinViewModel
 
 const val pokemonListRoute = "pokemonList"
 
+@RequiresApi(Build.VERSION_CODES.P)
 fun NavGraphBuilder.pokemonList(
 ) {
     composable(pokemonListRoute) {
