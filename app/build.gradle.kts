@@ -31,8 +31,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
         jvmTarget = deps.versions.jvmTarget.get()
@@ -62,18 +62,17 @@ dependencies {
     implementation(deps.composeMaterial3)
     implementation(deps.navigationCompose)
     implementation(deps.io.coil.kt.coil.compose)
+    implementation(deps.io.coil.kt.coil.gif)
     implementation(platform(deps.koin.bom))
     implementation(deps.koin.compose)
     implementation(deps.koin.android)
     implementation(deps.koin.coroutines)
     implementation(deps.koin.navigation)
-
     testImplementation(deps.junit)
     androidTestImplementation(deps.junitExt)
     androidTestImplementation(deps.espressoCore)
     androidTestImplementation(platform(deps.composeBom))
     androidTestImplementation(deps.junitUiTest4)
-
     debugImplementation(deps.composeUiTooling)
     debugImplementation(deps.composeUiTestManifest)
 
