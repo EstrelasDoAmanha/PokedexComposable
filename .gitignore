@@ -11,7 +11,10 @@
 ./idea/*
 .idea/sonarlint/**
 /.idea/gradle.xml
+.idea/misc.xml
 /.idea/misc.xml
+/.idea/compiler.xml
+.idea/compiler.xml
 .DS_Store
 /build
 /captures
