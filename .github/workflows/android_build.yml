@@ -14,11 +14,11 @@ jobs :
       - name: Checkout code
         uses: actions/checkout@v4.1.0
 
-      - name: Set up JDK 11
+      - name: Set up JDK 17
         uses: actions/setup-java@v3.13.0
         with:
           distribution : 'temurin'
-          java-version: 11
+          java-version: 17
           cache: gradle
 
       - name: Grant gradlew execution permission
@@ -42,11 +42,11 @@ jobs :
 
     steps:
       - uses: actions/checkout@v3
-      - name: Set up JDK 11
+      - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
-          java-version: 11
-          distribution: "termurin"
+          java-version: 17
+          distribution: "temurin"
           cache: gradle
 
       - name: Grant gradlew execution permission
