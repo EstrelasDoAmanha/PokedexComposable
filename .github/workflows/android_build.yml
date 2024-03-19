@@ -1,4 +1,4 @@
-name: AndroidBuild
+name: Android Debug Pipeline
 
 on:
   pull_request:
@@ -76,6 +76,9 @@ jobs :
           java-version: 17
           distribution: "temurin"
           cache: gradle
+
+      - name: Grant gradlew execution permission
+        run: chmod +x ./gradlew
 
       - name: Run ktlintFormat
         run: ./gradlew ktlintFormat --stacktrace
