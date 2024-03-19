@@ -20,5 +20,7 @@ data class PokemonDto(
     @SerialName("weight")
     val weight: Int = 0,
     @SerialName("stats")
-    val stats: List<Statistics> = emptyList()
+    val stats: List<Statistics> = emptyList(),
+    @SerialName("types")
+    val types: List<TypeDto> = emptyList()
 )
