@@ -5,11 +5,14 @@ import com.example.pokedexcompose.domain.model.PokemonType
 
 class PokemonTypeDtoToDomain : Mapper<List<TypeDto>, List<PokemonType>> {
     override fun map(from: List<TypeDto>): List<PokemonType> {
-        //fixme: tratar lista vazia
-        return from.map { typeDto ->
-            PokemonType(
-                name = typeDto.name
-            )
+        return if (from.isNotEmpty()) {
+            from.map { typeDto ->
+                PokemonType(
+                    name = typeDto.name
+                )
+            }
+        } else {
+            emptyList()
         }
     }
 }
