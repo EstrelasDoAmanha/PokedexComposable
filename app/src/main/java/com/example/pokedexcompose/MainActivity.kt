@@ -14,7 +14,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             PokedexComposeTheme {
-                val navController = rememberNavController()
+                val navController =
+                    rememberNavController()
                 Surface(color = MaterialTheme.colorScheme.background) {
                     PokemonNavHost(navController)
                 }
