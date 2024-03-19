@@ -5,4 +5,5 @@ plugins {
     alias(deps.plugins.kotlinAndroid) apply false
     alias(deps.plugins.kotlinJvm) apply false
     alias(deps.plugins.kotlinSerialization) apply false
+    alias(deps.plugins.ktlint) apply false
 }
