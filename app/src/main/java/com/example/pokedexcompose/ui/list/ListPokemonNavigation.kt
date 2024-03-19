@@ -8,6 +8,8 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
+import com.example.pokedexcompose.ui.list.presentation.ListScreen
+import com.example.pokedexcompose.ui.list.presentation.ListScreenViewModel
 import org.koin.androidx.compose.koinViewModel
 
 const val pokemonListRoute = "pokemonList"

@@ -1,7 +1,6 @@
-package com.example.pokedexcompose.ui.list
+package com.example.pokedexcompose.ui.list.presentation
 
 import android.os.Build
-import android.os.Build.VERSION.SDK_INT
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -23,17 +22,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.ImageLoader
 import coil.compose.AsyncImage
-import coil.compose.rememberAsyncImagePainter
-import coil.compose.rememberImagePainter
-import coil.decode.GifDecoder
 import coil.decode.ImageDecoderDecoder
 import coil.request.ImageRequest
 
 @RequiresApi(Build.VERSION_CODES.P)
 @Composable
-fun ListScreen(
+internal fun ListScreen(
     uiState: ListScreenViewModel.ListUiState,
 ) {
     LazyVerticalGrid(
@@ -77,6 +72,7 @@ fun ListScreen(
 }
 
 
+@RequiresApi(Build.VERSION_CODES.P)
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
 fun ListScreenPreview() {

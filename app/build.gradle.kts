@@ -76,5 +76,11 @@ dependencies {
     debugImplementation(deps.composeUiTooling)
     debugImplementation(deps.composeUiTestManifest)
 
+    implementation(deps.ktor.client.core)
+    implementation(deps.ktor.client.logging)
+    implementation(deps.ktor.client.android)
+    implementation(deps.ktor.client.negotiation)
+    implementation(deps.ktor.serialization)
+
     implementation(project(":network"))
 }
