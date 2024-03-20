@@ -12,6 +12,7 @@ import com.example.pokedexcompose.domain.model.Pokemon
 import com.pokedexcompose.network.client.KtorHttpClient
 import com.pokedexcompose.network.dsl.getRequest
 import com.pokedexcompose.network.dsl.model.KtorClientDslModel
+import com.pokedexcompose.network.dsl.request
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -33,11 +34,9 @@ class ListScreenViewModel(
 
     private fun getPokemon() {
         viewModelScope.launch(Dispatchers.IO) {
-            val request = pokemonClient.httpClient.getRequest<Any, PokemonDto>(
-                KtorClientDslModel(
-                    url = "${pokemonClient.baseUrl}pokemon/pikachu"
-                )
-            )
+            val request = pokemonClient.httpClient.request<PokemonDto,Any> {
+                url = "${pokemonClient.baseUrl}pokemon/pikachu"
+            }
             Log.i("tstPokmeon", request.toString())
             val mapper = PokemonDtotoDomain(
                 pokemonStatsDtoToDomain = PokemonStatsDtoToDomain(),
