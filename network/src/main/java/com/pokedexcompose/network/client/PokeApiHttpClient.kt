@@ -31,6 +31,13 @@ class PokeApiHttpClient : KtorHttpClient {
                     json(
                         Json {
                             prettyPrint = true
+                            ignoreUnknownKeys = true
+                            explicitNulls = true
+//                            Enables coercing incorrect JSON values to the default property value in the following cases:
+//                            JSON value is null but property type is non-nullable.
+//                            Property type is an enum type, but JSON value contains unknown enum member.
+//                            false by default.
+                            coerceInputValues = false
                         }
                     )
                 }
