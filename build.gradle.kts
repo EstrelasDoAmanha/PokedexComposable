@@ -12,6 +12,7 @@ task("addPreCommitGitHookOnBuild") {
     println("⚈ ⚈ ⚈ Running Add Pre Commit Git Hook Script on Build ⚈ ⚈ ⚈")
     exec {
         commandLine("cp", "./scripts/githooks/pre-commit", "./.git/hooks")
+        commandLine("chmod", "+x", "./.git/hooks/pre-commit")
     }
     println("✅ Added Pre Commit Git Hook Script.")
 }

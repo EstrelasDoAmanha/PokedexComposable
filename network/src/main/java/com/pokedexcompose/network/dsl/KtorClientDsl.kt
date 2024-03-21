@@ -22,7 +22,7 @@ annotation class KtorClientDsl
 @KtorClientDsl
 suspend inline fun <reified Body, reified Response> HttpClient.request(
     setup: KtorClientDslModel<Body>.() -> Unit
-): T {
+): Response {
     val configuration = KtorClientDslModel<Body>()
     configuration.setup()
 
