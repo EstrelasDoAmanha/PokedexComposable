@@ -1,6 +1,6 @@
 package com.example.pokedexcompose.data.model
 
-import com.example.pokedexcompose.data.extensions.emptyString
+import com.example.pokedexcompose.extensions.empty
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -11,7 +11,7 @@ data class PokemonDto(
     @SerialName("id")
     val id: Int = 0,
     @SerialName("name")
-    val name: String? = String.emptyString(),
+    val name: String? = String.empty(),
     @SerialName("order")
     val order: Int = 0,
     //todo verficar se deve ser mantido
@@ -28,13 +28,13 @@ data class PokemonDto(
 @Serializable
 data class Home(
     @SerialName("front_default")
-    val frontDefault: String? = String.emptyString(),
+    val frontDefault: String? = String.empty(),
     @SerialName("front_female")
-    val frontFemale: String? = String.emptyString(),
+    val frontFemale: String? = String.empty(),
     @SerialName("front_shiny")
-    val frontShiny: String? = String.emptyString(),
+    val frontShiny: String? = String.empty(),
     @SerialName("front_shiny_female")
-    val frontShinyFemale: String? = String.emptyString()
+    val frontShinyFemale: String? = String.empty()
 )
 
 @Serializable
@@ -48,41 +48,41 @@ data class Other(
 @Serializable
 data class Showdown(
     @SerialName("back_default")
-    val backDefault: String? = String.emptyString(),
+    val backDefault: String? = String.empty(),
     @SerialName("back_female")
-    val backFemale: String? = String.emptyString(),
+    val backFemale: String? = String.empty(),
     @SerialName("back_shiny")
-    val backShiny: String? = String.emptyString(),
+    val backShiny: String? = String.empty(),
     @SerialName("back_shiny_female")
-    val backShinyFemale: String? = String.emptyString(),
+    val backShinyFemale: String? = String.empty(),
     @SerialName("front_default")
-    val frontDefault: String? = String.emptyString(),
+    val frontDefault: String? = String.empty(),
     @SerialName("front_female")
-    val frontFemale: String? = String.emptyString(),
+    val frontFemale: String? = String.empty(),
     @SerialName("front_shiny")
-    val frontShiny: String? = String.emptyString(),
+    val frontShiny: String? = String.empty(),
     @SerialName("front_shiny_female")
-    val frontShinyFemale: String? = String.emptyString()
+    val frontShinyFemale: String? = String.empty()
 )
 
 @Serializable
 data class Sprites(
     @SerialName("back_default")
-    val backDefault: String? = String.emptyString(),
+    val backDefault: String? = String.empty(),
     @SerialName("back_female")
-    val backFemale: String? = String.emptyString(),
+    val backFemale: String? = String.empty(),
     @SerialName("back_shiny")
-    val backShiny: String? = String.emptyString(),
+    val backShiny: String? = String.empty(),
     @SerialName("back_shiny_female")
-    val backShinyFemale: String? = String.emptyString(),
+    val backShinyFemale: String? = String.empty(),
     @SerialName("front_default")
-    val frontDefault: String? = String.emptyString(),
+    val frontDefault: String? = String.empty(),
     @SerialName("front_female")
-    val frontFemale: String? = String.emptyString(),
+    val frontFemale: String? = String.empty(),
     @SerialName("front_shiny")
-    val frontShiny: String? = String.emptyString(),
+    val frontShiny: String? = String.empty(),
     @SerialName("front_shiny_female")
-    val frontShinyFemale: String? = String.emptyString(),
+    val frontShinyFemale: String? = String.empty(),
     @SerialName("other")
     val other: Other = Other()
 )
@@ -90,7 +90,7 @@ data class Sprites(
 @Serializable
 data class StatisticInfo(
     @SerialName("name")
-    val name: String? = String.emptyString()
+    val name: String? = String.empty()
 )
 
 @Serializable
@@ -104,5 +104,5 @@ data class Statistics(
 @Serializable
 data class TypeDto(
     @SerialName("name")
-    val name: String? = String.emptyString(),
+    val name: String? = String.empty(),
 )

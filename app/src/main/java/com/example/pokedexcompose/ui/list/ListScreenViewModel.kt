@@ -9,16 +9,19 @@ import com.example.pokedexcompose.data.mappers.PokemonStatsDtoToDomain
 import com.example.pokedexcompose.data.mappers.PokemonTypeDtoToDomain
 import com.example.pokedexcompose.data.model.PokemonDto
 import com.example.pokedexcompose.domain.model.Pokemon
+import com.example.pokedexcompose.domain.usecases.GetPokemonDetailsUseCase
 import com.pokedexcompose.network.client.KtorHttpClient
 import com.pokedexcompose.network.dsl.getRequest
 import com.pokedexcompose.network.dsl.model.KtorClientDslModel
 import com.pokedexcompose.network.dsl.request
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.launch
+import kotlin.random.Random
 
 class ListScreenViewModel(
-    private val pokemonClient: KtorHttpClient
+    private val getPokemonDetails: GetPokemonDetailsUseCase
 ) : ViewModel() {
 
     var uiState = MutableStateFlow<ListUiState>(ListUiState(results))
@@ -33,17 +36,15 @@ class ListScreenViewModel(
     }
 
     private fun getPokemon() {
+
+
         viewModelScope.launch(Dispatchers.IO) {
-            val request = pokemonClient.httpClient.request<PokemonDto,Any> {
-                url = "${pokemonClient.baseUrl}pokemon/pikachu"
+            getPokemonDetails(
+                pokemonId = Random.nextInt(1,251)
+            ).collect{
+                Log.i("tstPokmeon", it.toString())
             }
-            Log.i("tstPokmeon", request.toString())
-            val mapper = PokemonDtotoDomain(
-                pokemonStatsDtoToDomain = PokemonStatsDtoToDomain(),
-                pokemonTypeDtoToDomain = PokemonTypeDtoToDomain()
-            )
-            val pokemonInfo = mapper.map(request)
-            Log.i("tstPokmeon", pokemonInfo.toString())
+
         }
     }
 }
