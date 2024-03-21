@@ -2,6 +2,7 @@ plugins {
     alias(deps.plugins.androidApplication)
     alias(deps.plugins.kotlinAndroid)
     alias(deps.plugins.kotlinSerialization)
+    alias(deps.plugins.ktlint)
 }
 
 android {
@@ -77,4 +78,16 @@ dependencies {
     debugImplementation(deps.composeUiTestManifest)
 
     implementation(project(":network"))
+}
+
+tasks.register<Copy>("installPreCommitHook") {
+    description = "Copy pre-commit git hook from the scripts folder to the .git/hooks folder."
+    group = "git hooks"
+    outputs.upToDateWhen { false }
+    from("$rootDir/scripts/githooks/pre-commit")
+    into("$rootDir/.git/hooks/")
+}
+
+tasks.build {
+    dependsOn("installPreCommitHook")
 }

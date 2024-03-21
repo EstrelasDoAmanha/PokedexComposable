@@ -2,6 +2,7 @@ plugins {
     id("java-library")
     alias(deps.plugins.kotlinJvm)
     alias(deps.plugins.kotlinSerialization)
+    alias(deps.plugins.ktlint)
 }
 
 java {
