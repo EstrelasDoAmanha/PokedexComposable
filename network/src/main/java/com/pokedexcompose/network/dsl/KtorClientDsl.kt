@@ -20,18 +20,18 @@ import io.ktor.http.contentType
 annotation class KtorClientDsl
 
 @KtorClientDsl
-suspend inline fun <reified T, reified Body> HttpClient.request(
+suspend inline fun <reified Body, reified Response> HttpClient.request(
     setup: KtorClientDslModel<Body>.() -> Unit
 ): T {
     val configuration = KtorClientDslModel<Body>()
     configuration.setup()
 
     return when (configuration.method) {
-        HttpMethod.Get -> getRequest<Body, T>(configuration)
+        HttpMethod.Get -> getRequest<Body, Response>(configuration)
 
-        HttpMethod.Post -> postRequest<Body, T>(configuration)
+        HttpMethod.Post -> postRequest<Body, Response>(configuration)
 
-        else -> getRequest<Body, T>(configuration)
+        else -> getRequest<Body, Response>(configuration)
     }
 }
 

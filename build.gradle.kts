@@ -7,3 +7,11 @@ plugins {
     alias(deps.plugins.kotlinSerialization) apply false
     alias(deps.plugins.ktlint) apply false
 }
+
+task("addPreCommitGitHookOnBuild") {
+    println("⚈ ⚈ ⚈ Running Add Pre Commit Git Hook Script on Build ⚈ ⚈ ⚈")
+    exec {
+        commandLine("cp", "./scripts/githooks/pre-commit", "./.git/hooks")
+    }
+    println("✅ Added Pre Commit Git Hook Script.")
+}
