@@ -2,29 +2,29 @@
 
 echo "Running git pre-commit hook"
 
-CHANGED_FILES="$(git --no-pager diff --name-only --cached --diff-filter=ACMRTUXB --relative | grep '\.kt[s"]\?$')"
-
-if [ -z "$CHANGED_FILES" ]; then
-  echo "No Kotlin staged files."
-else
-  echo "Running ktlint format over these files:"
-  echo "$CHANGED_FILES"
-  if ! (echo "$CHANGED_FILES" | xargs ./tools/ktlint --format --relative); then
-    exit $?
-  else
-    echo "Completed ktlint run."
-    echo "$CHANGED_FILES" | while read -r file; do
-      if [ -f "$file" ]; then
-        git add "$file"
-      fi
-    done
-  fi
-fi
-
-#git diff --name-only -z --cached --relative -- '*.kt' '*.kts' | ktlint --relative --patterns-from-stdin=''
+#CHANGED_FILES="$(git --no-pager diff --name-only --cached --diff-filter=ACMRTUXB --relative | grep '\.kt[s"]\?$')"
 #
-#STATUS=$?
-#
-## return 1 if fails
-#[ $STATUS -ne 0 ] && exit 1
-#exit 0
+#if [ -z "$CHANGED_FILES" ]; then
+#  echo "No Kotlin staged files."
+#else
+#  echo "Running ktlint format over these files:"
+#  echo "$CHANGED_FILES"
+#  if ! (echo "$CHANGED_FILES" | xargs ./tools/ktlint --format --relative); then
+#    exit $?
+#  else
+#    echo "Completed ktlint run."
+#    echo "$CHANGED_FILES" | while read -r file; do
+#      if [ -f "$file" ]; then
+#        git add "$file"
+#      fi
+#    done
+#  fi
+#fi
+
+git diff --name-only -z --cached --relative -- '*.kt' '*.kts' | ./gradlew ktlintFormat --relative --patterns-from-stdin=''
+
+STATUS=$?
+
+# return 1 if fails
+[ $STATUS -ne 0 ] && exit 1
+exit 0
