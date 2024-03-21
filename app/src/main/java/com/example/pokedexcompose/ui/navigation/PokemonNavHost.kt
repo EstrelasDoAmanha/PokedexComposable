@@ -10,7 +10,7 @@ import com.example.pokedexcompose.ui.list.pokemonListRoute
 fun PokemonNavHost(navController: NavHostController) {
     NavHost(
         navController = navController,
-        startDestination = pokemonListRoute
+        startDestination = pokemonListRoute,
     ) {
         pokemonList()
     }

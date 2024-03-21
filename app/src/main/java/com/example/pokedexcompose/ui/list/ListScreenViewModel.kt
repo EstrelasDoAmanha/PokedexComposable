@@ -6,12 +6,10 @@ import com.example.pokedexcompose.data.model.Pokemon
 import kotlinx.coroutines.flow.MutableStateFlow
 
 class ListScreenViewModel() : ViewModel() {
-
     var uiState = MutableStateFlow<ListUiState>(ListUiState(results))
         private set
 
     class ListUiState(
-        val list: List<Pokemon> = results
+        val list: List<Pokemon> = results,
     )
-
 }
