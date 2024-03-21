@@ -27,7 +27,7 @@ android {
             isMinifyEnabled = deps.versions.releaseMinify.get().toBoolean()
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro",
+                "proguard-rules.pro"
             )
         }
     }

@@ -876,7 +876,8 @@
 # ij_html_text_wrap = normal
 #
 [{*.kt,*.kts}]
-ktlint_code_style = android
+ktlint_code_style=android_studio
+ktlint_function_naming_ignore_annotation_pattern=Composable, Test
 # ij_kotlin_align_in_columns_case_branch = false
 # ij_kotlin_align_multiline_binary_operation = false
 # ij_kotlin_align_multiline_extends_list = false

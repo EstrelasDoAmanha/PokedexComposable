@@ -36,40 +36,42 @@ fun ListScreen(uiState: ListScreenViewModel.ListUiState) {
         content = {
             items(uiState.list.size) { index ->
                 Card(
-                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.surfaceVariant
+                    ),
                     modifier =
-                        Modifier
-                            .fillMaxWidth()
-                            .padding(4.dp),
+                    Modifier
+                        .fillMaxWidth()
+                        .padding(4.dp)
                 ) {
                     Column(
-                        horizontalAlignment = Alignment.CenterHorizontally,
+                        horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         AsyncImage(
                             model =
-                                ImageRequest.Builder(LocalContext.current)
-                                    .data(uiState.list[index].url)
-                                    .decoderFactory(ImageDecoderDecoder.Factory())
-                                    .build(),
+                            ImageRequest.Builder(LocalContext.current)
+                                .data(uiState.list[index].url)
+                                .decoderFactory(ImageDecoderDecoder.Factory())
+                                .build(),
                             contentDescription = null,
                             modifier =
-                                Modifier
-                                    .padding(10.dp)
-                                    .size(80.dp),
+                            Modifier
+                                .padding(10.dp)
+                                .size(80.dp)
                         )
                         Text(
                             text = uiState.list[index].name,
                             fontSize = 12.sp,
                             modifier =
-                                Modifier
-                                    .padding(16.dp)
-                                    .fillMaxWidth(),
-                            textAlign = TextAlign.Center,
+                            Modifier
+                                .padding(16.dp)
+                                .fillMaxWidth(),
+                            textAlign = TextAlign.Center
                         )
                     }
                 }
             }
-        },
+        }
     )
 }
 

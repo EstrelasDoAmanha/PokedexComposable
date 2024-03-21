@@ -10,6 +10,6 @@ class ListScreenViewModel() : ViewModel() {
         private set
 
     class ListUiState(
-        val list: List<Pokemon> = results,
+        val list: List<Pokemon> = results
     )
 }

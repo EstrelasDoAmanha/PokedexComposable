@@ -15,7 +15,7 @@ class PokedexComposeApp : Application() {
             androidLogger()
             modules(
                 networkModule,
-                viewModel,
+                viewModel
             )
         }
     }

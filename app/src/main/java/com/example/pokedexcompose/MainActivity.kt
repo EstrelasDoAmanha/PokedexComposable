@@ -15,7 +15,9 @@ class MainActivity : ComponentActivity() {
         setContent {
             PokedexComposeTheme {
                 val navController = rememberNavController()
-                Surface(color = MaterialTheme.colorScheme.background) { PokemonNavHost(navController) }
+                Surface(
+                    color = MaterialTheme.colorScheme.background
+                ) { PokemonNavHost(navController) }
             }
         }
     }
