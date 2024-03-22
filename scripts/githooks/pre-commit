@@ -1,0 +1,11 @@
+#!/bin/bash
+
+echo "Running git pre-commit hook"
+
+git diff --name-only -z --cached --relative -- '*.kt' '*.kts' | ktlint --relative --patterns-from-stdin=''
+
+STATUS=$?
+
+# return 1 if fails
+[ $STATUS -ne 0 ] && exit 1
+exit 0

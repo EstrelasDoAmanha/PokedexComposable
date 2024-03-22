@@ -1,4 +1,4 @@
-name: AndroidBuild
+name: Android Debug Pipeline
 
 on:
   pull_request:
@@ -14,11 +14,11 @@ jobs :
       - name: Checkout code
         uses: actions/checkout@v4.1.0
 
-      - name: Set up JDK 11
+      - name: Set up JDK 17
         uses: actions/setup-java@v3.13.0
         with:
           distribution : 'temurin'
-          java-version: 11
+          java-version: 17
           cache: gradle
 
       - name: Grant gradlew execution permission
@@ -42,11 +42,11 @@ jobs :
 
     steps:
       - uses: actions/checkout@v3
-      - name: Set up JDK 11
+      - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
-          java-version: 11
-          distribution: "termurin"
+          java-version: 17
+          distribution: "temurin"
           cache: gradle
 
       - name: Grant gradlew execution permission
@@ -61,6 +61,34 @@ jobs :
             echo "Unit tests passed."
           else
             echo "Unit tests failed."
+            exit 1
+          fi 
+
+  kt-lint:
+    needs: test
+    runs-on: macOS-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: "temurin"
+          cache: gradle
+
+      - name: Grant gradlew execution permission
+        run: chmod +x ./gradlew
+
+      - name: Run ktlintFormat
+        run: ./gradlew ktlintFormat --stacktrace
+
+      - name: Check unit tests status
+        run: |
+          if [ $? -eq 0 ]; then
+            echo "KtlintFormat passed."
+          else
+            echo "KtlintFormat failed."
             exit 1
           fi 
 
