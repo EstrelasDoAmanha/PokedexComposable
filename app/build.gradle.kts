@@ -97,4 +97,4 @@ tasks.register<Exec>("makePreCommitExecutable") {
     println("✅ Permissions added to Pre Commit Git Hook Script.")
 }
 
-tasks.build.dependsOn("installPreCommitHook")
+project.tasks.preBuild.dependsOn("installPreCommitHook")
