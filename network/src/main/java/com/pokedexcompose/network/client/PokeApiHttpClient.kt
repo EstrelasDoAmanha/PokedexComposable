@@ -1,7 +1,6 @@
 package com.pokedexcompose.network.client
 
 import io.ktor.client.HttpClient
-
 import io.ktor.client.engine.android.Android
 import io.ktor.client.plugins.DefaultRequest
 import io.ktor.client.plugins.HttpRequestRetry

@@ -55,14 +55,6 @@ fun HttpRequestBuilder.parameters(parameters: List<Pair<String, String>>): HttpR
     return this
 }
 
-fun HttpRequestBuilder.parameters(
-    parameters: List<Pair<String, String>>,
-    parameters2: List<Pair<String, String>>
-): HttpRequestBuilder {
-    parameters.forEach { this.parameter(it.first, it.second) }
-    return this
-}
-
 fun HttpRequestBuilder.headers(headers: List<Pair<String, String>>): HttpRequestBuilder {
     headers.forEach { this.header(it.first, it.second) }
     return this
