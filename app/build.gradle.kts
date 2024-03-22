@@ -88,13 +88,15 @@ tasks.register<Copy>("installPreCommitHook") {
     outputs.upToDateWhen { false }
     from("$rootDir/scripts/githooks/pre-commit")
     into("$rootDir/.git/hooks/")
+    fileMode = 777
 }
 
-tasks.register<Exec>("makePreCommitExecutable") {
-    dependsOn("installPreCommitHook")
-    println("⚈ ⚈ ⚈ Adding permissions to Pre Commit Git Hook Script on Build ⚈ ⚈ ⚈")
-    exec { commandLine("chmod", "+x", ".git/hooks/pre-commit") }
-    println("✅ Permissions added to Pre Commit Git Hook Script.")
-}
-
+//tasks.register<Exec>("makePreCommitExecutable") {
+//    dependsOn("installPreCommitHook")
+//    println("⚈ ⚈ ⚈ Adding permissions to Pre Commit Git Hook Script on Build ⚈ ⚈ ⚈")
+//    exec { commandLine("chmod", "+x", ".git/hooks/pre-commit") }
+//    println("✅ Permissions added to Pre Commit Git Hook Script.")
+//}
+//
+//tasks.findByName("makePreCommitExecutable")?.dependsOn("installPreCommitHook")
 project.tasks.preBuild.dependsOn("installPreCommitHook")
