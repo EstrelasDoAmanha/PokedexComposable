@@ -89,15 +89,27 @@ tasks.register<Copy>("installPreCommitHook") {
     from("$rootDir/scripts/githooks/pre-commit") {
         this.fileMode = 777
     }
-    into("$rootDir/.git/hooks/")
+    into("$rootDir/.git/hooks/").fileMode = 777
+
+    doLast {
+        println("⚈ ⚈ ⚈ Adding permissions to Pre Commit Git Hook Script on Build ⚈ ⚈ ⚈")
+        exec {
+            commandLine("chmod", "+x", "$rootDir/.git/hooks/pre-commit")
+        }
+        println("✅ Permissions added to Pre Commit Git Hook Script.")
+    }
 }
 
-//tasks.register<Exec>("makePreCommitExecutable") {
-//    dependsOn("installPreCommitHook")
-//    println("⚈ ⚈ ⚈ Adding permissions to Pre Commit Git Hook Script on Build ⚈ ⚈ ⚈")
-//    exec { commandLine("chmod", "+x", ".git/hooks/pre-commit") }
-//    println("✅ Permissions added to Pre Commit Git Hook Script.")
-//}
+// tasks.register<Exec>("makePreCommitExecutable") {
+//    doLast {
+//        println("⚈ ⚈ ⚈ Adding permissions to Pre Commit Git Hook Script on Build ⚈ ⚈ ⚈")
+//        exec {
+//            commandLine("chmod", "+x", ".git/hooks/pre-commit")
+//        }
+//        println("✅ Permissions added to Pre Commit Git Hook Script.")
+//    }
+// }
 //
-//tasks.findByName("makePreCommitExecutable")?.dependsOn("installPreCommitHook")
+// tasks.findByName("makePreCommitExecutable")?.dependsOn("installPreCommitHook")
 project.tasks.preBuild.dependsOn("installPreCommitHook")
+// project.tasks.preBuild.dependsOn("makePreCommitExecutable")
