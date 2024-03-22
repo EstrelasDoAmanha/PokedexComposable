@@ -81,13 +81,10 @@ dependencies {
 }
 
 tasks.register<Copy>("installPreCommitHook") {
+    dependsOn("build")
     description = "Copy pre-commit git hook from the scripts folder to the .git/hooks folder."
     group = "git hooks"
     outputs.upToDateWhen { false }
     from("$rootDir/scripts/githooks/pre-commit")
     into("$rootDir/.git/hooks/")
-}
-
-tasks.build {
-    dependsOn("installPreCommitHook")
 }

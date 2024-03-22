@@ -75,6 +75,7 @@ fun ListScreen(uiState: ListScreenViewModel.ListUiState) {
     )
 }
 
+@RequiresApi(Build.VERSION_CODES.P)
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
 fun ListScreenPreview() {
