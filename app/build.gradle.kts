@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.tasks.factory.dependsOn
+
 plugins {
     alias(deps.plugins.androidApplication)
     alias(deps.plugins.kotlinAndroid)
@@ -81,10 +83,18 @@ dependencies {
 }
 
 tasks.register<Copy>("installPreCommitHook") {
-    dependsOn("build")
     description = "Copy pre-commit git hook from the scripts folder to the .git/hooks folder."
     group = "git hooks"
     outputs.upToDateWhen { false }
     from("$rootDir/scripts/githooks/pre-commit")
     into("$rootDir/.git/hooks/")
 }
+
+tasks.register<Exec>("makePreCommitExecutable") {
+    dependsOn("installPreCommitHook")
+    println("⚈ ⚈ ⚈ Adding permissions to Pre Commit Git Hook Script on Build ⚈ ⚈ ⚈")
+    exec { commandLine("chmod", "+x", ".git/hooks/pre-commit") }
+    println("✅ Permissions added to Pre Commit Git Hook Script.")
+}
+
+tasks.build.dependsOn("installPreCommitHook")
