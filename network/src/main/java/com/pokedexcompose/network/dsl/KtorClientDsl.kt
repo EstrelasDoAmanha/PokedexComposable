@@ -24,7 +24,6 @@ suspend inline fun <reified Body, reified Response> HttpClient.request(
     setup: KtorClientDslModel<Body>.() -> Unit
 ): Response {
 
-
     val configuration = KtorClientDslModel<Body>()
     configuration.setup()
 
