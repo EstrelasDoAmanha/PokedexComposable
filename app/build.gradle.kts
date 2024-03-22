@@ -68,6 +68,8 @@ dependencies {
     implementation(deps.koin.android)
     implementation(deps.koin.coroutines)
     implementation(deps.koin.navigation)
+    implementation(deps.ktor.client.core)
+    implementation(deps.ktor.serialization)
     testImplementation(deps.junit)
     androidTestImplementation(deps.junitExt)
     androidTestImplementation(deps.espressoCore)
@@ -80,7 +82,6 @@ dependencies {
     implementation(deps.ktor.client.logging)
     implementation(deps.ktor.client.android)
     implementation(deps.ktor.client.negotiation)
-    implementation(deps.ktor.serialization)
 
     implementation(project(":network"))
 }

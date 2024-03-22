@@ -2,31 +2,41 @@ package com.example.pokedexcompose.ui.list.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.pokedexcompose.data.local.results
-import com.example.pokedexcompose.data.model.Pokemon
 import com.example.pokedexcompose.ui.list.usecase.ListScreenUseCase
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 internal class ListScreenViewModel(
-    private val useuCase: ListScreenUseCase
+    private val useCase: ListScreenUseCase
 ) : ViewModel() {
 
-    private var _uiState = MutableStateFlow(ListUiState(results))
+    private var _uiState = MutableStateFlow(ListUiState())
     val uiState : StateFlow<ListUiState> = _uiState
 
 
     init {
         viewModelScope.launch {
-            getList()
+            getPokemon()
         }
     }
 
-    private suspend fun getList() = useuCase.getList()
+    private suspend fun getPokemon(){
+        _uiState.update {
+            ListUiState(loading = true)
+        }
 
-    class ListUiState(
-        val list: List<Pokemon> = results
-    )
+        _uiState.update {
+            _uiState.value.copy(pokemonDto = useCase.getPokemon())
+        }
+
+        delay(1500)
+
+        _uiState.update {
+            _uiState.value.copy(loading = false)
+        }
+    }
 
 }

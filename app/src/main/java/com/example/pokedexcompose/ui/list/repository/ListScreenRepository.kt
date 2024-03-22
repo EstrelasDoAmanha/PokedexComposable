@@ -1,7 +1,7 @@
 package com.example.pokedexcompose.ui.list.repository
 
-import com.example.pokedexcompose.data.model.Pokemon
+import com.example.pokedexcompose.data.model.PokemonDto
 
 interface ListScreenRepository {
-    suspend fun  getList():List<Pokemon>
+    suspend fun  getPokemon():PokemonDto
 }

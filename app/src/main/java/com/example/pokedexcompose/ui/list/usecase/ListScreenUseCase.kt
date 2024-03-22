@@ -1,7 +1,7 @@
 package com.example.pokedexcompose.ui.list.usecase
 
-import com.example.pokedexcompose.data.model.Pokemon
+import com.example.pokedexcompose.data.model.PokemonDto
 
 internal interface ListScreenUseCase {
-   suspend fun getList():List<Pokemon>
+   suspend fun getPokemon():PokemonDto
 }
