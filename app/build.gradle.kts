@@ -86,8 +86,9 @@ tasks.register<Copy>("installPreCommitHook") {
     description = "Copy pre-commit git hook from the scripts folder to the .git/hooks folder."
     group = "git hooks"
     outputs.upToDateWhen { false }
-    fileMode = 777
-    from("$rootDir/scripts/githooks/pre-commit")
+    from("$rootDir/scripts/githooks/pre-commit") {
+        this.fileMode = 777
+    }
     into("$rootDir/.git/hooks/")
 }
 
