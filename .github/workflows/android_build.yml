@@ -104,8 +104,8 @@ jobs :
           bundler-cache: true
       - run: bundle exec rake
 
-      - name: Install Bundle
-        run: ls && bundle install
+#      - name: Install Bundle
+#        run: ls && bundle install
 
   danger:
     runs-on: ubuntu-latest
