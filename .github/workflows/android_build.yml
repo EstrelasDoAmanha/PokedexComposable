@@ -65,7 +65,6 @@ jobs :
           fi 
 
   kt-lint:
-    needs: test
     runs-on: macOS-latest
 
     steps:
@@ -102,7 +101,7 @@ jobs :
           ruby-version: '2.7'
 
       - name: Install Bundle
-        run: bundle install
+        run: pwd && bundle install
 
   danger:
     runs-on: macOS-latest
