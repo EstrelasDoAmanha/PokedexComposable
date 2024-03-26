@@ -72,6 +72,7 @@ GEM
     uri (0.13.0)
 
 PLATFORMS
+  x86_64-linux
   x64-mingw-ucrt
 
 DEPENDENCIES
