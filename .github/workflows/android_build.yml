@@ -101,7 +101,7 @@ jobs :
           ruby-version: '2.7'
 
       - name: Install Bundle
-        run: pwd && bundle install
+        run: ls && pwd && bundle install
 
   danger:
     runs-on: macOS-latest
