@@ -92,7 +92,7 @@ jobs :
           fi
 
   ruby:
-    runs-on: macOS-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Setup Ruby
@@ -101,10 +101,10 @@ jobs :
           ruby-version: '2.7'
 
       - name: Install Bundle
-        run: ls
+        run: ls && bundle install
 
   danger:
-    runs-on: macOS-latest
+    runs-on: ubuntu-latest
     needs: ruby
 
     steps:
