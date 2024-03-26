@@ -98,7 +98,9 @@ jobs :
       - name: Setup Ruby
         uses: actions/setup-ruby@v1
         with:
-          ruby-version: '2.7'
+          ruby-version: '3.3'
+          bundler-cache: true
+      - run: bundle exec rake
 
       - name: Install Bundle
         run: ls && bundle install
