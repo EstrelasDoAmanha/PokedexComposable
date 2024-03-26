@@ -1,8 +1,8 @@
 package com.example.pokedexcompose.domain.mapper
 
-import com.example.pokedexcompose.data.model.PokemonListDomain
+import com.example.pokedexcompose.domain.model.PokemonListDomain
 import com.example.pokedexcompose.data.model.PokemonListDto
-import com.example.pokedexcompose.data.model.ResultDomain
+import com.example.pokedexcompose.domain.model.ResultDomain
 import com.example.pokedexcompose.data.model.ResultDto
 
 internal class MapperPokemonDomainImpl() : MapperPokemonDomain {

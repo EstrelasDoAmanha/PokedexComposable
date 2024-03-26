@@ -37,8 +37,8 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.decode.ImageDecoderDecoder
 import coil.request.ImageRequest
-import com.example.pokedexcompose.data.model.PokemonListDomain
-import com.example.pokedexcompose.data.model.ResultDomain
+import com.example.pokedexcompose.domain.model.PokemonListDomain
+import com.example.pokedexcompose.domain.model.ResultDomain
 
 @RequiresApi(Build.VERSION_CODES.P)
 @Composable

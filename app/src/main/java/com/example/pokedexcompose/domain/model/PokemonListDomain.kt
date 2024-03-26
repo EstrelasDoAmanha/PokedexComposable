@@ -1,4 +1,4 @@
-package com.example.pokedexcompose.data.model
+package com.example.pokedexcompose.domain.model
 
 data class PokemonListDomain(
     val count: Int = 0,
