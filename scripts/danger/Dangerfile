@@ -7,4 +7,7 @@ Dir[lint_dir].each do |file_name|
     android_lint.lint(inline_mode: true)
 end
 
-warn "Test"
+message "Welcome, " + github.pr_author
+
+failure "Please add labels to this PR" if github.pr_labels.empty?
+failure "Please provide a summary in the Pull Request description" if github.pr_body.length < 5
