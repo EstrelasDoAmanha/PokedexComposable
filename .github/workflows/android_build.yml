@@ -91,25 +91,25 @@ jobs :
             exit 1
           fi
 
-  danger:
-    permissions: write-all
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Print Work Directory
-        run: pwd
-
-      - uses: actions/checkout@v4
-
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.3'
-          bundler-cache: true
-      - run: bundle install
-
-      - name: Copy Dangerfile to root
-        run: cp scripts/danger/Dangerfile ./
+#  danger:
+#    permissions: write-all
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#      - name: Print Work Directory
+#        run: pwd
+#
+#      - uses: actions/checkout@v4
+#
+#      - name: Setup Ruby
+#        uses: ruby/setup-ruby@v1
+#        with:
+#          ruby-version: '3.3'
+#          bundler-cache: true
+#      - run: bundle install
+#
+#      - name: Copy Dangerfile to root
+#        run: cp scripts/danger/Dangerfile ./
 
 #      - name: Run Danger
 #        env:
