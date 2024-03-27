@@ -124,7 +124,7 @@ jobs :
           dangerfile: scripts/danger/Dangerfile.df.kts
 #        run: danger-kotlin ci --failOnErrors --no-publish-check
         env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: bundle exec danger
 #      - name: Upload built artifact
 #        uses: actions/upload-artifact@v3.1.3
