@@ -108,10 +108,16 @@ jobs :
           bundler-cache: true
       - run: bundle install
 
+      - name: Copy Dangerfile to root
+        run: cp scripts/danger/Dangerfile ./
+
       - name: Run Danger
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: cd scripts/danger && bundle exec danger
+        run: bundle exec danger
+
+      - name: Delete copied Dangerfile
+        run: rm -rf ./Dangerfile
 
 #      - name: Install Bundle
 #        run: ls && bundle install
