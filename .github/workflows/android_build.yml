@@ -111,7 +111,7 @@ jobs :
       - name: Run Danger
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: bundle exec danger
+        run: cd scripts/danger && bundle exec danger
 
 #      - name: Install Bundle
 #        run: ls && bundle install
