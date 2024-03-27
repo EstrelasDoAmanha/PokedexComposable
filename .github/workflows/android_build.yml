@@ -107,9 +107,9 @@ jobs :
           ruby-version: '3.3'
           bundler-cache: true
       - run: bundle install
-
-      - name: Copy Dangerfile to root
-        run: cp scripts/danger/Dangerfile ./
+#
+#      - name: Copy Dangerfile to root
+#        run: cp scripts/danger/Dangerfile ./
 
 #      - name: Run Danger
 #        env:
