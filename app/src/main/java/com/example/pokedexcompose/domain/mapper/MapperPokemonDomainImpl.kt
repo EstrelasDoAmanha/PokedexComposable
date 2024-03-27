@@ -5,17 +5,17 @@ import com.example.pokedexcompose.data.model.ResultListDto
 import com.example.pokedexcompose.domain.model.PokemonListDomain
 import com.example.pokedexcompose.domain.model.ResultListDomain
 
-internal class MapperPokemonDomainImpl() : MapperPokemonDomain {
+internal class MapperPokemonDomainImpl() : Mapper<PokemonListDto, PokemonListDomain> {
     override fun map(from: PokemonListDto): PokemonListDomain {
         return PokemonListDomain(
             count = from.count,
             next = from.next,
-            result = transformAtDomainList(from.result)
+            result = from.result.toDomain()
         )
     }
 
-    private fun transformAtDomainList(from: List<ResultListDto>): List<ResultListDomain> {
-        return from.map { resultDto ->
+    private fun List<ResultListDto>.toDomain(): List<ResultListDomain> {
+        return this.map { resultDto ->
             ResultListDomain(
                 name = resultDto.name,
                 url = resultDto.url,
@@ -23,4 +23,5 @@ internal class MapperPokemonDomainImpl() : MapperPokemonDomain {
             )
         }
     }
+
 }
