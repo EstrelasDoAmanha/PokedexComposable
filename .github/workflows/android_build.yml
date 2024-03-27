@@ -91,10 +91,14 @@ jobs :
             exit 1
           fi
 
-  ruby:
+  danger:
+    permissions: write-all
     runs-on: ubuntu-latest
 
     steps:
+      - name: Print Work Directory
+        run: pwd
+
       - uses: actions/checkout@v4
 
       - name: Setup Ruby
@@ -104,28 +108,33 @@ jobs :
           bundler-cache: true
       - run: bundle install
 
+      - name: Run Danger
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: bundle exec danger
+
 #      - name: Install Bundle
 #        run: ls && bundle install
 
-  danger:
-    permissions: write-all
-    runs-on: ubuntu-latest
-    needs: ruby
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Print Work Directory
-        run: pwd
-
-      - name: Run Danger
+#  danger:
+#    permissions: write-all
+#    runs-on: ubuntu-latest
+#    needs: ruby
+#
+#    steps:
+#      - uses: actions/checkout@v4
+#
+#      - name: Print Work Directory
+#        run: pwd
+#
+#      - name: Run Danger
 #        uses: danger/danger@1.3.0
 #        with:
 #          dangerfile: scripts/danger/Dangerfile.df.kts
 #        run: danger-kotlin ci --failOnErrors --no-publish-check
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: bundle exec danger
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        run: bundle exec danger
 #      - name: Upload built artifact
 #        uses: actions/upload-artifact@v3.1.3
 #        with:
