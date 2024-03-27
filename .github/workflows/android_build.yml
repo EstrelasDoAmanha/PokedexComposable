@@ -121,7 +121,7 @@ jobs :
       - name: Run Danger
         uses: danger/kotlin@1.3.0
         with:
-          dangerfile: scripts/danger/Dangerfile
+          dangerfile: scripts/danger/Dangerfile.df.kts
 #        run: danger-kotlin ci --failOnErrors --no-publish-check
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
