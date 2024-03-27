@@ -38,7 +38,7 @@ import coil.compose.AsyncImage
 import coil.decode.ImageDecoderDecoder
 import coil.request.ImageRequest
 import com.example.pokedexcompose.domain.model.PokemonListDomain
-import com.example.pokedexcompose.domain.model.ResultDomain
+import com.example.pokedexcompose.domain.model.ResultListDomain
 
 @RequiresApi(Build.VERSION_CODES.P)
 @Composable
@@ -169,11 +169,11 @@ fun ListScreenPreview() {
         PokemonListUiState(
             pokemonDomain = PokemonListDomain(
                 result = listOf(
-                    ResultDomain(
+                    ResultListDomain(
                         name = "picachu",
                         gif = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/shiny/2.gif"
                     ),
-                    ResultDomain(
+                    ResultListDomain(
                         "picachu",
                         gif = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/shiny/2.gif"
                     )
