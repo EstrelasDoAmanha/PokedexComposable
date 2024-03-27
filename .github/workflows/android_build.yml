@@ -108,6 +108,7 @@ jobs :
 #        run: ls && bundle install
 
   danger:
+    permissions: write-all
     runs-on: ubuntu-latest
     needs: ruby
 
