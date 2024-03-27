@@ -11,3 +11,6 @@ message "Welcome, " + github.pr_author
 
 failure "Please add labels to this PR" if github.pr_labels.empty?
 failure "Please provide a summary in the Pull Request description" if github.pr_body.length < 5
+
+warn "Watch the scale of your PR" if git.lines_of_code >= 500
+failure "We cannot handle the scale of this PR" if git.lines_of_code > 1200
