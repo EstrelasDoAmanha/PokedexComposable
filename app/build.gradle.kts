@@ -80,6 +80,7 @@ dependencies {
     debugImplementation(deps.composeUiTestManifest)
 
     implementation(project(":network"))
+    implementation(project(":designsystem"))
 }
 
 tasks.register<Copy>("installPreCommitHook") {
@@ -100,16 +101,4 @@ tasks.register<Copy>("installPreCommitHook") {
     }
 }
 
-// tasks.register<Exec>("makePreCommitExecutable") {
-//    doLast {
-//        println("⚈ ⚈ ⚈ Adding permissions to Pre Commit Git Hook Script on Build ⚈ ⚈ ⚈")
-//        exec {
-//            commandLine("chmod", "+x", ".git/hooks/pre-commit")
-//        }
-//        println("✅ Permissions added to Pre Commit Git Hook Script.")
-//    }
-// }
-//
-// tasks.findByName("makePreCommitExecutable")?.dependsOn("installPreCommitHook")
 project.tasks.preBuild.dependsOn("installPreCommitHook")
-// project.tasks.preBuild.dependsOn("makePreCommitExecutable")
