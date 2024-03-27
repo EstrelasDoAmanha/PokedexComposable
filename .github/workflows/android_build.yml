@@ -90,3 +90,59 @@ jobs :
             echo "KtlintFormat failed."
             exit 1
           fi
+
+  danger:
+    permissions: write-all
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Print Work Directory
+        run: pwd
+
+      - uses: actions/checkout@v4
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
+      - run: bundle install
+
+      - name: Copy Dangerfile to root
+        run: cp scripts/danger/Dangerfile ./
+
+      - name: Run Danger
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: bundle exec danger
+
+      - name: Delete copied Dangerfile
+        run: rm -rf ./Dangerfile
+
+#      - name: Install Bundle
+#        run: ls && bundle install
+
+#  danger:
+#    permissions: write-all
+#    runs-on: ubuntu-latest
+#    needs: ruby
+#
+#    steps:
+#      - uses: actions/checkout@v4
+#
+#      - name: Print Work Directory
+#        run: pwd
+#
+#      - name: Run Danger
+#        uses: danger/danger@1.3.0
+#        with:
+#          dangerfile: scripts/danger/Dangerfile.df.kts
+#        run: danger-kotlin ci --failOnErrors --no-publish-check
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        run: bundle exec danger
+#      - name: Upload built artifact
+#        uses: actions/upload-artifact@v3.1.3
+#        with:
+#          name: debug.apk
+#          path: app/build/outputs/apk/debug/app-debug.apk
