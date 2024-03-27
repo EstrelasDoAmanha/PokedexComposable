@@ -30,6 +30,9 @@ class PokeApiHttpClient : KtorHttpClient {
                     json(
                         Json {
                             prettyPrint = true
+                            ignoreUnknownKeys = true
+                            explicitNulls = true
+                            coerceInputValues = false
                         }
                     )
                 }
