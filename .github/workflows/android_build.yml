@@ -119,7 +119,7 @@ jobs :
         run: pwd
 
       - name: Run Danger
-        uses: danger/kotlin@1.3.0
+        uses: danger/danger
         with:
           dangerfile: scripts/danger/Dangerfile.df.kts
 #        run: danger-kotlin ci --failOnErrors --no-publish-check
