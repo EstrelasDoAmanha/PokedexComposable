@@ -12,4 +12,3 @@ data class PokemonListDto(
     @SerialName("results")
     val result: List<ResultListDto>
 )
-
