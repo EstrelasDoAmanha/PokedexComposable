@@ -17,7 +17,8 @@ val viewModel = module {
 }
 
 internal val dataSource = module {
+    factory { MapperPokemonDomainImpl() }
     factory<PokemonDataSource> { PokemonDataSourceImpl(get()) }
-    factory<PokemonRepository> { PokemonRepositoryImpl(get()) }
+    factory<PokemonRepository> { PokemonRepositoryImpl(get(), get()) }
     factory<PokemonUseCase> { PokemonUseCaseImpl(get()) }
 }

@@ -1,16 +1,25 @@
 package com.example.pokedexcompose.data.repository
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.example.pokedexcompose.data.datasource.PokemonDataSource
-import com.example.pokedexcompose.data.model.PokemonListDto
-import com.example.pokedexcompose.domain.mapper.Mapper
 import com.example.pokedexcompose.domain.mapper.MapperPokemonDomainImpl
 import com.example.pokedexcompose.domain.model.PokemonListDomain
+import com.example.pokedexcompose.domain.model.ResultListDomain
+import com.example.pokedexcompose.domain.pagging.PokemonPagingSource
+import kotlinx.coroutines.flow.Flow
 
 internal class PokemonRepositoryImpl(
     private val pokemonDataSource: PokemonDataSource,
+    val mapper: MapperPokemonDomainImpl
 ) : PokemonRepository {
-    private val mapper = MapperPokemonDomainImpl()
-    override suspend fun getPokemonList(): PokemonListDomain {
-        return mapper.map(pokemonDataSource.getPokemonList())
+    override suspend fun getPokemonList(): Flow<PagingData<ResultListDomain>> {
+
+
+        return Pager(
+            config = PagingConfig(pageSize = 20, maxSize = 500),
+            pagingSourceFactory = { PokemonPagingSource(pokemonDataSource, mapper) }
+        ).flow
     }
 }

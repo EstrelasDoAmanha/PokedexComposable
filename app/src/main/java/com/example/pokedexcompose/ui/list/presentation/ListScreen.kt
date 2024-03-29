@@ -34,11 +34,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
 import coil.compose.AsyncImage
 import coil.decode.ImageDecoderDecoder
 import coil.request.ImageRequest
 import com.example.pokedexcompose.domain.model.PokemonListDomain
 import com.example.pokedexcompose.domain.model.ResultListDomain
+import kotlinx.coroutines.flow.count
 
 @RequiresApi(Build.VERSION_CODES.P)
 @Composable
@@ -46,12 +49,15 @@ internal fun PokemonListScreen(uiState: PokemonListUiState) {
     if (uiState.loading) {
         LayoutShimmer()
     } else {
+
+        val lazyCharacters: LazyPagingItems<ResultListDomain> = uiState.result.collectAsLazyPagingItems()
+
         LazyVerticalGrid(
             columns = GridCells.Adaptive(128.dp),
             contentPadding = PaddingValues(vertical = 16.dp, horizontal = 16.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp),
             content = {
-                items(uiState.pokemonDomain?.result?.size ?: 0) { index ->
+                items(lazyCharacters.itemCount) { index ->
                     Card(
                         colors = CardDefaults.cardColors(
                             containerColor = MaterialTheme.colorScheme.surfaceVariant
@@ -65,7 +71,7 @@ internal fun PokemonListScreen(uiState: PokemonListUiState) {
                         ) {
                             AsyncImage(
                                 model = ImageRequest.Builder(LocalContext.current)
-                                    .data(uiState.pokemonDomain?.result?.get(index)?.gif ?: "")
+                                    .data(lazyCharacters[index]?.gif ?: "")
                                     .decoderFactory(ImageDecoderDecoder.Factory()).build(),
                                 contentDescription = null,
                                 modifier = Modifier
@@ -73,7 +79,7 @@ internal fun PokemonListScreen(uiState: PokemonListUiState) {
                                     .size(80.dp)
                             )
                             Text(
-                                text = uiState.pokemonDomain?.result?.get(index)?.name ?: "",
+                                text = lazyCharacters[index]?.name ?: "",
                                 fontSize = 12.sp,
                                 modifier = Modifier
                                     .padding(16.dp)
@@ -159,26 +165,4 @@ fun ShimmerBrushPreview() {
 @Composable
 fun LayoutShimmerPreview() {
     LayoutShimmer()
-}
-
-@RequiresApi(Build.VERSION_CODES.P)
-@Preview(showSystemUi = true, showBackground = true)
-@Composable
-fun ListScreenPreview() {
-    PokemonListScreen(
-        PokemonListUiState(
-            pokemonDomain = PokemonListDomain(
-                result = listOf(
-                    ResultListDomain(
-                        name = "picachu",
-                        gif = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/shiny/2.gif"
-                    ),
-                    ResultListDomain(
-                        "picachu",
-                        gif = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/shiny/2.gif"
-                    )
-                )
-            )
-        )
-    )
 }
