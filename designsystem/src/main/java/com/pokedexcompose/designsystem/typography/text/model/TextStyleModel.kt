@@ -20,40 +20,40 @@ import androidx.compose.ui.text.style.TextIndent
 import androidx.compose.ui.unit.TextUnit
 
 data class TextStyleModel(
-    val localeList: LocaleList = LocaleList(Locale.current),
-    val colors: TextColorModel = TextColorModel(),
-    val positioning: TextPositioningModel = TextPositioningModel(),
-    val decoration: TextDecorationModel = TextDecorationModel(),
-    val font: TextFontModel = TextFontModel()
+    var localeList: LocaleList = LocaleList(Locale.current),
+    var textColors: TextColorModel = TextColorModel(),
+    var positioning: TextPositioningModel = TextPositioningModel(),
+    var decoration: TextDecorationModel = TextDecorationModel(),
+    var font: TextFontModel = TextFontModel()
 )
 
 data class TextColorModel(
-    val textColor: Color = Color(0x1E1E1E),
-    val textBackgroundColor: Color = Color.Unspecified
+    var color: Color = Color(0x1E1E1E),
+    var background: Color = Color.Unspecified
 )
 
 data class TextPositioningModel(
-    val letterSpacing: TextUnit = TextUnit.Unspecified,
-    val baselineShift: BaselineShift? = null,
-    val textAlign: TextAlign? = null,
-    val textIndent: TextIndent? = null,
-    val lineHeight: TextUnit = TextUnit.Unspecified,
-    val direction: TextDirection = TextDirection.Ltr
+    var letterSpacing: TextUnit = TextUnit.Unspecified,
+    var baselineShift: BaselineShift? = null,
+    var textAlign: TextAlign? = null,
+    var textIndent: TextIndent? = null,
+    var lineHeight: TextUnit = TextUnit.Unspecified,
+    var direction: TextDirection = TextDirection.Ltr
 )
 
 data class TextDecorationModel(
-    val textDecoration: TextDecoration? = null,
-    val shadow: Shadow? = null,
-    val geometricTransform: TextGeometricTransform? = null,
-    val drawStyle: DrawStyle = Fill,
-    val platformTextStyle: PlatformTextStyle = PlatformTextStyle()
+    var textDecoration: TextDecoration? = null,
+    var shadow: Shadow? = null,
+    var geometricTransform: TextGeometricTransform? = null,
+    var drawStyle: DrawStyle = Fill,
+    var platformTextStyle: PlatformTextStyle = PlatformTextStyle()
 )
 
 data class TextFontModel(
-    val size: Int = 16,
-    val weight: FontWeight = FontWeight.Normal,
-    val style: FontStyle = FontStyle.Normal,
-    val family: FontFamily = FontFamily.Default,
-    val synthesis: FontSynthesis = FontSynthesis.All,
-    val settings: String? = null
+    var size: Int = 16,
+    var weight: FontWeight = FontWeight.Normal,
+    var style: FontStyle = FontStyle.Normal,
+    var family: FontFamily = FontFamily.Default,
+    var synthesis: FontSynthesis = FontSynthesis.All,
+    var settings: String? = null
 )

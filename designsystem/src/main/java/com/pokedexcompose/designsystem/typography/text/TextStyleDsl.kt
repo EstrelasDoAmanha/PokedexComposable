@@ -34,8 +34,8 @@ fun textStyle(setup: TextStyleModel.() -> Unit): TextStyle {
     data.setup()
 
     return TextStyle(
-        color = data.colors.textColor,
-        background = data.colors.textBackgroundColor,
+        color = data.textColors.color,
+        background = data.textColors.background,
         fontSize = data.font.size.sp,
         fontWeight = data.font.weight,
         fontStyle = data.font.style,
@@ -58,7 +58,7 @@ fun textStyle(setup: TextStyleModel.() -> Unit): TextStyle {
 }
 
 @TextStyleDsl
-fun colors(setup: TextColorModel.() -> Unit): TextColorModel {
+fun textColors(setup: TextColorModel.() -> Unit): TextColorModel {
     val data = TextColorModel()
     data.setup()
 

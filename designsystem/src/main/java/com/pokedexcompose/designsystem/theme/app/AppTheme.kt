@@ -8,6 +8,7 @@ import androidx.compose.material3.Shapes
 import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
@@ -24,6 +25,10 @@ import com.pokedexcompose.designsystem.shapes.dsl.roundCornerShape
 import com.pokedexcompose.designsystem.shapes.dsl.shapes
 import com.pokedexcompose.designsystem.typography.dsl.configure
 import com.pokedexcompose.designsystem.typography.dsl.typography
+import com.pokedexcompose.designsystem.typography.text.decoration
+import com.pokedexcompose.designsystem.typography.text.font
+import com.pokedexcompose.designsystem.typography.text.positioning
+import com.pokedexcompose.designsystem.typography.text.textColors
 import com.pokedexcompose.designsystem.typography.text.textStyle
 
 @Composable
@@ -108,7 +113,10 @@ fun bla() {
         },
         shapes = shapes {
             extraSmall = roundCornerShape {
-
+                topStart = 2
+                topEnd = 2
+                bottomStart = 2
+                bottomEnd = 2
             }
             small = roundCornerShape {
 
@@ -126,7 +134,19 @@ fun bla() {
         typography = typography {
             display =  configure {
                 small = textStyle {
+                    textColors = textColors {
+                        color = Color(0XFFFFFF)
+                        background = Color(0X333333)
+                    }
+                    positioning = positioning {
 
+                    }
+                    decoration = decoration {
+
+                    }
+                    font = font {
+
+                    }
                 }
                 medium = textStyle {
 
