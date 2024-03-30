@@ -14,11 +14,9 @@ internal class PokemonRepositoryImpl(
     private val pokemonDataSource: PokemonDataSource,
     val mapper: MapperPokemonDomainImpl
 ) : PokemonRepository {
-    override suspend fun getPokemonList(): Flow<PagingData<ResultListDomain>> {
-
-
+    override suspend fun getPokemonList():Flow<PagingData<ResultListDomain>> {
         return Pager(
-            config = PagingConfig(pageSize = 20, maxSize = 500),
+            config = PagingConfig(pageSize = 20),
             pagingSourceFactory = { PokemonPagingSource(pokemonDataSource, mapper) }
         ).flow
     }

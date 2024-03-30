@@ -12,29 +12,35 @@ internal class PokemonPagingSource(
     private val remoteDataSource: PokemonDataSource,
     private val mapper: MapperPokemonDomainImpl
 ) : PagingSource<Int, ResultListDomain>() {
-
+    private val limit = 20
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ResultListDomain> {
 
         return try {
-            val movies = remoteDataSource.getPokemonList()
+            val offset = params.key ?: 0
+            val response = remoteDataSource.getPokemonList("${offset}", "${limit}")
+            val data = mapper.map(response)
+            val nextOffset = offset + limit
+
             LoadResult.Page(
-                data = mapper.map(movies).result,
-                prevKey = params.key,
-                nextKey = params.key?.plus(1) ?: STARTING_PAGE_INDEX.plus(1)
+                data = data.result,
+                prevKey = if(offset == 0) null else offset - limit,
+                nextKey = if(data.result.isEmpty()) null else nextOffset,
             )
+
         } catch (exception: IOException) {
             return LoadResult.Error(exception)
         } catch (exception: HttpException) {
             return LoadResult.Error(exception)
         }
+
     }
+
 
     override fun getRefreshKey(state: PagingState<Int, ResultListDomain>): Int? {
-        return state.anchorPosition
-    }
-
-    companion object {
-        private const val STARTING_PAGE_INDEX = 1
+        return state.anchorPosition?.let { anchorPosition ->
+            val anchorPage = state.closestPageToPosition(anchorPosition)
+            anchorPage?.prevKey?.minus(1) ?: anchorPage?.nextKey?.plus(1)
+        }
     }
 
 }

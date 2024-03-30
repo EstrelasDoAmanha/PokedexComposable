@@ -39,9 +39,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import coil.compose.AsyncImage
 import coil.decode.ImageDecoderDecoder
 import coil.request.ImageRequest
-import com.example.pokedexcompose.domain.model.PokemonListDomain
 import com.example.pokedexcompose.domain.model.ResultListDomain
-import kotlinx.coroutines.flow.count
 
 @RequiresApi(Build.VERSION_CODES.P)
 @Composable
@@ -143,16 +141,14 @@ fun ShimmerBrush(showShimmer: Boolean = true, targetValue: Float = 1000f) {
 @Composable
 fun LayoutShimmer() {
     val amountShimmer = 10
-    LazyVerticalGrid(
-        columns = GridCells.Adaptive(128.dp),
+    LazyVerticalGrid(columns = GridCells.Adaptive(128.dp),
         contentPadding = PaddingValues(vertical = 16.dp, horizontal = 16.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
         content = {
             items(amountShimmer) { index ->
                 ShimmerBrush(true, 1300f)
             }
-        }
-    )
+        })
 }
 
 @Preview(showSystemUi = true, showBackground = true)
