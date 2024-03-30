@@ -14,7 +14,7 @@ data class ColorDslModel(
     val background: ColorBackgroundModel = ColorBackgroundModel(),
     val surface: ColorSurfaceModel = ColorSurfaceModel(),
     val error: ColorErrorModel = ColorErrorModel(),
-    val outlineScim: ColorOutlineScrimModel = ColorOutlineScrimModel()
+    val outlineScrim: ColorOutlineScrimModel = ColorOutlineScrimModel()
 )
 
 data class ColorPrimaryModel(
