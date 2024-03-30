@@ -82,6 +82,8 @@ dependencies {
     debugImplementation(deps.composeUiTestManifest)
 
     implementation(project(":network"))
+    implementation(project(":features:home:public"))
+    implementation(project(":features:home:implementation"))
 }
 
 tasks.register<Copy>("installPreCommitHook") {
