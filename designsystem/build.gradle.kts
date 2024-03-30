@@ -37,6 +37,14 @@ dependencies {
     implementation(deps.coreKtx)
     implementation(deps.appCompat)
     implementation(deps.material)
+
+    implementation(platform(deps.composeBom))
+    implementation(deps.composeUi)
+    implementation(deps.composeText)
+    implementation(deps.composeUiGraphics)
+    implementation(deps.composeUiToolingPreview)
+    implementation(deps.composeMaterial3)
+
     testImplementation(deps.junit)
     androidTestImplementation(deps.junitExt)
     androidTestImplementation(deps.espressoCore)
