@@ -71,6 +71,8 @@ dependencies {
     implementation(deps.koin.android)
     implementation(deps.koin.coroutines)
     implementation(deps.koin.navigation)
+    implementation(deps.ktor.client.core)
+    implementation(deps.ktor.serialization)
     testImplementation(deps.junit)
     androidTestImplementation(deps.junitExt)
     androidTestImplementation(deps.espressoCore)
@@ -92,13 +94,13 @@ tasks.register<Copy>("installPreCommitHook") {
     }
     into("$rootDir/.git/hooks/").fileMode = 777
 
-    doLast {
-        println("⚈ ⚈ ⚈ Adding permissions to Pre Commit Git Hook Script on Build ⚈ ⚈ ⚈")
-        exec {
-            commandLine("chmod", "+x", "$rootDir/.git/hooks/pre-commit")
-        }
-        println("✅ Permissions added to Pre Commit Git Hook Script.")
-    }
+//    doLast {
+//        println("⚈ ⚈ ⚈ Adding permissions to Pre Commit Git Hook Script on Build ⚈ ⚈ ⚈")
+//        exec {
+//            commandLine("chmod", "+x", "$rootDir/.git/hooks/pre-commit")
+//        }
+//        println("✅ Permissions added to Pre Commit Git Hook Script.")
+//    }
 }
 
 project.tasks.preBuild.dependsOn("installPreCommitHook")
