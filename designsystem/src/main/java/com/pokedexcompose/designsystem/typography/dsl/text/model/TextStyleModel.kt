@@ -55,5 +55,5 @@ data class TextFontModel(
     val style: FontStyle = FontStyle.Normal,
     val family: FontFamily = FontFamily.Default,
     val synthesis: FontSynthesis = FontSynthesis.All,
-    val settings: String? = null,
+    val settings: String? = null
 )

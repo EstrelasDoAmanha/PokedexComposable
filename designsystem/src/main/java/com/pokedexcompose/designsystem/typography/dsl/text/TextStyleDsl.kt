@@ -22,16 +22,14 @@ import androidx.compose.ui.unit.sp
 import com.pokedexcompose.designsystem.typography.dsl.text.model.TextColorModel
 import com.pokedexcompose.designsystem.typography.dsl.text.model.TextDecorationModel
 import com.pokedexcompose.designsystem.typography.dsl.text.model.TextFontModel
-import com.pokedexcompose.designsystem.typography.dsl.text.model.TextStyleModel
 import com.pokedexcompose.designsystem.typography.dsl.text.model.TextPositioningModel
+import com.pokedexcompose.designsystem.typography.dsl.text.model.TextStyleModel
 
 @DslMarker
 annotation class TypographyDsl
 
 @TypographyDsl
-fun textStyle(
-    setup: TextStyleModel.() -> Unit
-): TextStyle {
+fun textStyle(setup: TextStyleModel.() -> Unit): TextStyle {
     val data = TextStyleModel()
     data.setup()
 
@@ -60,9 +58,7 @@ fun textStyle(
 }
 
 @TypographyDsl
-fun colors(
-    setup: TextColorModel.() -> Unit
-): TextColorModel {
+fun colors(setup: TextColorModel.() -> Unit): TextColorModel {
     val data = TextColorModel()
     data.setup()
 
@@ -70,9 +66,7 @@ fun colors(
 }
 
 @TypographyDsl
-fun positioning(
-    setup: TextPositioningModel.() -> Unit,
-): TextPositioningModel {
+fun positioning(setup: TextPositioningModel.() -> Unit): TextPositioningModel {
     val data = TextPositioningModel()
     data.setup()
 
@@ -80,9 +74,7 @@ fun positioning(
 }
 
 @TypographyDsl
-fun decoration(
-    setup: TextDecorationModel.() -> Unit
-): TextDecorationModel {
+fun decoration(setup: TextDecorationModel.() -> Unit): TextDecorationModel {
     val data = TextDecorationModel()
     data.setup()
 
@@ -90,9 +82,7 @@ fun decoration(
 }
 
 @TypographyDsl
-fun font(
-    setup: TextFontModel.() -> Unit
-): TextFontModel {
+fun font(setup: TextFontModel.() -> Unit): TextFontModel {
     val data = TextFontModel()
     data.setup()
 
@@ -122,31 +112,31 @@ fun bla() {
                 )
             )
         ),
-    textDecoration = TextDecoration.None,
-    lineHeight = TextUnit.Unspecified,
-    shadow = Shadow(
-        color = Color.Unspecified,
-        offset = Offset.Zero
-    ),
-    textGeometricTransform = TextGeometricTransform(
-        scaleX = 1F,
-        skewX = 1F
-    ),
-    // Part 2
-    textDirection = TextDirection.Ltr,
-    localeList =  LocaleList(
-        localeList = listOf(Locale.current),
-    ),
-    fontSize = TextUnit.Unspecified,
-    fontWeight = FontWeight(
-        weight = 1
-    ),
-    fontStyle = FontStyle(
-        value = 1
-    ),
-    fontFamily = FontFamily.Cursive,
-    fontSynthesis = FontSynthesis.All,
-    fontFeatureSettings = "",
+        textDecoration = TextDecoration.None,
+        lineHeight = TextUnit.Unspecified,
+        shadow = Shadow(
+            color = Color.Unspecified,
+            offset = Offset.Zero
+        ),
+        textGeometricTransform = TextGeometricTransform(
+            scaleX = 1F,
+            skewX = 1F
+        ),
+        // Part 2
+        textDirection = TextDirection.Ltr,
+        localeList = LocaleList(
+            localeList = listOf(Locale.current)
+        ),
+        fontSize = TextUnit.Unspecified,
+        fontWeight = FontWeight(
+            weight = 1
+        ),
+        fontStyle = FontStyle(
+            value = 1
+        ),
+        fontFamily = FontFamily.Cursive,
+        fontSynthesis = FontSynthesis.All,
+        fontFeatureSettings = ""
     )
 }
 
