@@ -23,5 +23,4 @@ internal class MapperPokemonDomainImpl() : Mapper<PokemonListDto, PokemonListDom
             )
         }
     }
-
 }
