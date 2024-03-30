@@ -1,4 +1,4 @@
-package com.pokedexcompose.designsystem.typography.dsl.text.model
+package com.pokedexcompose.designsystem.typography.text.model
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shadow

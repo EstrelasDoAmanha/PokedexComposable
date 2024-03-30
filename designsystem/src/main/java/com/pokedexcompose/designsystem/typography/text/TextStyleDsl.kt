@@ -1,4 +1,4 @@
-package com.pokedexcompose.designsystem.typography.dsl.text
+package com.pokedexcompose.designsystem.typography.text
 
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
@@ -19,16 +19,16 @@ import androidx.compose.ui.text.style.TextIndent
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.sp
-import com.pokedexcompose.designsystem.typography.dsl.text.model.TextColorModel
-import com.pokedexcompose.designsystem.typography.dsl.text.model.TextDecorationModel
-import com.pokedexcompose.designsystem.typography.dsl.text.model.TextFontModel
-import com.pokedexcompose.designsystem.typography.dsl.text.model.TextPositioningModel
-import com.pokedexcompose.designsystem.typography.dsl.text.model.TextStyleModel
+import com.pokedexcompose.designsystem.typography.text.model.TextColorModel
+import com.pokedexcompose.designsystem.typography.text.model.TextDecorationModel
+import com.pokedexcompose.designsystem.typography.text.model.TextFontModel
+import com.pokedexcompose.designsystem.typography.text.model.TextPositioningModel
+import com.pokedexcompose.designsystem.typography.text.model.TextStyleModel
 
 @DslMarker
-annotation class TypographyDsl
+annotation class TextStyleDsl
 
-@TypographyDsl
+@TextStyleDsl
 fun textStyle(setup: TextStyleModel.() -> Unit): TextStyle {
     val data = TextStyleModel()
     data.setup()
@@ -57,7 +57,7 @@ fun textStyle(setup: TextStyleModel.() -> Unit): TextStyle {
     )
 }
 
-@TypographyDsl
+@TextStyleDsl
 fun colors(setup: TextColorModel.() -> Unit): TextColorModel {
     val data = TextColorModel()
     data.setup()
@@ -65,7 +65,7 @@ fun colors(setup: TextColorModel.() -> Unit): TextColorModel {
     return data
 }
 
-@TypographyDsl
+@TextStyleDsl
 fun positioning(setup: TextPositioningModel.() -> Unit): TextPositioningModel {
     val data = TextPositioningModel()
     data.setup()
@@ -73,7 +73,7 @@ fun positioning(setup: TextPositioningModel.() -> Unit): TextPositioningModel {
     return data
 }
 
-@TypographyDsl
+@TextStyleDsl
 fun decoration(setup: TextDecorationModel.() -> Unit): TextDecorationModel {
     val data = TextDecorationModel()
     data.setup()
@@ -81,7 +81,7 @@ fun decoration(setup: TextDecorationModel.() -> Unit): TextDecorationModel {
     return data
 }
 
-@TypographyDsl
+@TextStyleDsl
 fun font(setup: TextFontModel.() -> Unit): TextFontModel {
     val data = TextFontModel()
     data.setup()
