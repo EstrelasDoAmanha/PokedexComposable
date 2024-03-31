@@ -22,5 +22,8 @@ dependencyResolutionManagement {
 rootProject.name = "PokedexCompose"
 include(
     ":app",
-    ":network"
+    ":network",
+    ":designsystem",
+    ":features:home:public",
+    ":features:home:implementation",
 )
