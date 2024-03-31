@@ -1,0 +1,30 @@
+name: Documentation Pipeline
+
+on:
+  pull_request:
+    branches : [main, develop]
+  push :
+    branches : [main, develop]
+
+jobs :
+  dokka:
+    permissions: write-all
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: 17
+          distribution: "temurin"
+          cache: gradle
+
+      - name: Print Work Directory
+        run: pwd
+
+      - name: Run Dokka
+        run: |
+          VERSION=$(git tag --sort=committerdate | tail -1)
+          echo Generating API documentation for version $VERSION
+          ./gradlew -Pversion=$VERSION dokkaHtml

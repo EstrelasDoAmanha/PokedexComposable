@@ -24,6 +24,7 @@ lifecycleRuntimeKtx = "2.7.0"
 activityCompose = "1.8.2"
 appCompat = "1.6.1"
 composeBom = "2023.08.00"
+navigationRuntimeKtx = "2.7.7"
 
 # Google
 material = "1.10.0"
@@ -32,6 +33,7 @@ material = "1.10.0"
 ktor = "2.3.9"
 koinBom = "3.5.3"
 coilCompose = "2.5.0"
+detekt = "1.23.6"
 
 # Test
 junit = "4.13.2"
@@ -54,14 +56,15 @@ coreKtx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
 lifecycleRuntimeKtx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
 activityCompose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
 appCompat = { module = "androidx.appcompat:appcompat", version.ref = "appCompat" }
-composeBom = { module = "androidx.compose:compose-bom", version.ref = "composeBom" }
-composeUi = { module = "androidx.compose.ui:ui" }
-composeUiGraphics = { module = "androidx.compose.ui:ui-graphics" }
-composeUiTooling = { module = "androidx.compose.ui:ui-tooling" }
-composeText = { module = "androidx.compose.ui:ui-text-android" }
-composeUiTestManifest = { module = "androidx.compose.ui:ui-test-manifest" }
-composeUiToolingPreview = { module = "androidx.compose.ui:ui-tooling-preview" }
-composeMaterial3 = { module = "androidx.compose.material3:material3" }
+navigation_runtime_ktx = { module = "androidx.navigation:navigation-runtime-ktx", version.ref = "navigationRuntimeKtx" }
+compose_bom = { module = "androidx.compose:compose-bom", version.ref = "composeBom" }
+compose_ui = { module = "androidx.compose.ui:ui" }
+compose_ui_graphics = { module = "androidx.compose.ui:ui-graphics" }
+compose_ui_tooling = { module = "androidx.compose.ui:ui-tooling" }
+compose_text = { module = "androidx.compose.ui:ui-text-android" }
+compose_ui_test_manifest = { module = "androidx.compose.ui:ui-test-manifest" }
+compose_ui_tooling_preview = { module = "androidx.compose.ui:ui-tooling-preview" }
+compose_material3 = { module = "androidx.compose.material3:material3" }
 navigationCompose = { module = "androidx.navigation:navigation-compose" }
 
 # Google
@@ -98,3 +101,4 @@ kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlinJvm" }
 kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinSerialization" }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
