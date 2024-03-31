@@ -18,7 +18,7 @@ fun AppTheme(
     shapes: Shapes,
     typography: Typography,
     darkTheme: Boolean = isSystemInDarkTheme(),
-    content: @Composable () -> Unit
+    content: (@Composable () -> Unit)? = null
 ) {
     val currentView = LocalView.current
     val currentContext = currentView.context
@@ -33,10 +33,12 @@ fun AppTheme(
        }
     }
 
-    MaterialTheme(
-        colorScheme = colorScheme,
-        shapes = shapes,
-        typography = typography,
-        content = content
-    )
+    content?.let { existingContent ->
+        MaterialTheme(
+            colorScheme = colorScheme,
+            shapes = shapes,
+            typography = typography,
+            content = existingContent
+        )
+    }
 }
