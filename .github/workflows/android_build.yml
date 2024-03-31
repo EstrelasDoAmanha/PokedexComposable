@@ -119,6 +119,23 @@ jobs :
       - name: Delete copied Dangerfile
         run: rm -rf ./Dangerfile
 
+  dokka:
+    permissions: write-all
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Print Work Directory
+        run: pwd
+
+      - uses: actions/checkout@v4
+
+      - name: Run Dokka
+        run: |
+          VERSION=$(git tag --sort=committerdate | tail -1)
+          echo Generating API documentation for version $VERSION
+          ./gradlew -Pversion=$VERSION dokkaHtml
+
+
 #      - name: Install Bundle
 #        run: ls && bundle install
 

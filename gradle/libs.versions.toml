@@ -43,6 +43,7 @@ androidApplication = "8.2.2"
 kotlinAndroid = "1.9.0"
 kotlinJvm = "1.9.0"
 ktlint = "12.1.0"
+dokka = "1.9.20"
 
 [libraries]
 
@@ -96,3 +97,4 @@ javaLibrary = { id = "java-library" }
 kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlinJvm" }
 kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinSerialization" }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
+dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
