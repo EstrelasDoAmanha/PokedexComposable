@@ -31,6 +31,12 @@ android {
     kotlinOptions {
         jvmTarget = deps.versions.jvmTarget.get()
     }
+    buildFeatures {
+        compose = deps.versions.composeProject.get().toBoolean()
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = deps.versions.kotlinCompilerExtVersion.get()
+    }
 }
 
 dependencies {
