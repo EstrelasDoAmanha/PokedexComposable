@@ -37,11 +37,11 @@ dependencies {
 
     implementation(deps.coreKtx)
 
-    implementation(platform(deps.composeBom))
-    implementation(deps.composeUi)
-    implementation(deps.composeUiGraphics)
-    implementation(deps.composeUiToolingPreview)
-    implementation(deps.composeMaterial3)
+    implementation(platform(deps.compose.bom))
+    implementation(deps.compose.ui)
+    implementation(deps.compose.ui.graphics)
+    implementation(deps.compose.ui.tooling.preview)
+    implementation(deps.compose.material3)
 
     testImplementation(deps.junit)
     androidTestImplementation(deps.junitExt)
