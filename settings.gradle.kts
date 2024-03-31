@@ -8,7 +8,7 @@ pluginManagement {
 dependencyResolutionManagement {
     versionCatalogs {
         create("deps") {
-            from(files("./gradle/catalog.toml"))
+            from(files("./gradle/libs.versions.toml"))
         }
     }
 
