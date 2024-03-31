@@ -24,6 +24,7 @@ lifecycleRuntimeKtx = "2.7.0"
 activityCompose = "1.8.2"
 appCompat = "1.6.1"
 composeBom = "2023.08.00"
+appStartup = "1.1.1"
 
 # Google
 material = "1.10.0"
@@ -62,6 +63,7 @@ composeUiTestManifest = { module = "androidx.compose.ui:ui-test-manifest" }
 composeUiToolingPreview = { module = "androidx.compose.ui:ui-tooling-preview" }
 composeMaterial3 = { module = "androidx.compose.material3:material3" }
 navigationCompose = { module = "androidx.navigation:navigation-compose" }
+appStartup = { module = "androidx.startup:startup-runtime", version.ref = "appStartup" }
 
 # Google
 material = { module = "com.google.android.material:material", version.ref = "material" }
