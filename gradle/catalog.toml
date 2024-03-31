@@ -81,6 +81,7 @@ espressoCore = { module = "androidx.test.espresso:espresso-core", version.ref = 
 [plugins]
 
 androidApplication = { id = "com.android.application", version.ref = "androidApplication" }
+androidLibrary = { id = "com.android.library", version.ref = "androidApplication" }
 kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlinAndroid" }
 javaLibrary = { id = "java-library" }
 kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlinJvm" }
