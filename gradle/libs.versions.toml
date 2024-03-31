@@ -40,7 +40,7 @@ espresso = "3.5.1"
 
 # Plugins
 androidApplication = "8.2.2"
-kotlinAndroid = "1.9.0"
+kotlinAndroid = "1.9.23"
 kotlinJvm = "1.9.0"
 ktlint = "12.1.0"
 
