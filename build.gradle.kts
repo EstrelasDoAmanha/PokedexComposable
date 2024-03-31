@@ -7,4 +7,9 @@ plugins {
     alias(deps.plugins.kotlinJvm) apply false
     alias(deps.plugins.kotlinSerialization) apply false
     alias(deps.plugins.ktlint) apply false
+    alias(deps.plugins.dokka) apply false
+}
+
+subprojects {
+    apply(plugin = "org.jetbrains.dokka")
 }
