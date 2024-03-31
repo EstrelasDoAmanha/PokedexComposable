@@ -83,6 +83,8 @@ dependencies {
 
     implementation(project(":network"))
     implementation(project(":designsystem"))
+    implementation(project(":features:home:public"))
+    implementation(project(":features:home:implementation"))
 }
 
 tasks.register<Copy>("installPreCommitHook") {

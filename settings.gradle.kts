@@ -23,5 +23,7 @@ rootProject.name = "PokedexCompose"
 include(
     ":app",
     ":network",
-    ":designsystem"
+    ":designsystem",
+    ":features:home:public",
+    ":features:home:implementation",
 )
