@@ -26,4 +26,6 @@ include(
     ":designsystem",
     ":features:home:public",
     ":features:home:implementation",
+    ":features:details:public",
+    ":features:details:implementation"
 )
