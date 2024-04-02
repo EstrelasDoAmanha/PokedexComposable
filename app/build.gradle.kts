@@ -80,11 +80,12 @@ dependencies {
     androidTestImplementation(deps.junitUiTest4)
     debugImplementation(deps.composeUiTooling)
     debugImplementation(deps.composeUiTestManifest)
-
     implementation(project(":network"))
     implementation(project(":designsystem"))
     implementation(project(":features:home:public"))
     implementation(project(":features:home:implementation"))
+    implementation(project(":core:coreandroid"))
+    implementation(project(":core:corekotlin"))
 }
 
 tasks.register<Copy>("installPreCommitHook") {

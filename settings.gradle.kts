@@ -26,4 +26,6 @@ include(
     ":designsystem",
     ":features:home:public",
     ":features:home:implementation",
+    ":core:coreandroid",
+    ":core:corekotlin",
 )
