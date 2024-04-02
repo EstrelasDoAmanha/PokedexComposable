@@ -12,10 +12,37 @@ plugins {
     alias(deps.plugins.ktlint) apply false
     alias(deps.plugins.dokka) apply false
     alias(deps.plugins.detekt) apply false
+    jacoco
+    java
+}
+
+jacoco {
+    toolVersion = "0.8.11"
+    // Use Default reports/jacoco
+//        reportsDirectory = layout.buildDirectory.dir("")
+}
+
+tasks.jacocoTestReport {
+    dependsOn(tasks.test)
+    reports {
+        xml.required = true
+        html.outputLocation = layout.buildDirectory.dir("jacoco_html")
+    }
+}
+
+tasks.jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            limit {
+                minimum = "0.5".toBigDecimal()
+            }
+        }
+    }
 }
 
 subprojects {
     apply(plugin = "org.jetbrains.dokka")
+    apply(plugin = "jacoco")
     apply { plugin("io.gitlab.arturbosch.detekt") }
 
     tasks.withType<Detekt>().configureEach {
