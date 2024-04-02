@@ -16,7 +16,7 @@ class DiamondCornerShape(
     topStart = topStart,
     topEnd = topEnd,
     bottomEnd = bottomEnd,
-    bottomStart = bottomStart,
+    bottomStart = bottomStart
 ) {
     override fun copy(
         topStart: CornerSize,
@@ -39,7 +39,7 @@ class DiamondCornerShape(
         layoutDirection: LayoutDirection
     ): Outline {
         val width = size.width
-        val height  = size.height
+        val height = size.height
 
         val path = Path().apply {
             moveTo(0f, 3 * topStart)

@@ -172,12 +172,12 @@ fun ListScreenPreview() {
                     ResultListDomain(
                         name = "picachu",
                         gif = "https://raw.githubusercontent.com/PokeAPI" +
-                                "/sprites/master/sprites/pokemon/other/showdown/shiny/2.gif"
+                            "/sprites/master/sprites/pokemon/other/showdown/shiny/2.gif"
                     ),
                     ResultListDomain(
                         "picachu",
                         gif = "https://raw.githubusercontent.com/PokeAPI" +
-                                "/sprites/master/sprites/pokemon/other/showdown/shiny/2.gif"
+                            "/sprites/master/sprites/pokemon/other/showdown/shiny/2.gif"
                     )
                 )
             )
