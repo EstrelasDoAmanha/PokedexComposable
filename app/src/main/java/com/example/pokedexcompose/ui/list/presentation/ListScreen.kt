@@ -34,12 +34,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import coil.compose.AsyncImage
 import coil.decode.ImageDecoderDecoder
 import coil.request.ImageRequest
 import com.example.pokedexcompose.domain.model.ResultListDomain
+import kotlinx.coroutines.flow.flowOf
 
 @RequiresApi(Build.VERSION_CODES.P)
 @Composable
@@ -48,7 +50,7 @@ internal fun PokemonListScreen(uiState: PokemonListUiState) {
         LayoutShimmer()
     } else {
         val lazyCharacters:
-            LazyPagingItems<ResultListDomain> =
+                LazyPagingItems<ResultListDomain> =
             uiState.result.collectAsLazyPagingItems()
 
         LazyVerticalGrid(
@@ -164,4 +166,16 @@ fun ShimmerBrushPreview() {
 @Composable
 fun LayoutShimmerPreview() {
     LayoutShimmer()
+}
+
+
+@RequiresApi(Build.VERSION_CODES.P)
+@Preview(showSystemUi = true, showBackground = true)
+@Composable
+fun PokemonListScreenPreview() {
+    PokemonListScreen(
+        PokemonListUiState(
+            result = flowOf<PagingData<ResultListDomain>>()
+        )
+    )
 }
