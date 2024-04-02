@@ -1,7 +1,10 @@
 package com.example.pokedexcompose.data.datasource
 
+import com.example.pokedexcompose.data.model.PokemonDto
 import com.example.pokedexcompose.data.model.PokemonListDto
 
-internal interface PokemonDataSource {
+interface PokemonDataSource {
     suspend fun getPokemonList(): PokemonListDto
+
+    suspend fun getPokemonDetail(pokemonId: Int): PokemonDto
 }

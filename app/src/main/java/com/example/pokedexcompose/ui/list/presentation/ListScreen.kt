@@ -39,12 +39,13 @@ import coil.decode.ImageDecoderDecoder
 import coil.request.ImageRequest
 import com.example.pokedexcompose.domain.model.PokemonListDomain
 import com.example.pokedexcompose.domain.model.ResultListDomain
+import com.pokedexcompose.designsystem.components.loading.Lottie
 
 @RequiresApi(Build.VERSION_CODES.P)
 @Composable
 internal fun PokemonListScreen(uiState: PokemonListUiState) {
     if (uiState.loading) {
-        LayoutShimmer()
+        Lottie(url = "https://lottie.host/0e24c7b3-d349-4516-9eed-1489dcac70e6/SB2s3UWYSA.json")
     } else {
         LazyVerticalGrid(
             columns = GridCells.Adaptive(128.dp),
@@ -172,12 +173,12 @@ fun ListScreenPreview() {
                     ResultListDomain(
                         name = "picachu",
                         gif = "https://raw.githubusercontent.com/PokeAPI" +
-                                "/sprites/master/sprites/pokemon/other/showdown/shiny/2.gif"
+                            "/sprites/master/sprites/pokemon/other/showdown/shiny/2.gif"
                     ),
                     ResultListDomain(
                         "picachu",
                         gif = "https://raw.githubusercontent.com/PokeAPI" +
-                                "/sprites/master/sprites/pokemon/other/showdown/shiny/2.gif"
+                            "/sprites/master/sprites/pokemon/other/showdown/shiny/2.gif"
                     )
                 )
             )

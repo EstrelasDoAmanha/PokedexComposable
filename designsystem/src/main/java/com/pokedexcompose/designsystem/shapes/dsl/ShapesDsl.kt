@@ -11,9 +11,7 @@ import com.pokedexcompose.designsystem.shapes.dsl.model.ShapeDslModel
 annotation class ShapesDsl
 
 @ShapesDsl
-fun shapes(
-    setup: ShapeDslModel.() -> Unit
-): Shapes {
+fun shapes(setup: ShapeDslModel.() -> Unit): Shapes {
     val data = ShapeDslModel()
     data.setup()
 
@@ -22,14 +20,12 @@ fun shapes(
         small = data.small,
         medium = data.medium,
         large = data.large,
-        extraLarge = data.extraLarge,
+        extraLarge = data.extraLarge
     )
 }
 
 @ShapesDsl
-fun roundCornerShape(
-    setup: CornerBasedShapeModel.() -> Unit
-): CornerBasedShape {
+fun roundCornerShape(setup: CornerBasedShapeModel.() -> Unit): CornerBasedShape {
     val data = CornerBasedShapeModel()
     data.setup()
 

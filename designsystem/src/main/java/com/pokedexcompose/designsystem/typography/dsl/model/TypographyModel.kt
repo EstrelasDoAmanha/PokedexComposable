@@ -13,6 +13,5 @@ data class TypographyModel(
 data class TextStyleSizeModel(
     var large: TextStyle = TextStyle.Default,
     var medium: TextStyle = TextStyle.Default,
-    var small: TextStyle =  TextStyle.Default
+    var small: TextStyle = TextStyle.Default
 )
-
