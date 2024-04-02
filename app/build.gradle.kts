@@ -1,7 +1,10 @@
+import com.android.build.gradle.internal.tasks.factory.dependsOn
+
 plugins {
     alias(deps.plugins.androidApplication)
     alias(deps.plugins.kotlinAndroid)
     alias(deps.plugins.kotlinSerialization)
+    alias(deps.plugins.ktlint)
 }
 
 android {
@@ -55,11 +58,11 @@ dependencies {
     implementation(deps.coreKtx)
     implementation(deps.lifecycleRuntimeKtx)
     implementation(deps.activityCompose)
-    implementation(platform(deps.composeBom))
-    implementation(deps.composeUi)
-    implementation(deps.composeUiGraphics)
-    implementation(deps.composeUiToolingPreview)
-    implementation(deps.composeMaterial3)
+    implementation(platform(deps.compose.bom))
+    implementation(deps.compose.ui)
+    implementation(deps.compose.ui.graphics)
+    implementation(deps.compose.ui.tooling.preview)
+    implementation(deps.compose.material3)
     implementation(deps.navigationCompose)
     implementation(deps.io.coil.kt.coil.compose)
     implementation(deps.io.coil.kt.coil.gif)
@@ -69,18 +72,39 @@ dependencies {
     implementation(deps.koin.coroutines)
     implementation(deps.koin.navigation)
     implementation(deps.ktor.client.core)
-   // implementation(deps.ktor.client.logging)
-   // implementation(deps.ktor.client.android)
-    //implementation(deps.ktor.client.negotiation)
     implementation(deps.ktor.serialization)
-
     testImplementation(deps.junit)
     androidTestImplementation(deps.junitExt)
     androidTestImplementation(deps.espressoCore)
-    androidTestImplementation(platform(deps.composeBom))
+    androidTestImplementation(platform(deps.compose.bom))
     androidTestImplementation(deps.junitUiTest4)
-    debugImplementation(deps.composeUiTooling)
-    debugImplementation(deps.composeUiTestManifest)
+    debugImplementation(deps.compose.ui.tooling)
+    debugImplementation(deps.compose.ui.test.manifest)
 
     implementation(project(":network"))
+    implementation(project(":designsystem"))
+    implementation(project(":features:home:public"))
+    implementation(project(":features:home:implementation"))
+    implementation(project(":features:details:public"))
+    implementation(project(":features:details:implementation"))
 }
+
+tasks.register<Copy>("installPreCommitHook") {
+    description = "Copy pre-commit git hook from the scripts folder to the .git/hooks folder."
+    group = "git hooks"
+    outputs.upToDateWhen { false }
+    from("$rootDir/scripts/githooks/pre-commit") {
+        this.fileMode = 777
+    }
+    into("$rootDir/.git/hooks/").fileMode = 777
+
+//    doLast {
+//        println("⚈ ⚈ ⚈ Adding permissions to Pre Commit Git Hook Script on Build ⚈ ⚈ ⚈")
+//        exec {
+//            commandLine("chmod", "+x", "$rootDir/.git/hooks/pre-commit")
+//        }
+//        println("✅ Permissions added to Pre Commit Git Hook Script.")
+//    }
+}
+
+project.tasks.preBuild.dependsOn("installPreCommitHook")

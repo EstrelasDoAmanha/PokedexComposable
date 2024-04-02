@@ -20,60 +20,54 @@ import io.ktor.http.contentType
 annotation class KtorClientDsl
 
 @KtorClientDsl
-suspend inline fun <reified T, reified Body> HttpClient.request(
+suspend inline fun <reified Body, reified Response> HttpClient.request(
     setup: KtorClientDslModel<Body>.() -> Unit
-): T {
+): Response {
     val configuration = KtorClientDslModel<Body>()
     configuration.setup()
 
     return when (configuration.method) {
-        HttpMethod.Get -> getRequest<Body, T>(configuration)
+        HttpMethod.Get -> getRequest<Body, Response>(configuration)
 
-        HttpMethod.Post -> postRequest<Body, T>(configuration)
+        HttpMethod.Post -> postRequest<Body, Response>(configuration)
 
-        else -> getRequest<Body, T>(configuration)
+        else -> getRequest<Body, Response>(configuration)
     }
 }
 
 suspend inline fun <reified Body, reified T> HttpClient.postRequest(
     configuration: KtorClientDslModel<Body>
-): T =
-    this.post(configuration.url) {
-        contentType(configuration.contentType)
-        configuration.body?.let { setBody(it) }
-        commonSettings(configuration)
-    }.body()
+): T = this.post(configuration.url) {
+    contentType(configuration.contentType)
+    configuration.body?.let { setBody(it) }
+    commonSettings(configuration)
+}.body()
 
 suspend inline fun <reified Body, reified T> HttpClient.getRequest(
     configuration: KtorClientDslModel<Body>
-): T =
-    this.get(configuration.url) {
-        url { pathSegments(configuration.pathSegments) }
-        commonSettings(configuration)
-    }.body()
+): T = this.get(configuration.url) {
+    url { pathSegments(configuration.pathSegments) }
+    commonSettings(configuration)
+}.body()
 
-fun HttpRequestBuilder.parameters(
-    parameters: List<Pair<String, String>>
-): HttpRequestBuilder {
+fun HttpRequestBuilder.parameters(parameters: List<Pair<String, String>>): HttpRequestBuilder {
     parameters.forEach { this.parameter(it.first, it.second) }
     return this
 }
 
-fun HttpRequestBuilder.headers(
-    headers: List<Pair<String, String>>
-): HttpRequestBuilder {
+fun HttpRequestBuilder.headers(headers: List<Pair<String, String>>): HttpRequestBuilder {
     headers.forEach { this.header(it.first, it.second) }
     return this
 }
 
-fun URLBuilder.pathSegments(
-    segments: List<Pair<String, String>>
-): URLBuilder {
+fun URLBuilder.pathSegments(segments: List<Pair<String, String>>): URLBuilder {
     segments.forEach { appendPathSegments(it.first, it.second) }
     return this
 }
 
-inline fun <reified Body> HttpRequestBuilder.commonSettings(configuration: KtorClientDslModel<Body>) {
+inline fun <reified Body> HttpRequestBuilder.commonSettings(
+    configuration: KtorClientDslModel<Body>
+) {
     url { pathSegments(configuration.pathSegments) }
     parameters(configuration.parameters)
     headers(configuration.headers)

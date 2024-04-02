@@ -22,12 +22,18 @@ kotlinSerialization = "1.8.10"
 coreKtx = "1.12.0"
 lifecycleRuntimeKtx = "2.7.0"
 activityCompose = "1.8.2"
+appCompat = "1.6.1"
 composeBom = "2023.08.00"
+navigationRuntimeKtx = "2.7.7"
+
+# Google
+material = "1.10.0"
 
 # Third Party
 ktor = "2.3.9"
 koinBom = "3.5.3"
 coilCompose = "2.5.0"
+detekt = "1.23.6"
 
 # Test
 junit = "4.13.2"
@@ -38,6 +44,8 @@ espresso = "3.5.1"
 androidApplication = "8.2.2"
 kotlinAndroid = "1.9.0"
 kotlinJvm = "1.9.0"
+ktlint = "12.1.0"
+dokka = "1.9.20"
 
 [libraries]
 
@@ -47,14 +55,20 @@ kotlinJvm = "1.9.0"
 coreKtx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
 lifecycleRuntimeKtx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
 activityCompose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
-composeBom = { module = "androidx.compose:compose-bom", version.ref = "composeBom" }
-composeUi = { module = "androidx.compose.ui:ui" }
-composeUiGraphics = { module = "androidx.compose.ui:ui-graphics" }
-composeUiTooling = { module = "androidx.compose.ui:ui-tooling" }
-composeUiTestManifest = { module = "androidx.compose.ui:ui-test-manifest" }
-composeUiToolingPreview = { module = "androidx.compose.ui:ui-tooling-preview" }
-composeMaterial3 = { module = "androidx.compose.material3:material3" }
+appCompat = { module = "androidx.appcompat:appcompat", version.ref = "appCompat" }
+navigation_runtime_ktx = { module = "androidx.navigation:navigation-runtime-ktx", version.ref = "navigationRuntimeKtx" }
+compose_bom = { module = "androidx.compose:compose-bom", version.ref = "composeBom" }
+compose_ui = { module = "androidx.compose.ui:ui" }
+compose_ui_graphics = { module = "androidx.compose.ui:ui-graphics" }
+compose_ui_tooling = { module = "androidx.compose.ui:ui-tooling" }
+compose_text = { module = "androidx.compose.ui:ui-text-android" }
+compose_ui_test_manifest = { module = "androidx.compose.ui:ui-test-manifest" }
+compose_ui_tooling_preview = { module = "androidx.compose.ui:ui-tooling-preview" }
+compose_material3 = { module = "androidx.compose.material3:material3" }
 navigationCompose = { module = "androidx.navigation:navigation-compose" }
+
+# Google
+material = { module = "com.google.android.material:material", version.ref = "material" }
 
 # Third Party
 ktor_client_core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
@@ -80,7 +94,11 @@ espressoCore = { module = "androidx.test.espresso:espresso-core", version.ref = 
 [plugins]
 
 androidApplication = { id = "com.android.application", version.ref = "androidApplication" }
+androidLibrary = { id = "com.android.library", version.ref = "androidApplication" }
 kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlinAndroid" }
 javaLibrary = { id = "java-library" }
 kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlinJvm" }
 kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinSerialization" }
+ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
+dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }

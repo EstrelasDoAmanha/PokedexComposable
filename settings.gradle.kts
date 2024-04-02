@@ -8,7 +8,7 @@ pluginManagement {
 dependencyResolutionManagement {
     versionCatalogs {
         create("deps") {
-            from(files("./gradle/catalog.toml"))
+            from(files("./gradle/libs.versions.toml"))
         }
     }
 
@@ -22,5 +22,10 @@ dependencyResolutionManagement {
 rootProject.name = "PokedexCompose"
 include(
     ":app",
-    ":network"
+    ":network",
+    ":designsystem",
+    ":features:home:public",
+    ":features:home:implementation",
+    ":features:details:public",
+    ":features:details:implementation"
 )
