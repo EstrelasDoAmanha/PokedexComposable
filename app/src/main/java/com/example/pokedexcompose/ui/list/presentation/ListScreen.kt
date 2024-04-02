@@ -50,7 +50,7 @@ internal fun PokemonListScreen(uiState: PokemonListUiState) {
         LayoutShimmer()
     } else {
         val lazyCharacters:
-                LazyPagingItems<ResultListDomain> =
+            LazyPagingItems<ResultListDomain> =
             uiState.result.collectAsLazyPagingItems()
 
         LazyVerticalGrid(
@@ -167,7 +167,6 @@ fun ShimmerBrushPreview() {
 fun LayoutShimmerPreview() {
     LayoutShimmer()
 }
-
 
 @RequiresApi(Build.VERSION_CODES.P)
 @Preview(showSystemUi = true, showBackground = true)
