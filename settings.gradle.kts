@@ -8,7 +8,7 @@ pluginManagement {
 dependencyResolutionManagement {
     versionCatalogs {
         create("deps") {
-            from(files("./gradle/catalog.toml"))
+            from(files("./gradle/libs.versions.toml"))
         }
     }
 
@@ -26,6 +26,8 @@ include(
     ":designsystem",
     ":features:home:public",
     ":features:home:implementation",
+    ":features:details:public",
+    ":features:details:implementation"
     ":core:coreandroid",
     ":core:corekotlin",
 )

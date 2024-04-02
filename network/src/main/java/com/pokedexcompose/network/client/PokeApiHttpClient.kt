@@ -12,12 +12,14 @@ import io.ktor.http.ContentType
 import io.ktor.http.HttpHeaders
 import io.ktor.http.isSuccess
 import io.ktor.serialization.kotlinx.json.json
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 
 class PokeApiHttpClient : KtorHttpClient {
     override val baseUrl: String
         get() = "https://pokeapi.co/api/v2/"
 
+    @OptIn(ExperimentalSerializationApi::class)
     override val httpClient: HttpClient
         get() {
             return HttpClient(Android) {
