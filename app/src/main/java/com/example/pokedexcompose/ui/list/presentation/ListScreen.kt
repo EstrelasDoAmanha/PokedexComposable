@@ -47,8 +47,9 @@ internal fun PokemonListScreen(uiState: PokemonListUiState) {
     if (uiState.loading) {
         LayoutShimmer()
     } else {
-
-        val lazyCharacters: LazyPagingItems<ResultListDomain> = uiState.result.collectAsLazyPagingItems()
+        val lazyCharacters:
+            LazyPagingItems<ResultListDomain> =
+            uiState.result.collectAsLazyPagingItems()
 
         LazyVerticalGrid(
             columns = GridCells.Adaptive(128.dp),
@@ -141,14 +142,16 @@ fun ShimmerBrush(showShimmer: Boolean = true, targetValue: Float = 1000f) {
 @Composable
 fun LayoutShimmer() {
     val amountShimmer = 10
-    LazyVerticalGrid(columns = GridCells.Adaptive(128.dp),
+    LazyVerticalGrid(
+        columns = GridCells.Adaptive(128.dp),
         contentPadding = PaddingValues(vertical = 16.dp, horizontal = 16.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
         content = {
             items(amountShimmer) { _ ->
                 ShimmerBrush(true, 1300f)
             }
-        })
+        }
+    )
 }
 
 @Preview(showSystemUi = true, showBackground = true)

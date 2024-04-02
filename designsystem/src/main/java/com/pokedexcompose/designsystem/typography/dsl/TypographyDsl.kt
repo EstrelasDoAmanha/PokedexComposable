@@ -8,10 +8,7 @@ import com.pokedexcompose.designsystem.typography.dsl.model.TypographyModel
 annotation class TypographyDsl
 
 @TypographyDsl
-fun typography(
-    setup: TypographyModel.() -> Unit
-): Typography {
-
+fun typography(setup: TypographyModel.() -> Unit): Typography {
     val data = TypographyModel()
     data.setup()
 
@@ -34,11 +31,8 @@ fun typography(
     )
 }
 
-
 @TypographyDsl
-fun configure(
-   setup: TextStyleSizeModel.() -> Unit
-): TextStyleSizeModel {
+fun configure(setup: TextStyleSizeModel.() -> Unit): TextStyleSizeModel {
     val data = TextStyleSizeModel()
     data.setup()
 

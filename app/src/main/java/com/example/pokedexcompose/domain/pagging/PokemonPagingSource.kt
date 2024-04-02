@@ -14,27 +14,23 @@ internal class PokemonPagingSource(
 ) : PagingSource<Int, ResultListDomain>() {
     private val limit = 20
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ResultListDomain> {
-
         return try {
             val offset = params.key ?: 0
-            val response = remoteDataSource.getPokemonList("${offset}", "${limit}")
+            val response = remoteDataSource.getPokemonList("$offset", "$limit")
             val data = mapper.map(response)
             val nextOffset = offset + limit
 
             LoadResult.Page(
                 data = data.result,
-                prevKey = if(offset == 0) null else offset - limit,
-                nextKey = if(data.result.isEmpty()) null else nextOffset,
+                prevKey = if (offset == 0) null else offset - limit,
+                nextKey = if (data.result.isEmpty()) null else nextOffset
             )
-
         } catch (exception: IOException) {
             return LoadResult.Error(exception)
         } catch (exception: HttpException) {
             return LoadResult.Error(exception)
         }
-
     }
-
 
     override fun getRefreshKey(state: PagingState<Int, ResultListDomain>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
@@ -42,5 +38,4 @@ internal class PokemonPagingSource(
             anchorPage?.prevKey?.minus(1) ?: anchorPage?.nextKey?.plus(1)
         }
     }
-
 }
