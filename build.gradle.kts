@@ -16,12 +16,6 @@ plugins {
     java
 }
 
-jacoco {
-    toolVersion = "0.8.11"
-    // Use Default reports/jacoco
-//        reportsDirectory = layout.buildDirectory.dir("")
-}
-
 tasks.jacocoTestReport {
     dependsOn(tasks.test)
     reports {
@@ -66,5 +60,11 @@ subprojects {
 
     tasks.withType<DetektCreateBaselineTask>().configureEach {
         jvmTarget = deps.versions.jvmTarget.get()
+    }
+
+    jacoco {
+        toolVersion = "0.8.11"
+        // Use Default reports/jacoco
+//        reportsDirectory = layout.buildDirectory.dir("")
     }
 }
