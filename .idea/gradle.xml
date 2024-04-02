@@ -10,6 +10,14 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/designsystem" />
+            <option value="$PROJECT_DIR$/features" />
+            <option value="$PROJECT_DIR$/features/details" />
+            <option value="$PROJECT_DIR$/features/details/implementation" />
+            <option value="$PROJECT_DIR$/features/details/public" />
+            <option value="$PROJECT_DIR$/features/home" />
+            <option value="$PROJECT_DIR$/features/home/implementation" />
+            <option value="$PROJECT_DIR$/features/home/public" />
             <option value="$PROJECT_DIR$/network" />
           </set>
         </option>

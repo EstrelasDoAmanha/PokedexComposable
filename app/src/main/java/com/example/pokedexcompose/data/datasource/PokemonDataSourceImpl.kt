@@ -1,10 +1,11 @@
 package com.example.pokedexcompose.data.datasource
 
+import com.example.pokedexcompose.data.model.PokemonDto
 import com.example.pokedexcompose.data.model.PokemonListDto
 import com.pokedexcompose.network.client.KtorHttpClient
 import com.pokedexcompose.network.dsl.request
 
-internal class PokemonDataSourceImpl(
+class PokemonDataSourceImpl(
     private val pokemonClient: KtorHttpClient
 ) : PokemonDataSource {
     override suspend fun getPokemonList(offset: String, limit: String): PokemonListDto {
@@ -15,4 +16,9 @@ internal class PokemonDataSourceImpl(
 
         return result
     }
+
+    override suspend fun getPokemonDetail(pokemonId: Int) =
+        pokemonClient.httpClient.request<Any, PokemonDto> {
+            url = "${pokemonClient.baseUrl}pokemon/$pokemonId"
+        }
 }
