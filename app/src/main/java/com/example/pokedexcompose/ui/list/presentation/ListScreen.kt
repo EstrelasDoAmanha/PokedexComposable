@@ -42,11 +42,15 @@ import com.example.pokedexcompose.domain.model.ResultListDomain
 
 @RequiresApi(Build.VERSION_CODES.P)
 @Composable
-internal fun PokemonListScreen(uiState: PokemonListUiState) {
+internal fun PokemonListScreen(
+    uiState: PokemonListUiState,
+    modifier: Modifier
+) {
     if (uiState.loading) {
         LayoutShimmer()
     } else {
         LazyVerticalGrid(
+            modifier = modifier,
             columns = GridCells.Adaptive(128.dp),
             contentPadding = PaddingValues(vertical = 16.dp, horizontal = 16.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -181,6 +185,7 @@ fun ListScreenPreview() {
                     )
                 )
             )
-        )
+        ),
+        modifier = Modifier
     )
 }
