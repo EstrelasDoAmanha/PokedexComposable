@@ -58,11 +58,11 @@ dependencies {
     implementation(deps.coreKtx)
     implementation(deps.lifecycleRuntimeKtx)
     implementation(deps.activityCompose)
-    implementation(platform(deps.composeBom))
-    implementation(deps.composeUi)
-    implementation(deps.composeUiGraphics)
-    implementation(deps.composeUiToolingPreview)
-    implementation(deps.composeMaterial3)
+    implementation(platform(deps.compose.bom))
+    implementation(deps.compose.ui)
+    implementation(deps.compose.ui.graphics)
+    implementation(deps.compose.ui.tooling.preview)
+    implementation(deps.compose.material3)
     implementation(deps.navigationCompose)
     implementation(deps.io.coil.kt.coil.compose)
     implementation(deps.io.coil.kt.coil.gif)
@@ -78,12 +78,17 @@ dependencies {
     testImplementation(deps.junit)
     androidTestImplementation(deps.junitExt)
     androidTestImplementation(deps.espressoCore)
-    androidTestImplementation(platform(deps.composeBom))
+    androidTestImplementation(platform(deps.compose.bom))
     androidTestImplementation(deps.junitUiTest4)
-    debugImplementation(deps.composeUiTooling)
-    debugImplementation(deps.composeUiTestManifest)
+    debugImplementation(deps.compose.ui.tooling)
+    debugImplementation(deps.compose.ui.test.manifest)
 
     implementation(project(":network"))
+    implementation(project(":designsystem"))
+    implementation(project(":features:home:public"))
+    implementation(project(":features:home:implementation"))
+    implementation(project(":features:details:public"))
+    implementation(project(":features:details:implementation"))
 }
 
 tasks.register<Copy>("installPreCommitHook") {
@@ -104,16 +109,4 @@ tasks.register<Copy>("installPreCommitHook") {
 //    }
 }
 
-// tasks.register<Exec>("makePreCommitExecutable") {
-//    doLast {
-//        println("⚈ ⚈ ⚈ Adding permissions to Pre Commit Git Hook Script on Build ⚈ ⚈ ⚈")
-//        exec {
-//            commandLine("chmod", "+x", ".git/hooks/pre-commit")
-//        }
-//        println("✅ Permissions added to Pre Commit Git Hook Script.")
-//    }
-// }
-//
-// tasks.findByName("makePreCommitExecutable")?.dependsOn("installPreCommitHook")
 project.tasks.preBuild.dependsOn("installPreCommitHook")
-// project.tasks.preBuild.dependsOn("makePreCommitExecutable")
