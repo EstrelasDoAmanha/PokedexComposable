@@ -145,7 +145,7 @@ fun LayoutShimmer() {
         contentPadding = PaddingValues(vertical = 16.dp, horizontal = 16.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
         content = {
-            items(amountShimmer) { index ->
+            items(amountShimmer) { _ ->
                 ShimmerBrush(true, 1300f)
             }
         })
