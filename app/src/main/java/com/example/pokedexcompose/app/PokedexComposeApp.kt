@@ -3,7 +3,6 @@ package com.example.pokedexcompose.app
 import android.app.Application
 import com.example.pokedexcompose.ui.list.di.dataModule
 import com.example.pokedexcompose.ui.list.di.domainModule
-import com.example.pokedexcompose.ui.list.di.dataSource
 import com.example.pokedexcompose.ui.list.di.viewModel
 import com.pokedexcompose.network.di.networkModule
 import org.koin.android.ext.koin.androidContext
@@ -20,8 +19,7 @@ class PokedexComposeApp : Application() {
                 networkModule,
                 viewModel,
                 domainModule,
-                dataModule,
-                dataSource
+                dataModule
             )
         }
     }

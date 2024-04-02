@@ -17,14 +17,11 @@ import com.pokedexcompose.designsystem.colors.dsl.model.ColorTertiaryModel
 annotation class ColorDsl
 
 @ColorDsl
-fun colors(
-    darkTheme: Boolean = false,
-    setup: ColorModel.() -> Unit
-): ColorScheme {
+fun colors(darkTheme: Boolean = false, setup: ColorModel.() -> Unit): ColorScheme {
     val data = ColorModel()
     data.setup()
 
-    return if(darkTheme) {
+    return if (darkTheme) {
         darkColorScheme(
             primary = data.dark.primary.primary,
             onPrimary = data.dark.primary.onPrimary,
@@ -56,43 +53,43 @@ fun colors(
             outlineVariant = data.dark.outlineScrim.variant,
             scrim = data.dark.outlineScrim.scrim
         )
-    } else lightColorScheme(
-        primary = data.light.primary.primary,
-        onPrimary = data.light.primary.onPrimary,
-        primaryContainer = data.light.primary.container,
-        onPrimaryContainer = data.light.primary.onContainer,
-        inversePrimary = data.light.primary.inverse,
-        secondary = data.light.secondary.secondary,
-        onSecondary = data.light.secondary.onSecondary,
-        secondaryContainer = data.light.secondary.container,
-        onSecondaryContainer = data.light.secondary.onContainer,
-        tertiary = data.light.tertiary.tertiary,
-        onTertiary = data.light.tertiary.onTertiary,
-        tertiaryContainer = data.light.tertiary.container,
-        onTertiaryContainer = data.light.tertiary.onContainer,
-        background = data.light.background.background,
-        onBackground = data.light.background.onBackground,
-        surface = data.light.surface.surface,
-        onSurface = data.light.surface.onSurface,
-        surfaceVariant = data.light.surface.variant,
-        onSurfaceVariant = data.light.surface.onVariant,
-        surfaceTint = data.light.surface.tint,
-        inverseSurface = data.light.surface.inverse,
-        inverseOnSurface = data.light.surface.onInverse,
-        error = data.light.error.error,
-        onError = data.light.error.onError,
-        errorContainer = data.light.error.container,
-        onErrorContainer = data.light.error.onContainer,
-        outline = data.light.outlineScrim.outline,
-        outlineVariant = data.light.outlineScrim.variant,
-        scrim = data.light.outlineScrim.scrim
-    )
+    } else {
+        lightColorScheme(
+            primary = data.light.primary.primary,
+            onPrimary = data.light.primary.onPrimary,
+            primaryContainer = data.light.primary.container,
+            onPrimaryContainer = data.light.primary.onContainer,
+            inversePrimary = data.light.primary.inverse,
+            secondary = data.light.secondary.secondary,
+            onSecondary = data.light.secondary.onSecondary,
+            secondaryContainer = data.light.secondary.container,
+            onSecondaryContainer = data.light.secondary.onContainer,
+            tertiary = data.light.tertiary.tertiary,
+            onTertiary = data.light.tertiary.onTertiary,
+            tertiaryContainer = data.light.tertiary.container,
+            onTertiaryContainer = data.light.tertiary.onContainer,
+            background = data.light.background.background,
+            onBackground = data.light.background.onBackground,
+            surface = data.light.surface.surface,
+            onSurface = data.light.surface.onSurface,
+            surfaceVariant = data.light.surface.variant,
+            onSurfaceVariant = data.light.surface.onVariant,
+            surfaceTint = data.light.surface.tint,
+            inverseSurface = data.light.surface.inverse,
+            inverseOnSurface = data.light.surface.onInverse,
+            error = data.light.error.error,
+            onError = data.light.error.onError,
+            errorContainer = data.light.error.container,
+            onErrorContainer = data.light.error.onContainer,
+            outline = data.light.outlineScrim.outline,
+            outlineVariant = data.light.outlineScrim.variant,
+            scrim = data.light.outlineScrim.scrim
+        )
+    }
 }
 
 @ColorDsl
-fun scheme(
-    setup: ColorDslModel.() -> Unit,
-): ColorDslModel {
+fun scheme(setup: ColorDslModel.() -> Unit): ColorDslModel {
     val data = ColorDslModel()
     data.setup()
 
@@ -100,9 +97,7 @@ fun scheme(
 }
 
 @ColorDsl
-fun primary(
-    setup: ColorPrimaryModel.() -> Unit
-): ColorPrimaryModel {
+fun primary(setup: ColorPrimaryModel.() -> Unit): ColorPrimaryModel {
     val data = ColorPrimaryModel()
     data.setup()
 
@@ -110,9 +105,7 @@ fun primary(
 }
 
 @ColorDsl
-fun secondary(
-    setup: ColorSecondaryModel.() -> Unit
-): ColorSecondaryModel {
+fun secondary(setup: ColorSecondaryModel.() -> Unit): ColorSecondaryModel {
     val data = ColorSecondaryModel()
     data.setup()
 
@@ -120,9 +113,7 @@ fun secondary(
 }
 
 @ColorDsl
-fun tertiary(
-    setup: ColorTertiaryModel.() -> Unit
-): ColorTertiaryModel {
+fun tertiary(setup: ColorTertiaryModel.() -> Unit): ColorTertiaryModel {
     val data = ColorTertiaryModel()
     data.setup()
 
@@ -130,9 +121,7 @@ fun tertiary(
 }
 
 @ColorDsl
-fun background(
-    setup: ColorBackgroundModel.() -> Unit
-): ColorBackgroundModel {
+fun background(setup: ColorBackgroundModel.() -> Unit): ColorBackgroundModel {
     val data = ColorBackgroundModel()
     data.setup()
 
@@ -140,9 +129,7 @@ fun background(
 }
 
 @ColorDsl
-fun surface(
-    setup: ColorSurfaceModel.() -> Unit
-): ColorSurfaceModel {
+fun surface(setup: ColorSurfaceModel.() -> Unit): ColorSurfaceModel {
     val data = ColorSurfaceModel()
     data.setup()
 
@@ -150,9 +137,7 @@ fun surface(
 }
 
 @ColorDsl
-fun error(
-    setup: ColorErrorModel.() -> Unit
-): ColorErrorModel {
+fun error(setup: ColorErrorModel.() -> Unit): ColorErrorModel {
     val data = ColorErrorModel()
     data.setup()
 
@@ -160,9 +145,7 @@ fun error(
 }
 
 @ColorDsl
-fun outlineScrim(
-    setup: ColorOutlineScrimModel.() -> Unit
-): ColorOutlineScrimModel {
+fun outlineScrim(setup: ColorOutlineScrimModel.() -> Unit): ColorOutlineScrimModel {
     val data = ColorOutlineScrimModel()
     data.setup()
 

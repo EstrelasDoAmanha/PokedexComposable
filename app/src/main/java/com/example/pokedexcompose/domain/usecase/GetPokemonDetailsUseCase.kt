@@ -1,4 +1,4 @@
-package com.example.pokedexcompose.domain.usecases
+package com.example.pokedexcompose.domain.usecase
 
 import com.example.pokedexcompose.domain.model.PokemonInfo
 import com.example.pokedexcompose.domain.repository.PokemonRepository

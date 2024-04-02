@@ -29,14 +29,14 @@ data class ColorSecondaryModel(
     var secondary: Color = Color.Unspecified,
     var onSecondary: Color = Color.Unspecified,
     var container: Color = Color.Unspecified,
-    var onContainer: Color = Color.Unspecified,
+    var onContainer: Color = Color.Unspecified
 )
 
 data class ColorTertiaryModel(
     val tertiary: Color = Color.Unspecified,
     val onTertiary: Color = Color.Unspecified,
     val container: Color = Color.Unspecified,
-    val onContainer: Color =  Color.Unspecified,
+    val onContainer: Color = Color.Unspecified
 )
 
 data class ColorBackgroundModel(
@@ -51,14 +51,14 @@ data class ColorSurfaceModel(
     val onVariant: Color = Color.Unspecified,
     val tint: Color = Color.Unspecified,
     val inverse: Color = Color.Unspecified,
-    val onInverse: Color = Color.Unspecified,
+    val onInverse: Color = Color.Unspecified
 )
 
 data class ColorErrorModel(
     val error: Color = Color.Unspecified,
     val onError: Color = Color.Unspecified,
     val container: Color = Color.Unspecified,
-    val onContainer: Color = Color.Unspecified,
+    val onContainer: Color = Color.Unspecified
 )
 
 data class ColorOutlineScrimModel(

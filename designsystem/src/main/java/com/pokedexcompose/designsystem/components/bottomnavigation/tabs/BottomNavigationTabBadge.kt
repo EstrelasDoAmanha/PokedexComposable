@@ -7,9 +7,7 @@ import androidx.compose.runtime.Composable
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BottomNavigationTabBadge(
-    count: Int? = null
-) {
+fun BottomNavigationTabBadge(count: Int? = null) {
     count?.let {
         Badge { Text(it.toString()) }
     }

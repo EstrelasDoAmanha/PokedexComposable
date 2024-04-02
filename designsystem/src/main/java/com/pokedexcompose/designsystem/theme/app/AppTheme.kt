@@ -24,13 +24,13 @@ fun CustomTheme(
     val currentContext = currentView.context
 
     if (currentView.isInEditMode.not()) {
-       SideEffect {
-           val window = (currentContext as Activity).window
-           window.statusBarColor = colorScheme.primary.toArgb()
-           WindowCompat
-               .getInsetsController(window, currentView)
-               .isAppearanceLightStatusBars = darkTheme
-       }
+        SideEffect {
+            val window = (currentContext as Activity).window
+            window.statusBarColor = colorScheme.primary.toArgb()
+            WindowCompat
+                .getInsetsController(window, currentView)
+                .isAppearanceLightStatusBars = darkTheme
+        }
     }
 
     content?.let { existingContent ->

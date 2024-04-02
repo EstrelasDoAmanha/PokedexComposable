@@ -14,7 +14,7 @@ data class PokemonDto(
     val name: String? = String.empty(),
     @SerialName("order")
     val order: Int = 0,
-    //todo verficar se deve ser mantido
+    // todo verficar se deve ser mantido
     @SerialName("sprites")
     val sprites: Sprites = Sprites(),
     @SerialName("weight")
@@ -104,5 +104,5 @@ data class Statistics(
 @Serializable
 data class TypeDto(
     @SerialName("name")
-    val name: String? = String.empty(),
+    val name: String? = String.empty()
 )
