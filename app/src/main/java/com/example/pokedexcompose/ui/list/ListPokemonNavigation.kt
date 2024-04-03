@@ -29,4 +29,4 @@ fun NavHostController.navigateToPokemonList(navOptions: NavOptions? = null) {
     navigate(POKEMON_LIST_ROUTE, navOptions)
 }
 
-fun NavHostController.pokemonListRote() = POKEMON_LIST_ROUTE
+fun NavHostController.pokemonListRoute() = POKEMON_LIST_ROUTE

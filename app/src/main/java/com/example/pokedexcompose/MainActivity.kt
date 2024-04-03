@@ -13,7 +13,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
-import com.example.pokedexcompose.ui.list.pokemonListRote
+import com.example.pokedexcompose.ui.list.pokemonListRoute
 import com.example.pokedexcompose.ui.navigation.PokemonNavHost
 import com.example.pokedexcompose.ui.theme.PokedexComposeTheme
 import com.pokedexcompose.designsystem.components.bottomnavigation.BottomNavigationBar
@@ -36,7 +36,7 @@ class MainActivity : ComponentActivity() {
                                         selectedIcon = Icons.Filled.Home,
                                         unselectedIcon = Icons.Outlined.Home,
                                         badgeAmount = null,
-                                        navigateTo = navController.pokemonListRote()
+                                        navigateTo = navController.pokemonListRoute()
                                     )
                                 ),
                                 navController = navController
