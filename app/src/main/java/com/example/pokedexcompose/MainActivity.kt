@@ -43,7 +43,10 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                     ) { padding ->
-                        PokemonNavHost(navController, modifier = Modifier.padding(padding))
+                        PokemonNavHost(
+                            navController, 
+                            modifier = Modifier.padding(padding)
+                        )
                     }
                 }
             }
