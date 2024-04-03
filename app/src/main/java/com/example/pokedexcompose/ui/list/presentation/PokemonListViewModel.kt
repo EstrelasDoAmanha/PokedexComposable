@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.pokedexcompose.domain.usecase.PokemonUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 internal class PokemonListViewModel(
@@ -26,7 +25,7 @@ internal class PokemonListViewModel(
         updateState(PokemonListUiState(result = useCase.getPokemonList(), loading = false))
     }
 
-    private suspend fun updateState(state:PokemonListUiState){
+    private suspend fun updateState(state: PokemonListUiState)  {
         _uiState.emit(state)
     }
 }

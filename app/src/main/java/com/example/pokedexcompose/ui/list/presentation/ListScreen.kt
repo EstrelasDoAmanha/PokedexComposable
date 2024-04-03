@@ -32,16 +32,14 @@ import com.pokedexcompose.designsystem.components.loading.Lottie
 
 @RequiresApi(Build.VERSION_CODES.P)
 @Composable
-internal fun PokemonListScreen(
-    uiState: PokemonListUiState,
-    modifier: Modifier = Modifier
-) {
+internal fun PokemonListScreen(uiState: PokemonListUiState, modifier: Modifier = Modifier) {
     if (uiState.loading) {
         Lottie(url = SHIMMER_LOTTIE_JSON)
     } else {
         val lazyPokemon: LazyPagingItems<ResultListDomain> =
             uiState.result.collectAsLazyPagingItems()
-        LazyVerticalGrid(columns = GridCells.Adaptive(128.dp),
+        LazyVerticalGrid(
+            columns = GridCells.Adaptive(128.dp),
             modifier = modifier,
             contentPadding = PaddingValues(vertical = 16.dp, horizontal = 16.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -50,7 +48,8 @@ internal fun PokemonListScreen(
                     Card(
                         colors = CardDefaults.cardColors(
                             containerColor = MaterialTheme.colorScheme.surfaceVariant
-                        ), modifier = Modifier
+                        ),
+                        modifier = Modifier
                             .fillMaxWidth()
                             .padding(4.dp)
                     ) {
@@ -77,6 +76,7 @@ internal fun PokemonListScreen(
                         }
                     }
                 }
-            })
+            }
+        )
     }
 }

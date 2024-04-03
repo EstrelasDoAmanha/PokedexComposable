@@ -9,7 +9,9 @@ class PokemonDataSourceImpl(
     private val pokemonClient: KtorHttpClient
 ) : PokemonDataSource {
 
-    override suspend fun getPokemonList(offset: String, limit: String) = with(pokemonClient.httpClient) {
+    override suspend fun getPokemonList(offset: String, limit: String) = with(
+        pokemonClient.httpClient
+    ) {
         request<Any, PokemonListDto> {
             url = "${pokemonClient.baseUrl}pokemon"
             parameters = listOf("limit" to "$limit", "offset" to "$offset")

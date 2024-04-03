@@ -11,10 +11,7 @@ import com.example.pokedexcompose.ui.list.pokemonList
 
 @RequiresApi(Build.VERSION_CODES.P)
 @Composable
-fun PokemonNavHost(
-    navController: NavHostController,
-    modifier: Modifier = Modifier
-) {
+fun PokemonNavHost(navController: NavHostController, modifier: Modifier = Modifier) {
     NavHost(
         navController = navController,
         startDestination = POKEMON_LIST_ROUTE
