@@ -17,17 +17,16 @@ internal class PokemonListViewModel(
 
     init {
         viewModelScope.launch {
+            updateState(PokemonListUiState(loading = true))
             getPokemonList()
         }
     }
 
     private suspend fun getPokemonList() {
-        _uiState.update { PokemonListUiState(loading = true) }
-        _uiState.update {
-            _uiState.value.copy(
-                result = useCase.getPokemonList()
-            )
-        }
-        _uiState.update { _uiState.value.copy(loading = false) }
+        updateState(PokemonListUiState(result = useCase.getPokemonList(), loading = true))
+    }
+
+    private suspend fun updateState(state:PokemonListUiState){
+        _uiState.emit(state)
     }
 }
