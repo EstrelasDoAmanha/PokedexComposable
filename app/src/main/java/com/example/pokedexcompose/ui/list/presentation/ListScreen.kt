@@ -46,16 +46,17 @@ import com.pokedexcompose.designsystem.components.loading.Lottie
 
 @RequiresApi(Build.VERSION_CODES.P)
 @Composable
-internal fun PokemonListScreen(uiState: PokemonListUiState) {
+internal fun PokemonListScreen(
+    uiState: PokemonListUiState,
+    modifier: Modifier = Modifier
+) {
     if (uiState.loading) {
         Lottie(url = SHIMMER_LOTTIE_JSON)
     } else {
-        val lazyCharacters:
-            LazyPagingItems<ResultListDomain> =
+        val lazyCharacters: LazyPagingItems<ResultListDomain> =
             uiState.result.collectAsLazyPagingItems()
-
-        LazyVerticalGrid(
-            columns = GridCells.Adaptive(128.dp),
+        LazyVerticalGrid(columns = GridCells.Adaptive(128.dp),
+            modifier = modifier,
             contentPadding = PaddingValues(vertical = 16.dp, horizontal = 16.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp),
             content = {
@@ -63,8 +64,7 @@ internal fun PokemonListScreen(uiState: PokemonListUiState) {
                     Card(
                         colors = CardDefaults.cardColors(
                             containerColor = MaterialTheme.colorScheme.surfaceVariant
-                        ),
-                        modifier = Modifier
+                        ), modifier = Modifier
                             .fillMaxWidth()
                             .padding(4.dp)
                     ) {
@@ -91,8 +91,7 @@ internal fun PokemonListScreen(uiState: PokemonListUiState) {
                         }
                     }
                 }
-            }
-        )
+            })
     }
 }
 
@@ -107,11 +106,8 @@ fun ShimmerBrush(showShimmer: Boolean = true, targetValue: Float = 1000f) {
 
         val transition = rememberInfiniteTransition()
         val translateAnimation = transition.animateFloat(
-            initialValue = 0f,
-            targetValue = targetValue,
-            animationSpec = infiniteRepeatable(
-                animation = tween(800),
-                repeatMode = RepeatMode.Reverse
+            initialValue = 0f, targetValue = targetValue, animationSpec = infiniteRepeatable(
+                animation = tween(800), repeatMode = RepeatMode.Reverse
             )
         )
         Brush.linearGradient(
@@ -145,16 +141,14 @@ fun ShimmerBrush(showShimmer: Boolean = true, targetValue: Float = 1000f) {
 @Composable
 fun LayoutShimmer() {
     val amountShimmer = 10
-    LazyVerticalGrid(
-        columns = GridCells.Adaptive(128.dp),
+    LazyVerticalGrid(columns = GridCells.Adaptive(128.dp),
         contentPadding = PaddingValues(vertical = 16.dp, horizontal = 16.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
         content = {
             items(amountShimmer) { _ ->
                 ShimmerBrush(true, 1300f)
             }
-        }
-    )
+        })
 }
 
 @Preview(showSystemUi = true, showBackground = true)

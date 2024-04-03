@@ -23,7 +23,7 @@ internal class PokemonListViewModel(
     }
 
     private suspend fun getPokemonList() {
-        updateState(PokemonListUiState(result = useCase.getPokemonList(), loading = true))
+        updateState(PokemonListUiState(result = useCase.getPokemonList(), loading = false))
     }
 
     private suspend fun updateState(state:PokemonListUiState){
