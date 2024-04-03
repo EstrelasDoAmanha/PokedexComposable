@@ -42,12 +42,13 @@ import coil.decode.ImageDecoderDecoder
 import coil.request.ImageRequest
 import com.example.pokedexcompose.domain.model.ResultListDomain
 import kotlinx.coroutines.flow.flowOf
+import com.pokedexcompose.designsystem.components.loading.Lottie
 
 @RequiresApi(Build.VERSION_CODES.P)
 @Composable
 internal fun PokemonListScreen(uiState: PokemonListUiState) {
     if (uiState.loading) {
-        LayoutShimmer()
+        Lottie(url = SHIMMER)
     } else {
         val lazyCharacters:
             LazyPagingItems<ResultListDomain> =
