@@ -48,7 +48,7 @@ import com.pokedexcompose.designsystem.components.loading.Lottie
 @Composable
 internal fun PokemonListScreen(uiState: PokemonListUiState) {
     if (uiState.loading) {
-        Lottie(url = SHIMMER)
+        Lottie(url = SHIMMER_LOTTIE_JSON)
     } else {
         val lazyCharacters:
             LazyPagingItems<ResultListDomain> =
