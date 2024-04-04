@@ -73,6 +73,8 @@ dependencies {
     implementation(deps.koin.navigation)
     implementation(deps.ktor.client.core)
     implementation(deps.ktor.serialization)
+    implementation(deps.pagingCompose)
+    implementation(deps.pagingRuntime)
     testImplementation(deps.junit)
     androidTestImplementation(deps.junitExt)
     androidTestImplementation(deps.espressoCore)
