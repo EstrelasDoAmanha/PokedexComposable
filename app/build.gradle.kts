@@ -83,6 +83,8 @@ dependencies {
     implementation(deps.pagingRuntime)
     implementation(deps.appStartup)
 
+    debugImplementation(deps.leakcanary)
+
     testImplementation(deps.junit)
     androidTestImplementation(deps.junitExt)
     androidTestImplementation(deps.espressoCore)
