@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.pokedexcompose.domain.usecase.PokemonUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 internal class PokemonListViewModel(
@@ -17,13 +16,16 @@ internal class PokemonListViewModel(
 
     init {
         viewModelScope.launch {
+            updateState(PokemonListUiState(loading = true))
             getPokemonList()
         }
     }
 
     private suspend fun getPokemonList() {
-        _uiState.update { PokemonListUiState(loading = true) }
-        _uiState.update { _uiState.value.copy(pokemonDomain = useCase.getPokemonList()) }
-        _uiState.update { _uiState.value.copy(loading = false) }
+        updateState(PokemonListUiState(result = useCase.getPokemonList(), loading = false))
+    }
+
+    private suspend fun updateState(state: PokemonListUiState)  {
+        _uiState.emit(state)
     }
 }

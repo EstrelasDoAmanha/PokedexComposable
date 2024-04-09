@@ -22,7 +22,7 @@ fun BottomNavigationBar(tabs: List<BottomNavigationTabModel>, navController: Nav
                 selected = selectedTabIndex == index,
                 onClick = {
                     selectedTabIndex = index
-                    navController.navigate(tabModel.title)
+                    navController.navigate(tabModel.navigateTo)
                 },
                 icon = {
                     BottomNavigationTab(
