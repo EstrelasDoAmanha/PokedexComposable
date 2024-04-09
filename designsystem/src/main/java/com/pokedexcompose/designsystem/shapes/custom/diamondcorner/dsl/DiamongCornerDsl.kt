@@ -9,9 +9,7 @@ import com.pokedexcompose.designsystem.shapes.custom.diamondcorner.dsl.model.Dia
 annotation class DiamondCornerShapeDsl
 
 @DiamondCornerShapeDsl
-fun diamondCorner(
-    setup: DiamondCornerShapeModel.() -> Unit
-): CornerBasedShape {
+fun diamondCorner(setup: DiamondCornerShapeModel.() -> Unit): CornerBasedShape {
     val data = DiamondCornerShapeModel()
     data.setup()
 

@@ -9,7 +9,7 @@ data class ShapeDslModel(
     var small: CornerBasedShape = RoundedCornerShape(24.dp),
     var medium: CornerBasedShape = RoundedCornerShape(16.dp),
     var large: CornerBasedShape = RoundedCornerShape(8.dp),
-    var extraLarge: CornerBasedShape = RoundedCornerShape(4.dp),
+    var extraLarge: CornerBasedShape = RoundedCornerShape(4.dp)
 )
 
 data class CornerBasedShapeModel(

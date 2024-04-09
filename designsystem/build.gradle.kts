@@ -45,12 +45,16 @@ dependencies {
     implementation(deps.appCompat)
     implementation(deps.material)
 
-    implementation(platform(deps.composeBom))
-    implementation(deps.composeUi)
-    implementation(deps.composeText)
-    implementation(deps.composeUiGraphics)
-    implementation(deps.composeUiToolingPreview)
-    implementation(deps.composeMaterial3)
+    implementation(platform(deps.compose.bom))
+    implementation(deps.compose.ui)
+    implementation(deps.compose.text)
+    implementation(deps.compose.ui.graphics)
+    implementation(deps.compose.ui.tooling.preview)
+    implementation(deps.compose.material3)
+
+    implementation(deps.navigation.runtime.ktx)
+
+    implementation(deps.lottie)
 
     testImplementation(deps.junit)
     androidTestImplementation(deps.junitExt)

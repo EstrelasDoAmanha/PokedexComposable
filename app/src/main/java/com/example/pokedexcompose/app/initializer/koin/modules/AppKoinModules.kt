@@ -1,6 +1,7 @@
 package com.example.pokedexcompose.app.initializer.koin.modules
 
-import com.example.pokedexcompose.ui.list.di.dataSource
+import com.example.pokedexcompose.ui.list.di.dataModule
+import com.example.pokedexcompose.ui.list.di.domainModule
 import com.example.pokedexcompose.ui.list.di.viewModel
 import com.pokedexcompose.network.di.networkModule
 import org.koin.core.KoinApplication
@@ -10,7 +11,8 @@ class AppKoinModules : KoinModules {
     override val features: List<Module>
         get() = listOf(
             viewModel,
-            dataSource
+            domainModule,
+            dataModule
         )
     override val libraries: List<Module>
         get() = listOf(
