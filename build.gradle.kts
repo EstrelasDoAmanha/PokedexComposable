@@ -24,19 +24,10 @@ tasks.jacocoTestReport {
     }
 }
 
-tasks.jacocoTestCoverageVerification {
-    violationRules {
-        rule {
-            limit {
-                minimum = "0.5".toBigDecimal()
-            }
-        }
-    }
-}
-
 subprojects {
     apply(plugin = "org.jetbrains.dokka")
     apply(plugin = "jacoco")
+    apply(plugin = "java-library")
     apply { plugin("io.gitlab.arturbosch.detekt") }
 
     tasks.withType<Detekt>().configureEach {
@@ -66,5 +57,36 @@ subprojects {
         toolVersion = "0.8.11"
         // Use Default reports/jacoco
 //        reportsDirectory = layout.buildDirectory.dir("")
+    }
+
+    tasks.withType<Test>() {
+        finalizedBy("jacocoTestReport")
+    }
+}
+
+tasks.jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            limit {
+                minimum = "0.5".toBigDecimal()
+            }
+        }
+    }
+}
+
+private val SourceSetContainer.srcDirs: Set<File>
+    get() = sourceSets.main.get().allSource.srcDirs
+
+private val SourceSetContainer.output: SourceSetOutput
+    get() = sourceSets.main.get().output
+
+tasks.jacocoTestReport {
+    dependsOn(tasks.test)
+    additionalSourceDirs.setFrom(sourceSets.srcDirs)
+    sourceDirectories.setFrom(sourceSets.srcDirs)
+    classDirectories.setFrom(sourceSets.output)
+    reports {
+        xml.required = true
+        html.outputLocation = layout.buildDirectory.dir("jacoco_html")
     }
 }
