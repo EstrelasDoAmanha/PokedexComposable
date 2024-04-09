@@ -81,6 +81,7 @@ dependencies {
 
     implementation(deps.pagingCompose)
     implementation(deps.pagingRuntime)
+    implementation(deps.appStartup)
 
     testImplementation(deps.junit)
     androidTestImplementation(deps.junitExt)
@@ -108,13 +109,14 @@ tasks.register<Copy>("installPreCommitHook") {
     }
     into("$rootDir/.git/hooks/").fileMode = 777
 
-//    doLast {
-//        println("⚈ ⚈ ⚈ Adding permissions to Pre Commit Git Hook Script on Build ⚈ ⚈ ⚈")
-//        exec {
-//            commandLine("chmod", "+x", "$rootDir/.git/hooks/pre-commit")
-//        }
-//        println("✅ Permissions added to Pre Commit Git Hook Script.")
-//    }
+    doLast {
+        println("⚈ ⚈ ⚈ Adding permissions to Pre Commit Git Hook Script on Build ⚈ ⚈ ⚈")
+        exec {
+            commandLine("chmod", "+x", "$rootDir/.git/hooks/pre-commit")
+        }
+        println("✅ Permissions added to Pre Commit Git Hook Script.")
+    }
+    fileMode = 777
 }
 
 project.tasks.preBuild.dependsOn("installPreCommitHook")
