@@ -1,0 +1,1 @@
+/Users/gabrielestrela/Projects/Personal/Android/PokedexComposable/buildSrc/build/classes/kotlin/main/com/pokedexcomposable/plugins/JacocoTestReportPlugin.class
