@@ -24,6 +24,7 @@ include(
     ":app",
     ":network",
     ":designsystem",
+    ":flipper",
     ":features:home:public",
     ":features:home:implementation",
     ":features:details:public",

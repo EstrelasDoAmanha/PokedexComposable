@@ -4,6 +4,7 @@ import android.app.Application
 import com.example.pokedexcompose.ui.list.di.dataModule
 import com.example.pokedexcompose.ui.list.di.domainModule
 import com.example.pokedexcompose.ui.list.di.viewModel
+import com.pokedexcomposable.flipper.core.initFlipper
 import com.pokedexcompose.network.di.networkModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -22,5 +23,6 @@ class PokedexComposeApp : Application() {
                 dataModule
             )
         }
+        initFlipper()
     }
 }
