@@ -40,6 +40,7 @@ detekt = "1.23.6"
 lottie = "6.4.0"
 flipper = "0.250.0"
 soloader = "0.10.5"
+flipperGlenn = "0.11.4"
 
 # Test
 junit = "4.13.2"
@@ -97,6 +98,7 @@ lottie = { module = "com.airbnb.android:lottie-compose", version.ref = "lottie" 
 flipper = { module = "com.facebook.flipper:flipper", version.ref = "flipper" }
 soloader = { module = "com.facebook.soloader:soloader", version.ref = "soloader" }
 flipper_noop = { module = "com.facebook.flipper:flipper-noop", version.ref = "flipper" }
+flipper_noop_glenn = { module = "com.github.theGlenn:flipper-android-no-op", version.ref = "flipperGlenn" }
 
 # Test
 junit = { module = "junit:junit", version.ref = "junit" }

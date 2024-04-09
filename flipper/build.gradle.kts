@@ -24,7 +24,6 @@ android {
             )
         }
         debug {
-
         }
     }
     compileOptions {
@@ -42,6 +41,7 @@ dependencies {
 
     debugImplementation(deps.bundles.flipper.bundle)
     releaseImplementation(deps.flipper.noop)
+    releaseImplementation(deps.flipper.noop.glenn)
 
     testImplementation(deps.junit)
     androidTestImplementation(deps.junitExt)
