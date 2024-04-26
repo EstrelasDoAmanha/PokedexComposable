@@ -30,7 +30,7 @@ navigationRuntimeKtx = "2.7.7"
 appStartup = "1.1.1"
 
 # Google
-material = "1.10.0"
+material = "1.11.0"
 
 # Third Party
 ktor = "2.3.9"
