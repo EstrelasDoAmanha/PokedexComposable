@@ -13,5 +13,4 @@ dependencies {
     implementation(platform(deps.koin.bom))
     implementation(deps.koin.core)
     implementation(deps.kotlinx.coroutines.android)
-    implementation(project(":core:coreandroid"))
 }

@@ -15,6 +15,9 @@
             <option value="$PROJECT_DIR$/core/corekotlin" />
             <option value="$PROJECT_DIR$/designsystem" />
             <option value="$PROJECT_DIR$/features" />
+            <option value="$PROJECT_DIR$/features/details" />
+            <option value="$PROJECT_DIR$/features/details/implementation" />
+            <option value="$PROJECT_DIR$/features/details/public" />
             <option value="$PROJECT_DIR$/features/home" />
             <option value="$PROJECT_DIR$/features/home/implementation" />
             <option value="$PROJECT_DIR$/features/home/public" />
