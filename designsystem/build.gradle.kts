@@ -51,7 +51,10 @@ dependencies {
     implementation(deps.compose.ui.graphics)
     implementation(deps.compose.ui.tooling.preview)
     implementation(deps.compose.material3)
+
     implementation(deps.navigation.runtime.ktx)
+
+    implementation(deps.lottie)
 
     testImplementation(deps.junit)
     androidTestImplementation(deps.junitExt)

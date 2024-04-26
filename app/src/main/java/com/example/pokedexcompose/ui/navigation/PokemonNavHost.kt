@@ -16,6 +16,6 @@ fun PokemonNavHost(navController: NavHostController, modifier: Modifier = Modifi
         navController = navController,
         startDestination = POKEMON_LIST_ROUTE
     ) {
-        pokemonList(modifier)
+        pokemonList(modifier = modifier)
     }
 }

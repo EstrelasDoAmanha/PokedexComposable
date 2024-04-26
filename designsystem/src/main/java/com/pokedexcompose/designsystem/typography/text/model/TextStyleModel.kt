@@ -35,7 +35,7 @@ data class TextColorModel(
 data class TextPositioningModel(
     var letterSpacing: TextUnit = TextUnit.Unspecified,
     var baselineShift: BaselineShift? = null,
-    var textAlign: TextAlign? = null,
+    var textAlign: TextAlign = TextAlign.Unspecified,
     var textIndent: TextIndent? = null,
     var lineHeight: TextUnit = TextUnit.Unspecified,
     var direction: TextDirection = TextDirection.Ltr

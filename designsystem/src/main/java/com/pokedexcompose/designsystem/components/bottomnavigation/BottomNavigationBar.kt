@@ -13,10 +13,7 @@ import com.pokedexcompose.designsystem.components.bottomnavigation.tabs.BottomNa
 import com.pokedexcompose.designsystem.components.bottomnavigation.tabs.model.BottomNavigationTabModel
 
 @Composable
-fun BottomNavigationBar(
-    tabs: List<BottomNavigationTabModel>,
-    navController: NavController
-) {
+fun BottomNavigationBar(tabs: List<BottomNavigationTabModel>, navController: NavController) {
     var selectedTabIndex by rememberSaveable { mutableStateOf(0) }
 
     NavigationBar {
@@ -25,7 +22,7 @@ fun BottomNavigationBar(
                 selected = selectedTabIndex == index,
                 onClick = {
                     selectedTabIndex = index
-                    navController.navigate(tabModel.title)
+                    navController.navigate(tabModel.navigateTo)
                 },
                 icon = {
                     BottomNavigationTab(
@@ -38,7 +35,6 @@ fun BottomNavigationBar(
                 },
                 label = { Text(tabModel.title) }
             )
-
         }
     }
 }

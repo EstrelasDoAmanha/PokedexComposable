@@ -17,14 +17,16 @@ import org.koin.androidx.compose.koinViewModel
 const val POKEMON_LIST_ROUTE = "pokemonList"
 
 @RequiresApi(Build.VERSION_CODES.P)
-fun NavGraphBuilder.pokemonList(modifier:Modifier = Modifier) {
+fun NavGraphBuilder.pokemonList(modifier: Modifier = Modifier) {
     composable(POKEMON_LIST_ROUTE) {
         val viewModel = koinViewModel<PokemonListViewModel>()
         val uiState by viewModel.uiState.collectAsState(initial = PokemonListUiState())
-        PokemonListScreen(uiState, modifier)
+        PokemonListScreen(uiState, modifier = modifier)
     }
 }
 
 fun NavHostController.navigateToPokemonList(navOptions: NavOptions? = null) {
     navigate(POKEMON_LIST_ROUTE, navOptions)
 }
+
+fun NavHostController.pokemonListRoute() = POKEMON_LIST_ROUTE
