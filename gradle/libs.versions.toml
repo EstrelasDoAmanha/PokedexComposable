@@ -49,7 +49,7 @@ junitExt = "1.1.5"
 espresso = "3.5.1"
 
 # Plugins
-androidApplication = "8.2.2"
+androidApplication = "8.3.2"
 kotlinAndroid = "1.9.0"
 kotlinJvm = "1.9.0"
 ktlint = "12.1.0"
