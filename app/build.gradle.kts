@@ -115,10 +115,15 @@ tasks.register<Copy>("installPreCommitHook") {
 
     doLast {
         println("⚈ ⚈ ⚈ Adding permissions to Pre Commit Git Hook Script on Build ⚈ ⚈ ⚈")
-        exec {
-            commandLine("chmod", "+x", "$rootDir/.git/hooks/pre-commit")
+        if (System.getProperty("os.name").toLowerCase().contains("windows")) {
+            println("✅ its windows")
+        } else {
+            println("✅ its linux - Permissions added to Pre Commit Git Hook Script.")
+            exec {
+                commandLine("chmod", "+x", "$rootDir/.git/hooks/pre-commit")
+            }
+            println("✅ Permissions added to Pre Commit Git Hook Script.")
         }
-        println("✅ Permissions added to Pre Commit Git Hook Script.")
     }
     fileMode = 777
 }
