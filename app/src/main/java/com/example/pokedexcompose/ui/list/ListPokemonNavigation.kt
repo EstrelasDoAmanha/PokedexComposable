@@ -8,6 +8,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
+import com.example.pokedexcompose.ui.details.pokemonDetails
 import com.example.pokedexcompose.ui.list.presentation.PokemonListScreen
 import com.example.pokedexcompose.ui.list.presentation.PokemonListUiState
 import com.example.pokedexcompose.ui.list.presentation.PokemonListViewModel
@@ -20,7 +21,9 @@ fun NavGraphBuilder.pokemonList() {
     composable(POKEMON_LIST_ROUTE) {
         val viewModel = koinViewModel<PokemonListViewModel>()
         val uiState by viewModel.uiState.collectAsState(initial = PokemonListUiState())
-        PokemonListScreen(uiState)
+        PokemonListScreen(uiState) {
+            pokemonDetails(it)
+        }
     }
 }
 

@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.pokedexcompose.domain.usecase.GetPokemonDetailsUseCase
 import kotlin.random.Random
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -15,6 +17,8 @@ class PokemonDetailsViewModel(
 ) : ViewModel() {
 
     private var pokemonId: Int = -1
+    private var _uiState = MutableStateFlow(PokemonDetailsUiState())
+    val uiState: StateFlow<PokemonDetailsUiState> = _uiState
 
     init {
         getPokemonId()

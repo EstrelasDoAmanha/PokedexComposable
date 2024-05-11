@@ -8,6 +8,7 @@ import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -43,7 +44,7 @@ import com.pokedexcompose.designsystem.components.loading.Lottie
 
 @RequiresApi(Build.VERSION_CODES.P)
 @Composable
-internal fun PokemonListScreen(uiState: PokemonListUiState) {
+internal fun PokemonListScreen(uiState: PokemonListUiState, onItemClick: (String) -> Unit = {}) {
     if (uiState.loading) {
         Lottie(url = "https://lottie.host/0e24c7b3-d349-4516-9eed-1489dcac70e6/SB2s3UWYSA.json")
     } else {
@@ -60,6 +61,9 @@ internal fun PokemonListScreen(uiState: PokemonListUiState) {
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(4.dp)
+                            .clickable {
+                                onItemClick(index.inc().toString())
+                            }
                     ) {
                         Column(
                             horizontalAlignment = Alignment.CenterHorizontally

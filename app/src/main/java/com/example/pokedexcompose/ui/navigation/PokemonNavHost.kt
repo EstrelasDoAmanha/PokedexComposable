@@ -5,6 +5,7 @@ import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import com.example.pokedexcompose.ui.details.pokemonDetails
 import com.example.pokedexcompose.ui.list.POKEMON_LIST_ROUTE
 import com.example.pokedexcompose.ui.list.pokemonList
 
@@ -16,5 +17,6 @@ fun PokemonNavHost(navController: NavHostController) {
         startDestination = POKEMON_LIST_ROUTE
     ) {
         pokemonList()
+        pokemonDetails("1")
     }
 }
