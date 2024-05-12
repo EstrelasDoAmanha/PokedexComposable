@@ -16,7 +16,7 @@ fun PokemonNavHost(navController: NavHostController) {
         navController = navController,
         startDestination = POKEMON_LIST_ROUTE
     ) {
-        pokemonList()
+        pokemonList(navController)
         pokemonDetails("1")
     }
 }

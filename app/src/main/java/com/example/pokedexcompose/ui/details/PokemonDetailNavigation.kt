@@ -13,14 +13,18 @@ import com.example.pokedexcompose.ui.details.presentation.PokemonDetailsUiState
 import com.example.pokedexcompose.ui.details.presentation.PokemonDetailsViewModel
 import org.koin.androidx.compose.koinViewModel
 
-const val POKEMON_DETAILS_ROUTE = "pokemonDetails"
+const val POKEMON_DETAILS_HOST = "pokemonDetails/"
+const val POKEMON_ID_PARAM = "id"
+const val POKEMON_DETAILS_ROUTE = "$POKEMON_DETAILS_HOST{$POKEMON_ID_PARAM}"
 
 @RequiresApi(Build.VERSION_CODES.P)
 fun NavGraphBuilder.pokemonDetails(id: String) {
     composable(POKEMON_DETAILS_ROUTE) {
         val viewModel = koinViewModel<PokemonDetailsViewModel>()
         val uiState by viewModel.uiState.collectAsState(initial = PokemonDetailsUiState())
-        PokemonDetailScreen(uiState)
+        PokemonDetailScreen(uiState) {
+            viewModel.retry()
+        }
     }
 }
 

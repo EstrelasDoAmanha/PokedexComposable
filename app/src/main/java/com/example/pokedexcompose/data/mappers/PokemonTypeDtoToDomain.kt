@@ -8,7 +8,7 @@ class PokemonTypeDtoToDomain : Mapper<List<TypeDto>, List<PokemonType>> {
         return if (from.isNotEmpty()) {
             from.map { typeDto ->
                 PokemonType(
-                    name = typeDto.name.orEmpty()
+                    name = typeDto.type.name.orEmpty()
                 )
             }
         } else {

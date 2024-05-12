@@ -8,7 +8,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
-import com.example.pokedexcompose.ui.details.pokemonDetails
+import com.example.pokedexcompose.ui.details.POKEMON_DETAILS_HOST
 import com.example.pokedexcompose.ui.list.presentation.PokemonListScreen
 import com.example.pokedexcompose.ui.list.presentation.PokemonListUiState
 import com.example.pokedexcompose.ui.list.presentation.PokemonListViewModel
@@ -17,12 +17,12 @@ import org.koin.androidx.compose.koinViewModel
 const val POKEMON_LIST_ROUTE = "pokemonList"
 
 @RequiresApi(Build.VERSION_CODES.P)
-fun NavGraphBuilder.pokemonList() {
+fun NavGraphBuilder.pokemonList(navController: NavHostController) {
     composable(POKEMON_LIST_ROUTE) {
         val viewModel = koinViewModel<PokemonListViewModel>()
         val uiState by viewModel.uiState.collectAsState(initial = PokemonListUiState())
-        PokemonListScreen(uiState) {
-            pokemonDetails(it)
+        PokemonListScreen(uiState) { id ->
+            navController.navigate("$POKEMON_DETAILS_HOST$id")
         }
     }
 }

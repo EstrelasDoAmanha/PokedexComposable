@@ -4,5 +4,6 @@ import com.example.pokedexcompose.domain.model.PokemonInfo
 
 data class PokemonDetailsUiState(
     val isLoading: Boolean = false,
+    val isError: Boolean = false,
     val pokemonInfo: PokemonInfo = PokemonInfo()
 )
