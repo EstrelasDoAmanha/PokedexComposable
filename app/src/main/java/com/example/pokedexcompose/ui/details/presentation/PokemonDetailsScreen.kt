@@ -2,6 +2,8 @@ package com.example.pokedexcompose.ui.details.presentation
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -13,16 +15,19 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Balance
-import androidx.compose.material.icons.filled.Height
+import androidx.compose.material.icons.filled.Expand
 import androidx.compose.material.icons.outlined.ErrorOutline
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
@@ -33,6 +38,11 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.ShapeDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -80,11 +90,11 @@ private fun DetailsMainContent(uiState: PokemonDetailsUiState) {
         modifier = Modifier
             .fillMaxSize()
             .background(color = getPokemonBgColor(uiState.pokemonInfo.type))
+            .verticalScroll(rememberScrollState(), enabled = true)
     ) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 16.dp)
         ) {
             AsyncImage(
                 alignment = Alignment.Center,
@@ -120,23 +130,26 @@ private fun DetailsMainContent(uiState: PokemonDetailsUiState) {
                     .align(Alignment.TopEnd)
                     .padding(horizontal = 16.dp, vertical = 8.dp)
             )
+        }
 
-            LazyRow(
-                contentPadding = PaddingValues(4.dp),
-                horizontalArrangement = Arrangement.SpaceEvenly,
-                verticalAlignment = Alignment.Bottom,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .align(Alignment.BottomCenter)
-                    .padding(horizontal = 16.dp, vertical = 8.dp)
-            ) {
-                items(uiState.pokemonInfo.type) {
-                    // PokemonCardType(it)
-                    PokemonTypeComponent(
-                        it.name,
-                        applyIconColorFilter = false
-                    )
-                }
+        LazyRow(
+            contentPadding = PaddingValues(
+                start = 8.dp,
+                end = 8.dp,
+                bottom = 8.dp
+            ),
+            horizontalArrangement = Arrangement.SpaceEvenly,
+            verticalAlignment = Alignment.Bottom,
+            modifier = Modifier
+                .fillMaxWidth()
+
+        ) {
+            items(uiState.pokemonInfo.type) {
+                // PokemonCardType(it)
+                PokemonTypeComponent(
+                    it.name,
+                    applyIconColorFilter = false
+                )
             }
         }
 
@@ -167,6 +180,7 @@ private fun DetailsMainContent(uiState: PokemonDetailsUiState) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .align(Alignment.CenterHorizontally)
+                    .heightIn(max = 600.dp)
 
             ) {
                 items(uiState.pokemonInfo.stats) { stat ->
@@ -189,7 +203,7 @@ private fun DetailsMainContent(uiState: PokemonDetailsUiState) {
                 )
 
                 PokemonInfoComp(
-                    icon = Icons.Filled.Height,
+                    icon = Icons.Filled.Expand,
                     iconDescription = "Altura",
                     getFormattedHeightInfo(uiState.pokemonInfo.height)
                 )
@@ -389,6 +403,24 @@ fun PokemonAttributeComp(stat: PokemonStatistics) {
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier.fillMaxWidth()
     ) {
+        var animationPlayed by remember {
+            mutableStateOf(false)
+        }
+        val percent = stat.baseStat / 252f
+        val currentPercent = animateFloatAsState(
+            label = "stats percent" +
+                "",
+            targetValue = if (animationPlayed) percent else 0f,
+            animationSpec = tween(
+                durationMillis = 1500,
+                delayMillis = 0
+            )
+        )
+
+        LaunchedEffect(key1 = true) {
+            animationPlayed = true
+        }
+
         Text(
             text = stat.name.uppercase(),
             color = MaterialTheme.colorScheme.secondary,
@@ -409,7 +441,7 @@ fun PokemonAttributeComp(stat: PokemonStatistics) {
 
         // 252 is the maximum stats value
         LinearProgressIndicator(
-            progress = { stat.baseStat / 252f },
+            progress = { currentPercent.value },
             color = getStatsColor(stat),
             trackColor = Color.LightGray,
             strokeCap = StrokeCap.Round,
