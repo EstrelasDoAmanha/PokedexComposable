@@ -62,6 +62,7 @@ import coil.compose.AsyncImage
 import coil.decode.ImageDecoderDecoder
 import coil.decode.SvgDecoder
 import coil.request.ImageRequest
+import com.example.pokedexcompose.common.SHIMMER_LOTTIE_JSON
 import com.example.pokedexcompose.domain.model.PokemonInfo
 import com.example.pokedexcompose.domain.model.PokemonStatistics
 import com.example.pokedexcompose.domain.model.PokemonType
@@ -80,7 +81,7 @@ fun PokemonDetailScreen(uiState: PokemonDetailsUiState, onRetryClick: () -> Unit
 
 @Composable
 private fun LoadingCardContent() {
-    Lottie(url = "https://lottie.host/0e24c7b3-d349-4516-9eed-1489dcac70e6/SB2s3UWYSA.json")
+    Lottie(url = SHIMMER_LOTTIE_JSON)
 }
 
 @RequiresApi(Build.VERSION_CODES.P)

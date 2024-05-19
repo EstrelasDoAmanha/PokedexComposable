@@ -4,5 +4,5 @@ data class ResultListDomain(
     val name: String,
     val url: String = "",
     val gif: String,
-    val types: List<PokemonType> = listOf((PokemonType(1, Type("fogo"))))
+    val types: List<PokemonType> = listOf((PokemonType("fogo")))
 )
