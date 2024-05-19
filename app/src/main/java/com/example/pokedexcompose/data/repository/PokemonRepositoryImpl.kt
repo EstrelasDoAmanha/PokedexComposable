@@ -7,7 +7,7 @@ import com.example.pokedexcompose.domain.model.PokemonInfo
 import com.example.pokedexcompose.domain.model.PokemonListDomain
 import com.example.pokedexcompose.domain.repository.PokemonRepository
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.flow
 
 class PokemonRepositoryImpl(
     private val pokemonDataSource: PokemonDataSource,
@@ -20,10 +20,16 @@ class PokemonRepositoryImpl(
     }
 
     override suspend fun getPokemonDetail(pokemonId: Int): Flow<PokemonInfo> {
-        return flowOf(
-            pokemonDtotoDomain.map(
-                pokemonDataSource.getPokemonDetail(pokemonId)
-            )
-        )
+        return flow {
+            try {
+                emit(
+                    pokemonDtotoDomain.map(
+                        pokemonDataSource.getPokemonDetail(pokemonId)
+                    )
+                )
+            } catch (e: Exception) {
+                throw e
+            }
+        }
     }
 }

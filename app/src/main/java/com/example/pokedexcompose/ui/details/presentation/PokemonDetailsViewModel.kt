@@ -19,7 +19,7 @@ class PokemonDetailsViewModel(
     private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private var pokemonId: String = "-1"
+    private var pokemonId: Int = -1
     private var _uiState = MutableStateFlow(PokemonDetailsUiState())
     val uiState: StateFlow<PokemonDetailsUiState> = _uiState
 
@@ -28,8 +28,8 @@ class PokemonDetailsViewModel(
     }
 
     private fun getPokemonId() {
-        pokemonId = savedStateHandle[POKEMON_ID_PARAM] ?: Random.nextInt(0, 250).toString()
-        getPokemonDetails(pokemonId.toInt())
+        pokemonId = savedStateHandle[POKEMON_ID_PARAM] ?: Random.nextInt(0, 250)
+        getPokemonDetails(pokemonId)
     }
 
     private fun getPokemonDetails(pokemonId: Int) {
@@ -42,22 +42,12 @@ class PokemonDetailsViewModel(
             pokemonDetailsUseCase(pokemonId)
                 .catch { handleError(it) }
                 .onCompletion { resetLoading() }
-                .collect {
-                    handleSuccess(it)
-                }
-//            pokemonDetailsUseCase(pokemonId).collect{ pokemonInfo->
-//                _uiState.update {
-//                        it.copy(
-//                            isLoading = false,
-//                            pokemonInfo = pokemonInfo
-//                        )
-//                    }
-//            }
+                .collect { handleSuccess(it) }
         }
     }
 
-    fun retry()  {
-        getPokemonDetails(pokemonId.toInt())
+    fun retry() {
+        getPokemonDetails(pokemonId)
     }
 
     private fun handleError(exception: Throwable) {

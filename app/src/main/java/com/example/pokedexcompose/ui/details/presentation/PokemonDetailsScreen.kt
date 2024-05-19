@@ -9,10 +9,10 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -21,22 +21,26 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Build
-import androidx.compose.material.icons.outlined.Warning
-import androidx.compose.material3.Button
+import androidx.compose.material.icons.filled.Balance
+import androidx.compose.material.icons.filled.Height
+import androidx.compose.material.icons.outlined.ErrorOutline
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.ShapeDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
@@ -46,10 +50,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.decode.ImageDecoderDecoder
+import coil.decode.SvgDecoder
 import coil.request.ImageRequest
 import com.example.pokedexcompose.domain.model.PokemonInfo
 import com.example.pokedexcompose.domain.model.PokemonStatistics
 import com.example.pokedexcompose.domain.model.PokemonType
+import com.pokedexcompose.designsystem.components.loading.Lottie
 import kotlin.random.Random
 
 @RequiresApi(Build.VERSION_CODES.P)
@@ -64,11 +70,7 @@ fun PokemonDetailScreen(uiState: PokemonDetailsUiState, onRetryClick: () -> Unit
 
 @Composable
 private fun LoadingCardContent() {
-    Card(
-        modifier = Modifier.fillMaxSize(0.7f)
-    ) {
-        Text(text = "Carregando")
-    }
+    Lottie(url = "https://lottie.host/0e24c7b3-d349-4516-9eed-1489dcac70e6/SB2s3UWYSA.json")
 }
 
 @RequiresApi(Build.VERSION_CODES.P)
@@ -82,12 +84,7 @@ private fun DetailsMainContent(uiState: PokemonDetailsUiState) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-//                .clip(
-//                    shape = RoundedCornerShape(
-//                        bottomStart = 25.dp,
-//                        bottomEnd = 25.dp
-//                    )
-//                )
+                .padding(bottom = 16.dp)
         ) {
             AsyncImage(
                 alignment = Alignment.Center,
@@ -134,91 +131,198 @@ private fun DetailsMainContent(uiState: PokemonDetailsUiState) {
                     .padding(horizontal = 16.dp, vertical = 8.dp)
             ) {
                 items(uiState.pokemonInfo.type) {
-                    Card(
-                        colors = CardColors(
-                            containerColor = Color.Transparent,
-                            contentColor = Color.White,
-                            disabledContainerColor = Color.LightGray,
-                            disabledContentColor = Color.White
-                        ),
-                        modifier = Modifier
-                            .background(
-                                color = Color.White.copy(alpha = 0.3f),
-                                shape = ShapeDefaults.Small
-                            )
-                            .padding(horizontal = 2.dp)
-                    ) {
-                        Text(
-                            text = it.name.capitalize(),
-                            color = Color.White,
-                            fontWeight = FontWeight.Bold,
-                            modifier = Modifier
-                                .padding(horizontal = 8.dp, vertical = 2.dp)
-
-                        )
-                    }
+                    // PokemonCardType(it)
+                    PokemonTypeComponent(
+                        it.name,
+                        applyIconColorFilter = false
+                    )
                 }
             }
         }
 
-        LazyColumn(
-            contentPadding = PaddingValues(4.dp),
+        Column(
             modifier = Modifier
                 .fillMaxSize()
-                .heightIn(min = 150.dp, max = 300.dp)
-                .align(Alignment.CenterHorizontally)
                 .clip(
                     shape = RoundedCornerShape(
                         topStart = 25.dp,
                         topEnd = 25.dp
                     )
                 )
-                .background(MaterialTheme.colorScheme.surface)
-
+                .background(MaterialTheme.colorScheme.surfaceContainer)
         ) {
-            items(uiState.pokemonInfo.stats) { stat ->
-                PokemonAttributeComp(
-                    stat
+            Text(
+                text = "Estatisticas",
+                textAlign = TextAlign.Center,
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp)
+
+            )
+
+            LazyColumn(
+                contentPadding = PaddingValues(4.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .align(Alignment.CenterHorizontally)
+
+            ) {
+                items(uiState.pokemonInfo.stats) { stat ->
+                    PokemonAttributeComp(
+                        stat
+                    )
+                }
+            }
+
+            Row(
+                horizontalArrangement = Arrangement.SpaceEvenly,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 16.dp)
+            ) {
+                PokemonInfoComp(
+                    icon = Icons.Filled.Balance,
+                    iconDescription = "Peso",
+                    getFormattedWeightInfo(uiState.pokemonInfo.weight)
+                )
+
+                PokemonInfoComp(
+                    icon = Icons.Filled.Height,
+                    iconDescription = "Altura",
+                    getFormattedHeightInfo(uiState.pokemonInfo.height)
                 )
             }
         }
-        // AttributesComp(uiState)
     }
 }
 
 @Composable
-private fun ErrorCard(onRetryClick: () -> Unit) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(250.dp)
+private fun PokemonTypeComponent(
+    type: String,
+    modifier: Modifier = Modifier,
+    applyIconColorFilter: Boolean = false,
+    inverseColor: Color = Color.Black
+) {
+    val typeUrl = getPokemonTypeUrl(type)
+    val typeColor = getPokemonTypeColor(type = type)
+    val backgroundColor = if (applyIconColorFilter) inverseColor else typeColor
+    val filterColor = if (applyIconColorFilter) typeColor else inverseColor
+
+    Box(
+        modifier = modifier
+            .size(48.dp)
+            .clip(RoundedCornerShape(25.dp))
+            .background(color = backgroundColor)
+            .border(
+                width = 1.dp,
+                color = filterColor,
+                shape = RoundedCornerShape(25.dp)
+            )
+            .padding(2.dp)
+            .border(
+                width = 1.dp,
+                color = filterColor,
+                shape = RoundedCornerShape(25.dp)
+            )
+            .padding(8.dp)
 
     ) {
-        Icon(
-            imageVector = Icons.Outlined.Warning,
-            contentDescription = "Alerta",
-            modifier = Modifier
-                .size(80.dp)
-                .align(Alignment.CenterHorizontally)
-                .padding(16.dp)
+        AsyncImage(
+            alignment = Alignment.Center,
+            contentScale = ContentScale.Fit,
+            model = ImageRequest.Builder(LocalContext.current)
+                .data(typeUrl)
+                .decoderFactory(SvgDecoder.Factory()).build(),
+            contentDescription = null,
+            colorFilter = ColorFilter.tint(
+                color = filterColor,
+                blendMode = BlendMode.SrcAtop
+            )
+            // .height(250.dp)
         )
+    }
+}
 
+@Composable
+private fun PokemonCardType(it: PokemonType) {
+    Card(
+        colors = CardColors(
+            containerColor = Color.Transparent,
+            contentColor = Color.White,
+            disabledContainerColor = Color.LightGray,
+            disabledContentColor = Color.White
+        ),
+        modifier = Modifier
+            .background(
+                color = Color.White.copy(alpha = 0.3f),
+                shape = ShapeDefaults.Small
+            )
+            .padding(horizontal = 2.dp)
+    ) {
         Text(
-            text = "ERROU",
+            text = it.name.capitalize(),
+            color = Color.White,
+            fontWeight = FontWeight.Bold,
             modifier = Modifier
-                .align(Alignment.CenterHorizontally)
-                .weight(1f)
+                .padding(horizontal = 8.dp, vertical = 2.dp)
 
         )
-        Button(
-            onClick = {
-                onRetryClick()
-            },
+    }
+}
+
+// Height informartion is in decimetros
+fun getFormattedHeightInfo(height: Int) = "${height * 10}cm"
+
+fun getFormattedWeightInfo(weight: Int) = "${weight}Kg"
+
+@Composable
+private fun ErrorCard(onRetryClick: () -> Unit) {
+    Column(
+        verticalArrangement = Arrangement.Top,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(top = 128.dp)
+    ) {
+        // Lottie(url = " https://lottie.host/08afaf2e-95bd-4c78-b6a3-7a8935da558e/gNwFOOwGx6.json")
+        Column(
+            verticalArrangement = Arrangement.SpaceEvenly,
+            horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
-                .align(Alignment.CenterHorizontally)
-                .padding(bottom = 24.dp)
+                .fillMaxWidth(0.6f)
+                .clip(
+                    shape = RoundedCornerShape(16.dp)
+                )
+                .background(color = MaterialTheme.colorScheme.surfaceContainer)
         ) {
-            Text(text = "Tentar novamente")
+            Icon(
+                imageVector = Icons.Outlined.ErrorOutline,
+                contentDescription = "Alerta",
+                tint = MaterialTheme.colorScheme.error,
+                modifier = Modifier
+                    .size(100.dp)
+                    .align(Alignment.CenterHorizontally)
+                    .padding(16.dp)
+            )
+            Spacer(modifier = Modifier.padding(16.dp))
+            Text(
+                text = "ERROU",
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+            )
+            Spacer(modifier = Modifier.padding(16.dp))
+            OutlinedButton(
+                onClick = {
+                    onRetryClick()
+                },
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .padding(bottom = 24.dp)
+            ) {
+                Text(text = "Tentar novamente")
+            }
         }
     }
 }
@@ -230,29 +334,52 @@ private fun getPokemonBgColor(type: List<PokemonType>): Color {
     } ?: TypeColor.NORMAL.color
 }
 
+private fun getPokemonTypeColor(type: String): Color {
+    return TypeColor.parse(type).color
+}
+
 @Composable
-private fun AttributesComp(uiState: PokemonDetailsUiState) {
-    Card(
+private fun PokemonInfoComp(icon: ImageVector, iconDescription: String, infoText: String) {
+    Column(
+        verticalArrangement = Arrangement.SpaceEvenly,
+        horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
-            .size(60.dp)
-            .background(color = MaterialTheme.colorScheme.primary.copy(alpha = 1f))
-            .border(width = 2.dp, Color.DarkGray)
+            .width(80.dp)
+            .height(90.dp)
+            .clip(
+                shape = RoundedCornerShape(16.dp)
+            )
+            .background(color = MaterialTheme.colorScheme.surface)
+            .padding(4.dp)
 
     ) {
-        Column(
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Icon(
-                imageVector = Icons.Filled.Build,
-                contentDescription = "Peso",
-                modifier = Modifier
-                    .align(Alignment.CenterHorizontally)
+        Icon(
+            imageVector = icon,
+            contentDescription = iconDescription,
+            modifier = Modifier
+                .align(Alignment.CenterHorizontally)
 
-            )
-            Text(text = uiState.pokemonInfo.weight.toString())
-        }
+        )
+        Text(
+            text = infoText
+        )
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PokemonIconTypeComponentPreview() {
+    PokemonTypeComponent(type = "Grass")
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PokemonInfoCompPreview() {
+    PokemonInfoComp(
+        icon = Icons.Filled.Balance,
+        iconDescription = "peso",
+        infoText = "6000Kg"
+    )
 }
 
 @Composable
@@ -263,7 +390,7 @@ fun PokemonAttributeComp(stat: PokemonStatistics) {
         modifier = Modifier.fillMaxWidth()
     ) {
         Text(
-            text = stat.name,
+            text = stat.name.uppercase(),
             color = MaterialTheme.colorScheme.secondary,
             modifier =
             Modifier.width(90.dp),
@@ -280,6 +407,7 @@ fun PokemonAttributeComp(stat: PokemonStatistics) {
             textAlign = TextAlign.Center
         )
 
+        // 252 is the maximum stats value
         LinearProgressIndicator(
             progress = { stat.baseStat / 252f },
             color = getStatsColor(stat),
@@ -290,7 +418,6 @@ fun PokemonAttributeComp(stat: PokemonStatistics) {
     }
 }
 
-@Composable
 private fun getStatsColor(stat: PokemonStatistics) =
     (if (stat.baseStat < 60) Color.Red else Color.Green).copy(alpha = 0.4f)
 
@@ -357,4 +484,9 @@ fun getGifUrl(id: Int): String {
 //            "sprites/master/sprites/pokemon/other/showdown/$id.gif"
     return "https://raw.githubusercontent.com/PokeAPI/" +
         "sprites/master/sprites/pokemon/other/home/$id.png"
+}
+
+fun getPokemonTypeUrl(type: String): String {
+    return "https://raw.githubusercontent.com/" +
+        "duiker101/pokemon-type-svg-icons/master/icons/$type.svg"
 }

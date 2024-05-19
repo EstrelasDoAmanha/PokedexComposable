@@ -7,7 +7,9 @@ import androidx.compose.runtime.getValue
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.NavOptions
+import androidx.navigation.NavType
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import com.example.pokedexcompose.ui.details.presentation.PokemonDetailScreen
 import com.example.pokedexcompose.ui.details.presentation.PokemonDetailsUiState
 import com.example.pokedexcompose.ui.details.presentation.PokemonDetailsViewModel
@@ -19,7 +21,10 @@ const val POKEMON_DETAILS_ROUTE = "$POKEMON_DETAILS_HOST{$POKEMON_ID_PARAM}"
 
 @RequiresApi(Build.VERSION_CODES.P)
 fun NavGraphBuilder.pokemonDetails(id: String) {
-    composable(POKEMON_DETAILS_ROUTE) {
+    composable(
+        POKEMON_DETAILS_ROUTE,
+        arguments = listOf(navArgument(POKEMON_ID_PARAM) { type = NavType.IntType })
+    ) {
         val viewModel = koinViewModel<PokemonDetailsViewModel>()
         val uiState by viewModel.uiState.collectAsState(initial = PokemonDetailsUiState())
         PokemonDetailScreen(uiState) {

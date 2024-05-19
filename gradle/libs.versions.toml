@@ -28,6 +28,7 @@ navigationRuntimeKtx = "2.7.7"
 
 # Google
 material = "1.10.0"
+material-icons-extended = "1.6.2"
 
 # Third Party
 ktor = "2.3.9"
@@ -70,6 +71,7 @@ navigationCompose = { module = "androidx.navigation:navigation-compose" }
 
 # Google
 material = { module = "com.google.android.material:material", version.ref = "material" }
+material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "material-icons-extended" }
 
 # Third Party
 ktor_client_core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
@@ -85,6 +87,7 @@ koin_coroutines = { module = "io.insert-koin:koin-core-coroutines" }
 koin_navigation = { module = "io.insert-koin:koin-androidx-navigation" }
 io_coil_kt_coil_compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
 io_coil_kt_coil_gif = { module = "io.coil-kt:coil-gif", version.ref = "coilCompose" }
+io_coil_kt_coil_svg = {module = "io.coil-kt:coil-svg", version.ref="coilCompose"}
 lottie = { module = "com.airbnb.android:lottie-compose", version.ref = "lottie" }
 
 # Test
