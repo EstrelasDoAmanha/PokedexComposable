@@ -58,23 +58,35 @@ dependencies {
     implementation(deps.coreKtx)
     implementation(deps.lifecycleRuntimeKtx)
     implementation(deps.activityCompose)
+
     implementation(platform(deps.compose.bom))
     implementation(deps.compose.ui)
     implementation(deps.compose.ui.graphics)
     implementation(deps.compose.ui.tooling.preview)
     implementation(deps.compose.material3)
+
     implementation(deps.navigationCompose)
+
     implementation(deps.io.coil.kt.coil.compose)
     implementation(deps.io.coil.kt.coil.gif)
     implementation(deps.io.coil.kt.coil.svg)
+
     implementation(platform(deps.koin.bom))
     implementation(deps.koin.compose)
     implementation(deps.koin.android)
     implementation(deps.koin.coroutines)
     implementation(deps.koin.navigation)
+
     implementation(deps.ktor.client.core)
     implementation(deps.ktor.serialization)
     implementation(deps.material.icons.extended)
+
+    implementation(deps.pagingCompose)
+    implementation(deps.pagingRuntime)
+    implementation(deps.appStartup)
+
+    debugImplementation(deps.leakcanary)
+
     testImplementation(deps.junit)
     androidTestImplementation(deps.junitExt)
     androidTestImplementation(deps.espressoCore)
@@ -87,8 +99,11 @@ dependencies {
     implementation(project(":designsystem"))
     implementation(project(":features:home:public"))
     implementation(project(":features:home:implementation"))
+    implementation(project(":core:coreandroid"))
+    implementation(project(":core:corekotlin"))
     implementation(project(":features:details:public"))
     implementation(project(":features:details:implementation"))
+    implementation(project(":flipper"))
 }
 
 tasks.register<Copy>("installPreCommitHook") {
@@ -100,13 +115,19 @@ tasks.register<Copy>("installPreCommitHook") {
     }
     into("$rootDir/.git/hooks/").fileMode = 777
 
-//    doLast {
-//        println("⚈ ⚈ ⚈ Adding permissions to Pre Commit Git Hook Script on Build ⚈ ⚈ ⚈")
-//        exec {
-//            commandLine("chmod", "+x", "$rootDir/.git/hooks/pre-commit")
-//        }
-//        println("✅ Permissions added to Pre Commit Git Hook Script.")
-//    }
+    doLast {
+        println("⚈ ⚈ ⚈ Adding permissions to Pre Commit Git Hook Script on Build ⚈ ⚈ ⚈")
+        if (System.getProperty("os.name").toLowerCase().contains("windows")) {
+            println("✅ its windows")
+        } else {
+            println("✅ its linux - Permissions added to Pre Commit Git Hook Script.")
+            exec {
+                commandLine("chmod", "+x", "$rootDir/.git/hooks/pre-commit")
+            }
+            println("✅ Permissions added to Pre Commit Git Hook Script.")
+        }
+    }
+    fileMode = 777
 }
 
 project.tasks.preBuild.dependsOn("installPreCommitHook")

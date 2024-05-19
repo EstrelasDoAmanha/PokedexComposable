@@ -24,11 +24,15 @@ lifecycleRuntimeKtx = "2.7.0"
 activityCompose = "1.8.2"
 appCompat = "1.6.1"
 composeBom = "2023.08.00"
+pagingVersion = "3.2.1"
+pagingComposeVersion = "3.3.0-alpha05"
 navigationRuntimeKtx = "2.7.7"
+appStartup = "1.1.1"
 
 # Google
 material = "1.10.0"
 material-icons-extended = "1.6.2"
+material = "1.11.0"
 
 # Third Party
 ktor = "2.3.9"
@@ -36,6 +40,10 @@ koinBom = "3.5.3"
 coilCompose = "2.5.0"
 detekt = "1.23.6"
 lottie = "6.4.0"
+flipper = "0.250.0"
+soloader = "0.10.5"
+flipperGlenn = "0.11.4"
+leakcanary = "2.13"
 
 # Test
 junit = "4.13.2"
@@ -47,12 +55,13 @@ androidApplication = "8.2.2"
 kotlinAndroid = "1.9.0"
 kotlinJvm = "1.9.0"
 ktlint = "12.1.0"
+coroutinesAndroidVersion = "1.3.9"
 dokka = "1.9.20"
 
 [libraries]
 
 # Jetbrains
-
+kotlinx_coroutines_android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutinesAndroidVersion" }
 # AndroidX
 coreKtx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
 lifecycleRuntimeKtx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
@@ -68,6 +77,9 @@ compose_ui_test_manifest = { module = "androidx.compose.ui:ui-test-manifest" }
 compose_ui_tooling_preview = { module = "androidx.compose.ui:ui-tooling-preview" }
 compose_material3 = { module = "androidx.compose.material3:material3" }
 navigationCompose = { module = "androidx.navigation:navigation-compose" }
+pagingCompose = { module = "androidx.paging:paging-compose", version.ref = "pagingComposeVersion" }
+pagingRuntime = { module = "androidx.paging:paging-runtime", version.ref = "pagingVersion" }
+appStartup = { module = "androidx.startup:startup-runtime", version.ref = "appStartup" }
 
 # Google
 material = { module = "com.google.android.material:material", version.ref = "material" }
@@ -89,6 +101,11 @@ io_coil_kt_coil_compose = { module = "io.coil-kt:coil-compose", version.ref = "c
 io_coil_kt_coil_gif = { module = "io.coil-kt:coil-gif", version.ref = "coilCompose" }
 io_coil_kt_coil_svg = {module = "io.coil-kt:coil-svg", version.ref="coilCompose"}
 lottie = { module = "com.airbnb.android:lottie-compose", version.ref = "lottie" }
+flipper = { module = "com.facebook.flipper:flipper", version.ref = "flipper" }
+soloader = { module = "com.facebook.soloader:soloader", version.ref = "soloader" }
+flipper_noop = { module = "com.facebook.flipper:flipper-noop", version.ref = "flipper" }
+flipper_noop_glenn = { module = "com.github.theGlenn:flipper-android-no-op", version.ref = "flipperGlenn" }
+leakcanary = { module = "com.squareup.leakcanary:leakcanary-android", version.ref = "leakcanary" }
 
 # Test
 junit = { module = "junit:junit", version.ref = "junit" }
@@ -107,3 +124,7 @@ kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", versio
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
+
+[bundles]
+
+flipper_bundle = ["flipper", "soloader"]

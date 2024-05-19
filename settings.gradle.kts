@@ -1,8 +1,10 @@
+
 pluginManagement {
     repositories {
         google()
         mavenCentral()
         gradlePluginPortal()
+        maven("https://jitpack.io")
     }
 }
 dependencyResolutionManagement {
@@ -16,6 +18,7 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven("https://jitpack.io")
     }
 }
 
@@ -24,8 +27,11 @@ include(
     ":app",
     ":network",
     ":designsystem",
+    ":flipper",
     ":features:home:public",
     ":features:home:implementation",
     ":features:details:public",
-    ":features:details:implementation"
+    ":features:details:implementation",
+    ":core:coreandroid",
+    ":core:corekotlin",
 )

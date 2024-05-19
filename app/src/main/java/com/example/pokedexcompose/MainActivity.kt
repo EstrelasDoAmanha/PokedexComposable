@@ -5,12 +5,15 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
+import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
+import com.example.pokedexcompose.ui.list.pokemonListRoute
 import com.example.pokedexcompose.ui.navigation.PokemonNavHost
 import com.example.pokedexcompose.ui.theme.PokedexComposeTheme
 import com.pokedexcompose.designsystem.components.bottomnavigation.BottomNavigationBar
@@ -32,14 +35,18 @@ class MainActivity : ComponentActivity() {
                                         title = "Home",
                                         selectedIcon = Icons.Filled.Home,
                                         unselectedIcon = Icons.Outlined.Home,
-                                        badgeAmount = null
+                                        badgeAmount = null,
+                                        navigateTo = navController.pokemonListRoute()
                                     )
                                 ),
                                 navController = navController
                             )
                         }
                     ) { padding ->
-                        PokemonNavHost(navController)
+                        PokemonNavHost(
+                            navController,
+                            modifier = Modifier.padding(padding)
+                        )
                     }
                 }
             }

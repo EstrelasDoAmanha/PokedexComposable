@@ -8,8 +8,14 @@ import com.pokedexcompose.network.dsl.request
 class PokemonDataSourceImpl(
     private val pokemonClient: KtorHttpClient
 ) : PokemonDataSource {
-    override suspend fun getPokemonList() = with(pokemonClient.httpClient) {
-        request<Any, PokemonListDto> { url = "${pokemonClient.baseUrl}pokemon" }
+
+    override suspend fun getPokemonList(offset: String, limit: String) = with(
+        pokemonClient.httpClient
+    ) {
+        request<Any, PokemonListDto> {
+            url = "${pokemonClient.baseUrl}pokemon"
+            parameters = listOf("limit" to "$limit", "offset" to "$offset")
+        }
     }
 
     override suspend fun getPokemonDetail(pokemonId: Int) =
