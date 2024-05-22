@@ -29,13 +29,10 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Balance
 import androidx.compose.material.icons.filled.Expand
 import androidx.compose.material.icons.outlined.ErrorOutline
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardColors
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.ShapeDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -63,6 +60,7 @@ import coil.decode.ImageDecoderDecoder
 import coil.decode.SvgDecoder
 import coil.request.ImageRequest
 import com.example.pokedexcompose.common.SHIMMER_LOTTIE_JSON
+import com.example.pokedexcompose.common.getPokemonHomeSpriteUrl
 import com.example.pokedexcompose.domain.model.PokemonInfo
 import com.example.pokedexcompose.domain.model.PokemonStatistics
 import com.example.pokedexcompose.domain.model.PokemonType
@@ -100,9 +98,8 @@ private fun DetailsMainContent(uiState: PokemonDetailsUiState) {
             AsyncImage(
                 alignment = Alignment.Center,
                 contentScale = ContentScale.Inside,
-                // contentScale = ContentScale.Fit,
                 model = ImageRequest.Builder(LocalContext.current)
-                    .data(getGifUrl(uiState.pokemonInfo.id))
+                    .data(getPokemonHomeSpriteUrl(uiState.pokemonInfo.id))
                     .decoderFactory(ImageDecoderDecoder.Factory()).build(),
                 contentDescription = null,
                 modifier = Modifier
@@ -255,34 +252,6 @@ private fun PokemonTypeComponent(
                 color = filterColor,
                 blendMode = BlendMode.SrcAtop
             )
-            // .height(250.dp)
-        )
-    }
-}
-
-@Composable
-private fun PokemonCardType(it: PokemonType) {
-    Card(
-        colors = CardColors(
-            containerColor = Color.Transparent,
-            contentColor = Color.White,
-            disabledContainerColor = Color.LightGray,
-            disabledContentColor = Color.White
-        ),
-        modifier = Modifier
-            .background(
-                color = Color.White.copy(alpha = 0.3f),
-                shape = ShapeDefaults.Small
-            )
-            .padding(horizontal = 2.dp)
-    ) {
-        Text(
-            text = it.name.capitalize(),
-            color = Color.White,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier
-                .padding(horizontal = 8.dp, vertical = 2.dp)
-
         )
     }
 }
@@ -301,7 +270,6 @@ private fun ErrorCard(onRetryClick: () -> Unit) {
             .fillMaxSize()
             .padding(top = 128.dp)
     ) {
-        // Lottie(url = " https://lottie.host/08afaf2e-95bd-4c78-b6a3-7a8935da558e/gNwFOOwGx6.json")
         Column(
             verticalArrangement = Arrangement.SpaceEvenly,
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -312,6 +280,7 @@ private fun ErrorCard(onRetryClick: () -> Unit) {
                 )
                 .background(color = MaterialTheme.colorScheme.surfaceContainer)
         ) {
+            // Lottie(url = " https://lottie.host/08afaf2e-95bd-4c78-b6a3-7a8935da558e/gNwFOOwGx6.json")
             Icon(
                 imageVector = Icons.Outlined.ErrorOutline,
                 contentDescription = "Alerta",
@@ -339,6 +308,13 @@ private fun ErrorCard(onRetryClick: () -> Unit) {
                 Text(text = "Tentar novamente")
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ErrorCardPreview()  {
+    ErrorCard {
     }
 }
 
@@ -463,7 +439,7 @@ fun PokemonDetailScreenPreview() {
 
 fun getUiState() = PokemonDetailsUiState(
     isLoading = false,
-    isError = false,
+    isError = true,
     pokemonInfo = PokemonInfo(
         name = "Pikachu",
         image = "",
@@ -510,13 +486,6 @@ fun getStatsList(): List<PokemonStatistics> {
             baseStat = 55
         )
     )
-}
-
-fun getGifUrl(id: Int): String {
-//    return "https://raw.githubusercontent.com/PokeAPI/" +
-//            "sprites/master/sprites/pokemon/other/showdown/$id.gif"
-    return "https://raw.githubusercontent.com/PokeAPI/" +
-        "sprites/master/sprites/pokemon/other/home/$id.png"
 }
 
 fun getPokemonTypeUrl(type: String): String {

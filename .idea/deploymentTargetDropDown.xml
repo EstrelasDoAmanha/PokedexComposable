@@ -2,6 +2,12 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
+      <entry key="ErrorCardPreview">
+        <State />
+      </entry>
+      <entry key="ErrorScreenComponentPreview">
+        <State />
+      </entry>
       <entry key="PokemonDetailScreenPreview">
         <State>
           <runningDeviceTargetSelectedWithDropDown>
