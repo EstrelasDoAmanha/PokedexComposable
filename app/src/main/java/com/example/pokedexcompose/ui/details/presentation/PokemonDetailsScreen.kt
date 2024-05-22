@@ -42,6 +42,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Color
@@ -69,24 +70,28 @@ import kotlin.random.Random
 
 @RequiresApi(Build.VERSION_CODES.P)
 @Composable
-fun PokemonDetailScreen(uiState: PokemonDetailsUiState, onRetryClick: () -> Unit = {}) {
+fun PokemonDetailScreen(
+    uiState: PokemonDetailsUiState,
+    modifier: Modifier = Modifier,
+    onRetryClick: () -> Unit = {}
+) {
     when {
         uiState.isLoading -> LoadingCardContent()
-        uiState.isError -> ErrorCard(onRetryClick)
-        else -> DetailsMainContent(uiState)
+        uiState.isError -> ErrorCard(modifier, onRetryClick)
+        else -> DetailsMainContent(uiState, modifier)
     }
 }
 
 @Composable
-private fun LoadingCardContent() {
-    Lottie(url = SHIMMER_LOTTIE_JSON)
+private fun LoadingCardContent(modifier: Modifier = Modifier) {
+    Lottie(url = SHIMMER_LOTTIE_JSON, modifier)
 }
 
 @RequiresApi(Build.VERSION_CODES.P)
 @Composable
-private fun DetailsMainContent(uiState: PokemonDetailsUiState) {
+private fun DetailsMainContent(uiState: PokemonDetailsUiState, modifier: Modifier = Modifier) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .background(color = getPokemonBgColor(uiState.pokemonInfo.type))
             .verticalScroll(rememberScrollState(), enabled = true)
@@ -95,18 +100,6 @@ private fun DetailsMainContent(uiState: PokemonDetailsUiState) {
             modifier = Modifier
                 .fillMaxWidth()
         ) {
-            AsyncImage(
-                alignment = Alignment.Center,
-                contentScale = ContentScale.Inside,
-                model = ImageRequest.Builder(LocalContext.current)
-                    .data(getPokemonHomeSpriteUrl(uiState.pokemonInfo.id))
-                    .decoderFactory(ImageDecoderDecoder.Factory()).build(),
-                contentDescription = null,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(250.dp)
-            )
-
             Text(
                 text = uiState.pokemonInfo.name.capitalize(),
                 fontWeight = FontWeight.Black,
@@ -121,34 +114,28 @@ private fun DetailsMainContent(uiState: PokemonDetailsUiState) {
             Text(
                 text = uiState.pokemonInfo.id.toString(),
                 fontWeight = FontWeight.Black,
-                fontSize = 28.sp,
+                fontSize = 120.sp,
                 textAlign = TextAlign.End,
                 color = Color.White,
                 modifier = Modifier
                     .align(Alignment.TopEnd)
-                    .padding(horizontal = 16.dp, vertical = 8.dp)
+                    .padding(top = 24.dp, end = 16.dp)
+                    .alpha(0.5f)
+                // .offset(x = 20.dp)
+
             )
-        }
 
-        LazyRow(
-            contentPadding = PaddingValues(
-                start = 8.dp,
-                end = 8.dp,
-                bottom = 8.dp
-            ),
-            horizontalArrangement = Arrangement.SpaceEvenly,
-            verticalAlignment = Alignment.Bottom,
-            modifier = Modifier
-                .fillMaxWidth()
-
-        ) {
-            items(uiState.pokemonInfo.type) {
-                // PokemonCardType(it)
-                PokemonTypeComponent(
-                    it.name,
-                    applyIconColorFilter = false
-                )
-            }
+            AsyncImage(
+                alignment = Alignment.Center,
+                contentScale = ContentScale.Inside,
+                model = ImageRequest.Builder(LocalContext.current)
+                    .data(getPokemonHomeSpriteUrl(uiState.pokemonInfo.id))
+                    .decoderFactory(ImageDecoderDecoder.Factory()).build(),
+                contentDescription = null,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(250.dp)
+            )
         }
 
         Column(
@@ -162,6 +149,30 @@ private fun DetailsMainContent(uiState: PokemonDetailsUiState) {
                 )
                 .background(MaterialTheme.colorScheme.surfaceContainer)
         ) {
+            LazyRow(
+                contentPadding = PaddingValues(
+                    start = 8.dp,
+                    end = 8.dp,
+                    bottom = 8.dp
+                ),
+                horizontalArrangement = Arrangement.spacedBy(
+                    16.dp,
+                    alignment = Alignment.CenterHorizontally
+                ),
+                verticalAlignment = Alignment.Bottom,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 16.dp)
+
+            ) {
+                items(uiState.pokemonInfo.type) {
+                    PokemonTypeComponent(
+                        it.name,
+                        applyIconColorFilter = false
+                    )
+                }
+            }
+
             Text(
                 text = "Estatisticas",
                 textAlign = TextAlign.Center,
@@ -215,7 +226,7 @@ private fun PokemonTypeComponent(
     type: String,
     modifier: Modifier = Modifier,
     applyIconColorFilter: Boolean = false,
-    inverseColor: Color = Color.Black
+    inverseColor: Color = Color.White
 ) {
     val typeUrl = getPokemonTypeUrl(type)
     val typeColor = getPokemonTypeColor(type = type)
@@ -262,11 +273,11 @@ fun getFormattedHeightInfo(height: Int) = "${height * 10}cm"
 fun getFormattedWeightInfo(weight: Int) = "${weight}Kg"
 
 @Composable
-private fun ErrorCard(onRetryClick: () -> Unit) {
+private fun ErrorCard(modifier: Modifier = Modifier, onRetryClick: () -> Unit) {
     Column(
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .padding(top = 128.dp)
     ) {
@@ -313,7 +324,7 @@ private fun ErrorCard(onRetryClick: () -> Unit) {
 
 @Preview(showBackground = true)
 @Composable
-fun ErrorCardPreview()  {
+fun ErrorCardPreview() {
     ErrorCard {
     }
 }
@@ -434,12 +445,12 @@ private fun getStatsColor(stat: PokemonStatistics) =
 @Preview
 @Composable
 fun PokemonDetailScreenPreview() {
-    PokemonDetailScreen(getUiState())
+    PokemonDetailScreen(getUiState()) {}
 }
 
 fun getUiState() = PokemonDetailsUiState(
     isLoading = false,
-    isError = true,
+    isError = false,
     pokemonInfo = PokemonInfo(
         name = "Pikachu",
         image = "",

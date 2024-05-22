@@ -4,6 +4,7 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.NavOptions
@@ -20,19 +21,23 @@ const val POKEMON_ID_PARAM = "id"
 const val POKEMON_DETAILS_ROUTE = "$POKEMON_DETAILS_HOST{$POKEMON_ID_PARAM}"
 
 @RequiresApi(Build.VERSION_CODES.P)
-fun NavGraphBuilder.pokemonDetails(id: String) {
+fun NavGraphBuilder.pokemonDetails(
+    modifier: Modifier = Modifier,
+    updateTitleTopBar: (String) -> Unit
+) {
     composable(
         POKEMON_DETAILS_ROUTE,
         arguments = listOf(navArgument(POKEMON_ID_PARAM) { type = NavType.IntType })
     ) {
         val viewModel = koinViewModel<PokemonDetailsViewModel>()
         val uiState by viewModel.uiState.collectAsState(initial = PokemonDetailsUiState())
-        PokemonDetailScreen(uiState) {
+        updateTitleTopBar(uiState.pokemonInfo.name)
+        PokemonDetailScreen(uiState, modifier) {
             viewModel.retry()
         }
     }
 }
 
-fun NavHostController.navigateToPokemonDetails(navOptions: NavOptions? = null) {
-    navigate(POKEMON_DETAILS_ROUTE, navOptions)
+fun NavHostController.navigateToPokemonDetails(id: String, navOptions: NavOptions? = null) {
+    navigate("$POKEMON_DETAILS_HOST$id", navOptions)
 }
