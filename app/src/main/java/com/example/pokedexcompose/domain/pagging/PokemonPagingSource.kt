@@ -4,13 +4,13 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import coil.network.HttpException
 import com.example.pokedexcompose.data.datasource.PokemonDataSource
-import com.example.pokedexcompose.domain.mapper.MapperPokemonDomainImpl
+import com.example.pokedexcompose.domain.mapper.PokemonListDtoToDomain
 import com.example.pokedexcompose.domain.model.ResultListDomain
 import io.ktor.utils.io.errors.IOException
 
 internal class PokemonPagingSource(
     private val remoteDataSource: PokemonDataSource,
-    private val mapper: MapperPokemonDomainImpl
+    private val mapper: PokemonListDtoToDomain
 ) : PagingSource<Int, ResultListDomain>() {
     private val limit = 20
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ResultListDomain> {

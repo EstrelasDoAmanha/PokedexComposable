@@ -100,8 +100,3 @@ data class Statistics(
     val stat: StatisticInfo = StatisticInfo()
 )
 
-@Serializable
-data class TypeDto(
-    @SerialName("name")
-    val name: String? = String.empty()
-)

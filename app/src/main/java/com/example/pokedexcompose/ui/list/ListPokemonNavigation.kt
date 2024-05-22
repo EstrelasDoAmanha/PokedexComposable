@@ -21,7 +21,11 @@ fun NavGraphBuilder.pokemonList(modifier: Modifier = Modifier) {
     composable(POKEMON_LIST_ROUTE) {
         val viewModel = koinViewModel<PokemonListViewModel>()
         val uiState by viewModel.uiState.collectAsState(initial = PokemonListUiState())
-        PokemonListScreen(uiState, modifier = modifier)
+        PokemonListScreen(
+            uiState,
+            modifier = modifier,
+            selectFilter = { viewModel.selectFilter(it) }
+        )
     }
 }
 

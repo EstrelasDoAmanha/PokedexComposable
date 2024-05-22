@@ -5,7 +5,8 @@ import com.example.pokedexcompose.data.model.ResultListDto
 import com.example.pokedexcompose.domain.model.PokemonListDomain
 import com.example.pokedexcompose.domain.model.ResultListDomain
 
-class MapperPokemonDomainImpl() : Mapper<PokemonListDto, PokemonListDomain> {
+class PokemonListDtoToDomain
+    : Mapper<PokemonListDto, PokemonListDomain> {
     override fun map(from: PokemonListDto): PokemonListDomain {
         return PokemonListDomain(
             count = from.count,

@@ -2,11 +2,9 @@ package com.example.pokedexcompose.ui.list.di
 
 import com.example.pokedexcompose.data.datasource.PokemonDataSource
 import com.example.pokedexcompose.data.datasource.PokemonDataSourceImpl
-import com.example.pokedexcompose.data.mappers.PokemonDtotoDomain
 import com.example.pokedexcompose.data.mappers.PokemonStatsDtoToDomain
 import com.example.pokedexcompose.data.mappers.PokemonTypeDtoToDomain
 import com.example.pokedexcompose.data.repository.PokemonRepositoryImpl
-import com.example.pokedexcompose.domain.mapper.MapperPokemonDomainImpl
 import com.example.pokedexcompose.domain.repository.PokemonRepository
 import com.example.pokedexcompose.domain.usecase.GetPokemonDetailsUseCase
 import com.example.pokedexcompose.domain.usecase.PokemonUseCase
@@ -16,6 +14,10 @@ import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.factoryOf
 import org.koin.dsl.module
+import com.example.pokedexcompose.domain.mapper.PokemonListDtoToDomain
+import com.example.pokedexcompose.data.mappers.PokemonDtoToDomain
+import com.example.pokedexcompose.data.mappers.ListOfPokemonTypesDtoToDomain
+import com.example.pokedexcompose.data.mappers.ListPokemonByFilterDtoToDomain
 
 val viewModel = module {
     viewModelOf(::PokemonListViewModel)
@@ -27,10 +29,12 @@ val domainModule = module {
 }
 
 val dataModule = module {
+    factoryOf(::ListOfPokemonTypesDtoToDomain)
+    factoryOf(::ListPokemonByFilterDtoToDomain)
     factoryOf(::PokemonRepositoryImpl) { bind<PokemonRepository>() }
-    factoryOf(::PokemonDtotoDomain)
+    factoryOf(::PokemonDtoToDomain)
     factoryOf(::PokemonStatsDtoToDomain)
     factoryOf(::PokemonTypeDtoToDomain)
-    factory { MapperPokemonDomainImpl() }
+    factoryOf(::PokemonListDtoToDomain)
     factoryOf(::PokemonDataSourceImpl) { bind<PokemonDataSource>() }
 }
