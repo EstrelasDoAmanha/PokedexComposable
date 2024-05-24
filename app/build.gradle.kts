@@ -5,6 +5,7 @@ plugins {
     alias(deps.plugins.kotlinAndroid)
     alias(deps.plugins.kotlinSerialization)
     alias(deps.plugins.ktlint)
+    alias(deps.plugins.androidxRoom)
 }
 
 android {
@@ -22,6 +23,10 @@ android {
         vectorDrawables {
             useSupportLibrary = deps.versions.useSupportLibrary.get().toBoolean()
         }
+    }
+
+    room {
+        schemaDirectory("$projectDir/schemas")
     }
 
     buildTypes {
@@ -83,6 +88,8 @@ dependencies {
     implementation(deps.pagingRuntime)
     implementation(deps.appStartup)
 
+    implementation(deps.androidx.room.runtime)
+
     debugImplementation(deps.leakcanary)
 
     testImplementation(deps.junit)
@@ -92,7 +99,6 @@ dependencies {
     androidTestImplementation(deps.junitUiTest4)
     debugImplementation(deps.compose.ui.tooling)
     debugImplementation(deps.compose.ui.test.manifest)
-
     implementation(project(":network"))
     implementation(project(":designsystem"))
     implementation(project(":features:home:public"))

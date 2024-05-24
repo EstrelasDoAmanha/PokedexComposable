@@ -7,9 +7,7 @@ import com.example.pokedexcompose.domain.model.ResultListDomain
 import kotlinx.coroutines.flow.Flow
 
 internal interface PokemonUseCase {
-    suspend fun getPokemonList(): Flow<PagingData<ResultListDomain>>
+    suspend fun getPokemonList(filter: String = ""): Flow<PagingData<ResultListDomain>>
     suspend fun ListOfPokemonTypes(): ListOfPokemonTypesDomain
-
-    suspend fun listPokemonByFilter(filter: String):List<ResultListDomain>
 
 }

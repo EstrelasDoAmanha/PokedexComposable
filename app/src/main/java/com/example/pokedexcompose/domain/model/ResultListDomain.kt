@@ -1,8 +1,8 @@
 package com.example.pokedexcompose.domain.model
 
 data class ResultListDomain(
-    val name: String = "",
+    var name: String = "",
     val url: String = "",
     val gif: String = "",
-    val types: List<PokemonType> = listOf((PokemonType(1, Type("fogo"))))
+    val types: List<PokemonType> = listOf(PokemonType(slot = 1, type = Type(name = "normal")))
 )

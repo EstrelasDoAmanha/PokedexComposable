@@ -8,15 +8,16 @@ import com.example.pokedexcompose.domain.mapper.PokemonListDtoToDomain
 import com.example.pokedexcompose.domain.model.ResultListDomain
 import io.ktor.utils.io.errors.IOException
 
-internal class PokemonPagingSource(
+internal class PokemonListPagingSource(
     private val remoteDataSource: PokemonDataSource,
-    private val mapper: PokemonListDtoToDomain
+    private val mapper: PokemonListDtoToDomain,
+    private val filter: String,
 ) : PagingSource<Int, ResultListDomain>() {
     private val limit = 20
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ResultListDomain> {
         return try {
             val offset = params.key ?: 0
-            val response = remoteDataSource.getPokemonList("$offset", "$limit")
+            val response = remoteDataSource.getPokemonList("$offset", "$limit", filter)
             val data = mapper.map(response)
             val nextOffset = offset + limit
 

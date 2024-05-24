@@ -9,5 +9,6 @@ import kotlinx.coroutines.flow.flowOf
 data class PokemonListUiState(
     val loading: Boolean = false,
     var result: Flow<PagingData<ResultListDomain>> = flowOf(),
-    val typeList: List<Type> = emptyList()
+    var typeList: List<Type> = emptyList(),
+    val itemsFiltered: List<ResultListDomain> = emptyList()
 )

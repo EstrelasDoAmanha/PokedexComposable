@@ -24,7 +24,9 @@ fun NavGraphBuilder.pokemonList(modifier: Modifier = Modifier) {
         PokemonListScreen(
             uiState,
             modifier = modifier,
-            selectFilter = { viewModel.selectFilter(it) }
+            selectFilter = {
+                viewModel.selectFilter(it)
+            }
         )
     }
 }

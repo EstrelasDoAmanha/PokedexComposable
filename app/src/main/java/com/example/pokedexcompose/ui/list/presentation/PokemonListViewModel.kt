@@ -1,20 +1,17 @@
 package com.example.pokedexcompose.ui.list.presentation
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
+import androidx.paging.map
 import com.example.pokedexcompose.domain.model.ResultListDomain
 import com.example.pokedexcompose.domain.usecase.PokemonUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.retry
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlin.math.log
 
 internal class PokemonListViewModel(
     private val useCase: PokemonUseCase
@@ -32,7 +29,10 @@ internal class PokemonListViewModel(
     }
 
     private suspend fun getPokemonList() {
-        updateState(PokemonListUiState(result = useCase.getPokemonList(), loading = false))
+        updateState(PokemonListUiState(
+            result = useCase.getPokemonList(),
+            loading = false
+        ))
     }
 
     private suspend fun getPokemonListOfPokemonTypesList() {
@@ -43,26 +43,30 @@ internal class PokemonListViewModel(
         )
     }
 
-    private suspend fun addSlot() {
-//        _uiState.value.result.combine { pokemonList ->
-//https://proandroiddev.com/pagination-with-paging-3-modifying-paged-data-223f0bea603b
-//        }
-    }
+    fun selectFilter(filter: String) {
+        var isClearList = filter
+        val listType = _uiState.value.typeList.map {
+            if(it.name == filter){
+                if(it.enabled){
+                    isClearList = ""
+                    it.copy(enabled = false)
+                }else {
+                    it.copy(enabled = true)
+                }
+            }else{
+                it.copy(enabled = false)
+            }
 
-
-    fun selectFilter(it: String) {
+        }
         viewModelScope.launch(Dispatchers.IO) {
-            val resultRequest = useCase.listPokemonByFilter(it)
-            val castPaging = PagingData.from(resultRequest)
-            val newPaging = flow<PagingData<ResultListDomain>>{castPaging }
-            Log.d("TAG", "resultRequest: ${resultRequest}")
-            Log.d("TAG", "castPaging: ${castPaging}")
-            Log.d("TAG", "newPaging: ${newPaging}")
-            updateState(_uiState.value.copy(result = newPaging))
+            updateState(_uiState.value.copy(
+                result = useCase.getPokemonList(isClearList),
+                typeList = listType
+            ))
         }
     }
 
-    private suspend fun updateState(state: PokemonListUiState)  {
-        _uiState.update { state}
+    private fun updateState(state: PokemonListUiState) {
+        _uiState.update { state }
     }
 }

@@ -16,6 +16,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -36,6 +37,7 @@ import coil.compose.AsyncImage
 import coil.decode.ImageDecoderDecoder
 import coil.request.ImageRequest
 import com.example.pokedexcompose.domain.model.ResultListDomain
+import com.example.pokedexcompose.domain.model.Type
 import com.example.pokedexcompose.extensions.empty
 import com.pokedexcompose.designsystem.components.loading.Lottie
 
@@ -52,12 +54,20 @@ internal fun PokemonListScreen(
         val lazyPokemon: LazyPagingItems<ResultListDomain> =
             uiState.result.collectAsLazyPagingItems()
         Column {
+
+            Button(
+                modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
+                onClick = { selectFilter("") }
+            ) {
+                Text(text = "Limpar filtros")
+            }
+
             LazyRow(contentPadding = PaddingValues(
                 vertical = 8.dp,
                 horizontal = 16.dp
             ), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 items(uiState.typeList) {
-                    OptionFilter(it.name){
+                    OptionFilter(it){
                         selectFilter(it.name)
                     }
                 }
@@ -100,6 +110,15 @@ internal fun PokemonListScreen(
                                         .fillMaxWidth(),
                                     textAlign = TextAlign.Center
                                 )
+
+                                Text(
+                                    text = lazyPokemon[index]?.types?.firstOrNull()?.type?.name ?: String.empty(),
+                                    fontSize = 12.sp,
+                                    modifier = Modifier
+                                        .padding(16.dp)
+                                        .fillMaxWidth(),
+                                    textAlign = TextAlign.Center
+                                )
                             }
                         }
                     }
@@ -111,21 +130,21 @@ internal fun PokemonListScreen(
 
 @Composable
 fun OptionFilter(
-    tag:String,
+    tag: Type,
     onClick:() -> Unit = {}
 ){
     Box(
         Modifier
             .clickable { onClick() }
             .clip(RoundedCornerShape(10.dp))
-            .background(Color.Blue),
+            .background(if (tag.enabled) Color.Blue else Color.Black),
     ) {
-        Text(text = tag, Modifier.padding(vertical = 2.dp, horizontal = 6.dp), color = Color.White)
+        Text(text = tag.name, Modifier.padding(vertical = 2.dp, horizontal = 6.dp), color = Color.White)
     }
 }
 
 @Preview
 @Composable
 fun OptionFilterPreview(){
-    OptionFilter("Preview")
+    OptionFilter(Type(name = "Fire", enabled = true))
 }
