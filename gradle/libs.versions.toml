@@ -32,6 +32,8 @@ room = "2.6.1"
 
 # Google
 material = "1.11.0"
+kotlinKapt = "2.0.0"
+gson = "2.11.0"
 
 # Third Party
 ktor = "2.3.9"
@@ -81,9 +83,11 @@ pagingRuntime = { module = "androidx.paging:paging-runtime", version.ref = "pagi
 appStartup = { module = "androidx.startup:startup-runtime", version.ref = "appStartup" }
 androidx_room_runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
 androidx_room_compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+androidx_room_ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 
 # Google
 material = { module = "com.google.android.material:material", version.ref = "material" }
+google_code_gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 
 # Third Party
 ktor_client_core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
@@ -124,6 +128,7 @@ ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 androidxRoom = { id = "androidx.room", version.ref = "room" }
+kotlin-kapt = { id = "kotlin-kapt", version.ref = "kotlinKapt" }
 
 [bundles]
 

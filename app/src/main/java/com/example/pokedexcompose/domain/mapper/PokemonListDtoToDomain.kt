@@ -1,27 +1,23 @@
 package com.example.pokedexcompose.domain.mapper
 
+import com.example.pokedexcompose.data.database.PokemonDb
 import com.example.pokedexcompose.data.model.PokemonListDto
 import com.example.pokedexcompose.data.model.ResultListDto
 import com.example.pokedexcompose.domain.model.PokemonListDomain
 import com.example.pokedexcompose.domain.model.ResultListDomain
 
 class PokemonListDtoToDomain
-    : Mapper<PokemonListDto, PokemonListDomain> {
-    override fun map(from: PokemonListDto): PokemonListDomain {
-        return PokemonListDomain(
-            count = from.count,
-            next = from.next,
-            result = from.result.toDomain()
-        )
-    }
-
-    private fun List<ResultListDto>.toDomain(): List<ResultListDomain> {
-        return this.map { resultDto ->
+    : Mapper<List<PokemonDb>, PokemonListDomain> {
+    override fun map(from: List<PokemonDb>): PokemonListDomain {
+        val listToDomain = from.map {
             ResultListDomain(
-                name = resultDto.name,
-                url = resultDto.url,
-                gif = resultDto.urlGif
-            )
-        }
+                name = it.name.orEmpty(),
+                url = it.url.orEmpty(),
+                gif = it.gif.orEmpty(),
+                id = it.id
+            ) }
+        return PokemonListDomain(
+            result = listToDomain
+        )
     }
 }

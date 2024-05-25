@@ -6,7 +6,6 @@ import com.example.pokedexcompose.data.model.ListPokemonTypesDto
 import com.example.pokedexcompose.data.model.PokemonDto
 import com.example.pokedexcompose.data.model.PokemonListDto
 import com.pokedexcompose.network.client.KtorHttpClient
-import com.pokedexcompose.network.dsl.getRequest
 import com.pokedexcompose.network.dsl.request
 
 class PokemonDataSourceImpl(
@@ -14,22 +13,26 @@ class PokemonDataSourceImpl(
     private val listPokemonByFilterToDomain: ListPokemonByFilterDtoToDomain
 ) : PokemonDataSource {
 
-    override suspend fun getPokemonList(offset: String, limit: String, filter:String): PokemonListDto{
-        return if(filter.isBlank()) {
+    override suspend fun getPokemonList(
+        offset: String,
+        limit: String,
+        query: String
+    ): PokemonListDto{
+        return if(query.isBlank()) {
             pokemonClient.httpClient.request<Any, PokemonListDto> {
                 url = "${pokemonClient.baseUrl}pokemon"
                 parameters = listOf("limit" to "$limit", "offset" to "$offset")
             }
         } else {
             val response = pokemonClient.httpClient.request<Any, ListPokemonByTypesDto> {
-                url = "${pokemonClient.baseUrl}type/${filter}"
+                url = "${pokemonClient.baseUrl}type/${query}"
             }
             PokemonListDto(result = listPokemonByFilterToDomain.map(response))
         }
 
     }
 
-    override suspend fun listPokemonType() = with(pokemonClient.httpClient) {
+    override suspend fun typeList() = with(pokemonClient.httpClient) {
         request<Any, ListPokemonTypesDto> {
             url = "${pokemonClient.baseUrl}type"
             parameters = listOf("limit" to "99", "offset" to "0")

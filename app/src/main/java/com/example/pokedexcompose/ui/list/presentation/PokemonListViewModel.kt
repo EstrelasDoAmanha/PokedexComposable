@@ -2,14 +2,9 @@ package com.example.pokedexcompose.ui.list.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.PagingData
-import androidx.paging.map
-import com.example.pokedexcompose.domain.model.ResultListDomain
 import com.example.pokedexcompose.domain.usecase.PokemonUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -17,38 +12,38 @@ internal class PokemonListViewModel(
     private val useCase: PokemonUseCase
 ) : ViewModel() {
 
-    private var _uiState = MutableStateFlow(PokemonListUiState())
-    val uiState: StateFlow<PokemonListUiState> = _uiState
+    var uiState: MutableStateFlow<ListUiState> = MutableStateFlow(ListUiState())
+        private set
 
     init {
         viewModelScope.launch {
-            updateState(PokemonListUiState(loading = true))
+            updateState(ListUiState(loading = true))
             getPokemonList()
-            getPokemonListOfPokemonTypesList()
+            getTypeList()
         }
     }
 
     private suspend fun getPokemonList() {
-        updateState(PokemonListUiState(
+        updateState(ListUiState(
             result = useCase.getPokemonList(),
             loading = false
         ))
     }
 
-    private suspend fun getPokemonListOfPokemonTypesList() {
+    private suspend fun getTypeList() {
         updateState(
-            _uiState.value.copy(
-                typeList = useCase.ListOfPokemonTypes().results
+            this.uiState.value.copy(
+                typeList = useCase.getTypeList().results
             )
         )
     }
 
-    fun selectFilter(filter: String) {
-        var isClearList = filter
-        val listType = _uiState.value.typeList.map {
-            if(it.name == filter){
+    fun updateListByFilter(query: String) {
+        var resetFilter = query
+        val listType = this.uiState.value.typeList.map {
+            if(it.name == query){
                 if(it.enabled){
-                    isClearList = ""
+                    resetFilter = ""
                     it.copy(enabled = false)
                 }else {
                     it.copy(enabled = true)
@@ -59,14 +54,15 @@ internal class PokemonListViewModel(
 
         }
         viewModelScope.launch(Dispatchers.IO) {
-            updateState(_uiState.value.copy(
-                result = useCase.getPokemonList(isClearList),
+            updateState(
+                this@PokemonListViewModel.uiState.value.copy(
+                result = useCase.getPokemonList(resetFilter),
                 typeList = listType
             ))
         }
     }
 
-    private fun updateState(state: PokemonListUiState) {
-        _uiState.update { state }
+    private fun updateState(state: ListUiState) {
+        uiState.update { state }
     }
 }

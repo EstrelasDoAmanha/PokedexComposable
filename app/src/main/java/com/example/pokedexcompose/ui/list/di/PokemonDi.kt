@@ -1,5 +1,8 @@
 package com.example.pokedexcompose.ui.list.di
 
+import androidx.room.Room
+import com.example.pokedexcompose.data.database.PokemonDao
+import com.example.pokedexcompose.data.database.PokemonDataBase
 import com.example.pokedexcompose.data.datasource.PokemonDataSource
 import com.example.pokedexcompose.data.datasource.PokemonDataSourceImpl
 import com.example.pokedexcompose.data.mappers.PokemonStatsDtoToDomain
@@ -18,6 +21,7 @@ import com.example.pokedexcompose.domain.mapper.PokemonListDtoToDomain
 import com.example.pokedexcompose.data.mappers.PokemonDtoToDomain
 import com.example.pokedexcompose.data.mappers.ListOfPokemonTypesDtoToDomain
 import com.example.pokedexcompose.data.mappers.ListPokemonByFilterDtoToDomain
+import org.koin.android.ext.koin.androidContext
 
 val viewModel = module {
     viewModelOf(::PokemonListViewModel)
@@ -26,6 +30,23 @@ val viewModel = module {
 val domainModule = module {
     factoryOf(::GetPokemonDetailsUseCase)
     factory<PokemonUseCase> { PokemonUseCaseImpl(get()) }
+}
+
+val roomModule = module {
+
+    single {
+        Room.databaseBuilder(
+            androidContext(),
+            PokemonDataBase::class.java,
+            "pokemon.db"
+        ).allowMainThreadQueries()
+        .build()
+    }
+
+    single<PokemonDao> {
+        val database = get<PokemonDataBase>()
+        database.pokemonDao()
+    }
 }
 
 val dataModule = module {

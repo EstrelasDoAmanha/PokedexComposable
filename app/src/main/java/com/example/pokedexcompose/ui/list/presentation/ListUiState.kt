@@ -6,7 +6,7 @@ import com.example.pokedexcompose.domain.model.Type
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 
-data class PokemonListUiState(
+data class ListUiState(
     val loading: Boolean = false,
     var result: Flow<PagingData<ResultListDomain>> = flowOf(),
     var typeList: List<Type> = emptyList(),

@@ -1,6 +1,7 @@
 package com.example.pokedexcompose.domain.model
 
 data class ResultListDomain(
+    var id: Int,
     var name: String = "",
     val url: String = "",
     val gif: String = "",

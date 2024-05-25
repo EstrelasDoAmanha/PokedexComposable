@@ -6,6 +6,7 @@ plugins {
     alias(deps.plugins.kotlinSerialization)
     alias(deps.plugins.ktlint)
     alias(deps.plugins.androidxRoom)
+    kotlin("kapt")
 }
 
 android {
@@ -59,7 +60,6 @@ android {
 }
 
 dependencies {
-
     implementation(deps.coreKtx)
     implementation(deps.lifecycleRuntimeKtx)
     implementation(deps.activityCompose)
@@ -88,7 +88,11 @@ dependencies {
     implementation(deps.pagingRuntime)
     implementation(deps.appStartup)
 
+    implementation(deps.google.code.gson)
     implementation(deps.androidx.room.runtime)
+    implementation(deps.androidx.room.ktx)
+    annotationProcessor(deps.androidx.room.compiler)
+    kapt(deps.androidx.room.compiler)
 
     debugImplementation(deps.leakcanary)
 

@@ -44,9 +44,9 @@ import com.pokedexcompose.designsystem.components.loading.Lottie
 @RequiresApi(Build.VERSION_CODES.P)
 @Composable
 internal fun PokemonListScreen(
-    uiState: PokemonListUiState,
+    uiState: ListUiState,
     modifier: Modifier = Modifier,
-    selectFilter: (String) -> Unit
+    query: (String) -> Unit
 ) {
     if (uiState.loading) {
         Lottie(url = SHIMMER_LOTTIE_JSON)
@@ -57,7 +57,7 @@ internal fun PokemonListScreen(
 
             Button(
                 modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
-                onClick = { selectFilter("") }
+                onClick = { query("") }
             ) {
                 Text(text = "Limpar filtros")
             }
@@ -68,7 +68,7 @@ internal fun PokemonListScreen(
             ), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 items(uiState.typeList) {
                     OptionFilter(it){
-                        selectFilter(it.name)
+                        query(it.name)
                     }
                 }
             }
@@ -104,15 +104,6 @@ internal fun PokemonListScreen(
                                 )
                                 Text(
                                     text = lazyPokemon[index]?.name ?: String.empty(),
-                                    fontSize = 12.sp,
-                                    modifier = Modifier
-                                        .padding(16.dp)
-                                        .fillMaxWidth(),
-                                    textAlign = TextAlign.Center
-                                )
-
-                                Text(
-                                    text = lazyPokemon[index]?.types?.firstOrNull()?.type?.name ?: String.empty(),
                                     fontSize = 12.sp,
                                     modifier = Modifier
                                         .padding(16.dp)
