@@ -5,6 +5,8 @@ import androidx.annotation.RequiresApi
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.capitalize
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.NavOptions
@@ -23,7 +25,8 @@ const val POKEMON_DETAILS_ROUTE = "$POKEMON_DETAILS_HOST{$POKEMON_ID_PARAM}"
 @RequiresApi(Build.VERSION_CODES.P)
 fun NavGraphBuilder.pokemonDetails(
     modifier: Modifier = Modifier,
-    updateTitleTopBar: (String) -> Unit
+    updateTitleTopBar: (String) -> Unit,
+    updateTopBarColor: (Color) -> Unit
 ) {
     composable(
         POKEMON_DETAILS_ROUTE,
@@ -31,8 +34,8 @@ fun NavGraphBuilder.pokemonDetails(
     ) {
         val viewModel = koinViewModel<PokemonDetailsViewModel>()
         val uiState by viewModel.uiState.collectAsState(initial = PokemonDetailsUiState())
-        updateTitleTopBar(uiState.pokemonInfo.name)
-        PokemonDetailScreen(uiState, modifier) {
+        updateTitleTopBar(uiState.pokemonInfo.name.capitalize())
+        PokemonDetailScreen(uiState, modifier, updateTopBarColor) {
             viewModel.retry()
         }
     }

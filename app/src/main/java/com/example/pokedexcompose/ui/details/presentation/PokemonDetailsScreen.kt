@@ -76,6 +76,7 @@ import kotlin.random.Random
 fun PokemonDetailScreen(
     uiState: PokemonDetailsUiState,
     modifier: Modifier = Modifier,
+    updateTopBarColor: (Color) -> Unit,
     onRetryClick: () -> Unit = {}
 ) {
     when {
@@ -89,7 +90,7 @@ fun PokemonDetailScreen(
         ) {
             onRetryClick()
         }
-        else -> DetailsMainContent(uiState, modifier)
+        else -> DetailsMainContent(uiState, modifier, updateTopBarColor)
     }
 }
 
@@ -100,27 +101,36 @@ private fun LoadingCardContent(modifier: Modifier = Modifier) {
 
 @RequiresApi(Build.VERSION_CODES.P)
 @Composable
-private fun DetailsMainContent(uiState: PokemonDetailsUiState, modifier: Modifier = Modifier) {
+private fun DetailsMainContent(
+    uiState: PokemonDetailsUiState,
+    modifier: Modifier = Modifier,
+    updateTopBarColor: (Color) -> Unit
+) {
+    val backgroundColor by remember {
+        mutableStateOf(getPokemonBgColor(uiState.pokemonInfo.type))
+    }
+    updateTopBarColor(backgroundColor)
+
     Column(
         modifier = modifier
             .fillMaxSize()
-            .background(color = getPokemonBgColor(uiState.pokemonInfo.type))
+            .background(color = backgroundColor)
             .verticalScroll(rememberScrollState(), enabled = true)
     ) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
         ) {
-            Text(
-                text = uiState.pokemonInfo.name.capitalize(),
-                fontWeight = FontWeight.Black,
-                fontSize = 28.sp,
-                textAlign = TextAlign.Start,
-                color = Color.White,
-                modifier = Modifier
-                    .align(Alignment.TopStart)
-                    .padding(horizontal = 16.dp, vertical = 8.dp)
-            )
+//            Text(
+//                text = uiState.pokemonInfo.name.capitalize(),
+//                fontWeight = FontWeight.Black,
+//                fontSize = 28.sp,
+//                textAlign = TextAlign.Start,
+//                color = Color.White,
+//                modifier = Modifier
+//                    .align(Alignment.TopStart)
+//                    .padding(horizontal = 16.dp, vertical = 8.dp)
+//            )
 
             Text(
                 text = uiState.pokemonInfo.id.toString(),
@@ -130,13 +140,13 @@ private fun DetailsMainContent(uiState: PokemonDetailsUiState, modifier: Modifie
                 color = Color.White,
                 modifier = Modifier
                     .align(Alignment.TopEnd)
-                    .padding(top = 24.dp, end = 16.dp)
+                    .padding(end = 16.dp)
                     .alpha(0.5f)
 
             )
 
             AsyncImage(
-                alignment = Alignment.Center,
+                alignment = Alignment.BottomCenter,
                 contentScale = ContentScale.Inside,
                 model = ImageRequest.Builder(LocalContext.current)
                     .data(getPokemonHomeSpriteUrl(uiState.pokemonInfo.id))
@@ -144,7 +154,7 @@ private fun DetailsMainContent(uiState: PokemonDetailsUiState, modifier: Modifie
                 contentDescription = null,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(250.dp)
+                    .height(200.dp)
             )
         }
 
@@ -339,7 +349,6 @@ fun ErrorCardPreview() {
     }
 }
 
-@Composable
 private fun getPokemonBgColor(type: List<PokemonType>): Color {
     return type.firstOrNull()?.let {
         TypeColor.parse(it.name).color
@@ -455,7 +464,7 @@ private fun getStatsColor(stat: PokemonStatistics) =
 @Preview
 @Composable
 fun PokemonDetailScreenPreview() {
-    PokemonDetailScreen(getUiState()) {}
+    PokemonDetailScreen(getUiState(), updateTopBarColor = {}) {}
 }
 
 fun getUiState() = PokemonDetailsUiState(

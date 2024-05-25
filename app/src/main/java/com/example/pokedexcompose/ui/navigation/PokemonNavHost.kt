@@ -4,6 +4,7 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.example.pokedexcompose.ui.details.navigateToPokemonDetails
@@ -16,7 +17,8 @@ import com.example.pokedexcompose.ui.list.pokemonList
 fun PokemonNavHost(
     navController: NavHostController,
     modifier: Modifier = Modifier,
-    updateTitleTopBar: (String) -> Unit
+    updateTitleTopBar: (String) -> Unit,
+    updateTopBarColor: (Color) -> Unit
 ) {
     NavHost(
         navController = navController,
@@ -30,7 +32,8 @@ fun PokemonNavHost(
         }
         pokemonDetails(
             modifier = modifier,
-            updateTitleTopBar = updateTitleTopBar
+            updateTitleTopBar = updateTitleTopBar,
+            updateTopBarColor = updateTopBarColor
         )
     }
 }

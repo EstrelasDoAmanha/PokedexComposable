@@ -10,15 +10,21 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarColors
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.sp
 import androidx.navigation.compose.rememberNavController
 import com.example.pokedexcompose.ui.list.pokemonListRoute
 import com.example.pokedexcompose.ui.navigation.PokemonNavHost
@@ -34,16 +40,33 @@ class MainActivity : ComponentActivity() {
         setContent {
             PokedexComposeTheme {
                 val navController = rememberNavController()
+                val initialColor = MaterialTheme.colorScheme.surfaceContainer
                 var title by remember {
                     mutableStateOf("Pokemon")
+                }
+                var topBarColor by remember {
+                    mutableStateOf(initialColor)
                 }
                 Surface {
                     Scaffold(
                         topBar = {
                             TopAppBar(
                                 title = {
-                                    Text(text = title)
-                                }
+                                    Text(
+                                        text = title,
+                                        fontWeight = FontWeight.Black,
+                                        fontSize = 28.sp,
+                                        textAlign = TextAlign.Start,
+                                        color = Color.White
+                                    )
+                                },
+                                colors = TopAppBarColors(
+                                    containerColor = topBarColor,
+                                    scrolledContainerColor = initialColor,
+                                    navigationIconContentColor = initialColor,
+                                    titleContentColor = initialColor,
+                                    actionIconContentColor = initialColor
+                                )
                             )
                         },
                         bottomBar = {
@@ -62,11 +85,17 @@ class MainActivity : ComponentActivity() {
                         }
                     ) { padding ->
                         PokemonNavHost(
-                            navController,
+                            navController = navController,
+                            updateTitleTopBar =
+                            { newTitle ->
+                                title = newTitle
+                            },
+                            updateTopBarColor =
+                            { color ->
+                                topBarColor = color
+                            },
                             modifier = Modifier.padding(padding)
-                        ) { newTitle ->
-                            title = newTitle
-                        }
+                        )
                     }
                 }
             }
