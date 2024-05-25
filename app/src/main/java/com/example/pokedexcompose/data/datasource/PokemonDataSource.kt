@@ -1,6 +1,6 @@
 package com.example.pokedexcompose.data.datasource
 
-import com.example.pokedexcompose.data.model.ListPokemonTypesDto
+import com.example.pokedexcompose.data.model.TypeListDto
 import com.example.pokedexcompose.data.model.PokemonDto
 import com.example.pokedexcompose.data.model.PokemonListDto
 
@@ -10,6 +10,6 @@ interface PokemonDataSource {
         limit: String = "",
         query: String = ""
     ): PokemonListDto
-    suspend fun typeList(): ListPokemonTypesDto
+    suspend fun typeList(): TypeListDto
     suspend fun getPokemonDetail(pokemonId: Int): PokemonDto
 }

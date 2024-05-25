@@ -1,7 +1,7 @@
 package com.example.pokedexcompose.data.datasource
 
 import com.example.pokedexcompose.data.mappers.PokemonListByFilterDtoToDomain
-import com.example.pokedexcompose.data.model.ListPokemonTypesDto
+import com.example.pokedexcompose.data.model.TypeListDto
 import com.example.pokedexcompose.data.model.PokemonByTypesDto
 import com.example.pokedexcompose.data.model.PokemonDto
 import com.example.pokedexcompose.data.model.PokemonListDto
@@ -32,7 +32,7 @@ class PokemonDataSourceImpl(
     }
 
     override suspend fun typeList() = with(pokemonClient.httpClient) {
-        request<Any, ListPokemonTypesDto> {
+        request<Any, TypeListDto> {
             url = "${pokemonClient.baseUrl}type"
             parameters = listOf("limit" to "99", "offset" to "0")
         }

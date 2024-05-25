@@ -24,14 +24,14 @@ class PokemonRepositoryImpl(
     private val pokemonDao: PokemonDao
 ) : PokemonRepository {
 
-    override suspend fun getPokemonList(filter: String): Flow<PagingData<ResultListDomain>> {
+    override suspend fun getPokemonList(query: String): Flow<PagingData<ResultListDomain>> {
         return Pager(
             config = PagingConfig(pageSize = 20),
             pagingSourceFactory = {
                 PokemonListPagingSource(
                     remoteDataSource = pokemonDataSource,
                     mapper = pokemonListToDomain,
-                    query = filter,
+                    query = query,
                     daoPokemon = pokemonDao
                 )
             }
