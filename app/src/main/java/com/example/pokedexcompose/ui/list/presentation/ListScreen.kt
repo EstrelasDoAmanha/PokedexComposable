@@ -7,21 +7,34 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Done
+import androidx.compose.material.icons.outlined.Settings
+import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -53,25 +66,28 @@ internal fun PokemonListScreen(
     } else {
         val lazyPokemon: LazyPagingItems<ResultListDomain> =
             uiState.result.collectAsLazyPagingItems()
+        var isShowBottomSheet by remember { mutableStateOf(false) }
+
         Column {
-            Button(
-                modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
-                onClick = { query("") }
+
+            Row(
+                modifier = Modifier
+                    .clickable {
+                        isShowBottomSheet = true
+                    }
+                    .padding(
+                        end = 16.dp,
+                        start = 16.dp,
+                        top = 16.dp
+                    )
             ) {
-                Text(text = "Limpar filtros")
+                Text(text = "Filtro")
+                Icon(Icons.Outlined.Settings, contentDescription = null, modifier = Modifier)
             }
 
-            LazyRow(
-                contentPadding = PaddingValues(
-                    vertical = 8.dp,
-                    horizontal = 16.dp
-                ),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                items(uiState.typeList) {
-                    OptionFilter(it) {
-                        query(it.name)
-                    }
+            if (isShowBottomSheet) {
+                BottomSheet(type = uiState.typeList, query = query) {
+                    isShowBottomSheet = false
                 }
             }
             LazyVerticalGrid(
@@ -121,8 +137,60 @@ internal fun PokemonListScreen(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun OptionFilter(tag: Type, onClick: () -> Unit = {}) {
+fun BottomSheet(
+    type: List<Type>,
+    query: (String) -> Unit,
+    onDismiss: () -> Unit
+) {
+    val modalBottomSheetState = rememberModalBottomSheetState()
+
+    ModalBottomSheet(
+        onDismissRequest = { onDismiss() },
+        sheetState = modalBottomSheetState,
+        dragHandle = { BottomSheetDefaults.DragHandle() },
+    ) {
+        FilterOptionsList(type, query, onDismiss)
+    }
+}
+
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+fun FilterOptionsList(
+    type: List<Type>,
+    query: (String) -> Unit,
+    onDismiss: () -> Unit,
+) {
+    Column(
+        modifier = Modifier.padding(
+            top = 0.dp,
+            bottom = 60.dp,
+            start = 8.dp,
+            end = 8.dp
+        )
+    ) {
+        Text(
+            text = "Selecione o tipo do pokemon",
+            modifier = Modifier.padding(bottom = 16.dp)
+        )
+        FlowRow(
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            type.forEach { type ->
+                FilterOption(tag = type) {
+                    query(type.name)
+                    onDismiss()
+                }
+            }
+        }
+    }
+
+}
+
+@Composable
+fun FilterOption(tag: Type, onClick: () -> Unit = {}) {
     Box(
         Modifier
             .clickable { onClick() }
@@ -140,5 +208,5 @@ fun OptionFilter(tag: Type, onClick: () -> Unit = {}) {
 @Preview
 @Composable
 fun OptionFilterPreview() {
-    OptionFilter(Type(name = "Fire", enabled = true))
+    FilterOption(Type(name = "Fire", enabled = true))
 }
