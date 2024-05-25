@@ -21,6 +21,9 @@
             <option value="$PROJECT_DIR$/features/home" />
             <option value="$PROJECT_DIR$/features/home/implementation" />
             <option value="$PROJECT_DIR$/features/home/public" />
+            <option value="$PROJECT_DIR$/features/list" />
+            <option value="$PROJECT_DIR$/features/list/implementation" />
+            <option value="$PROJECT_DIR$/features/list/public" />
             <option value="$PROJECT_DIR$/flipper" />
             <option value="$PROJECT_DIR$/network" />
           </set>
