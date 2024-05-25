@@ -6,7 +6,7 @@ import androidx.paging.PagingData
 import com.example.pokedexcompose.data.database.PokemonDao
 import com.example.pokedexcompose.data.datasource.PokemonDataSource
 import com.example.pokedexcompose.data.mappers.PokemonDtoToDomain
-import com.example.pokedexcompose.data.mappers.ListOfPokemonTypesDtoToDomain
+import com.example.pokedexcompose.data.mappers.TypeListDtoToDomain
 import com.example.pokedexcompose.domain.mapper.PokemonListDtoToDomain
 import com.example.pokedexcompose.domain.model.PokemonInfo
 import com.example.pokedexcompose.domain.model.ResultListDomain
@@ -20,7 +20,7 @@ class PokemonRepositoryImpl(
     private val pokemonDataSource: PokemonDataSource,
     private val pokemonDetailsToDomain: PokemonDtoToDomain,
     private val pokemonListToDomain: PokemonListDtoToDomain,
-    private val typeListToDomain: ListOfPokemonTypesDtoToDomain,
+    private val typeListToDomain: TypeListDtoToDomain,
     private val pokemonDao: PokemonDao
 ) : PokemonRepository {
 
@@ -34,7 +34,8 @@ class PokemonRepositoryImpl(
                     query = filter,
                     daoPokemon = pokemonDao
                 )
-            }).flow
+            }
+        ).flow
     }
 
     override suspend fun getPokemonDetail(pokemonId: Int): Flow<PokemonInfo> {
@@ -48,5 +49,4 @@ class PokemonRepositoryImpl(
     override suspend fun getTypeList(): TypeListDomain {
         return typeListToDomain.map(pokemonDataSource.typeList())
     }
-
 }

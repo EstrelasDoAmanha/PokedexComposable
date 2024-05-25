@@ -99,4 +99,3 @@ data class Statistics(
     @SerialName("stat")
     val stat: StatisticInfo = StatisticInfo()
 )
-

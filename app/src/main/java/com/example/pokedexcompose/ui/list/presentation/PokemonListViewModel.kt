@@ -24,10 +24,12 @@ internal class PokemonListViewModel(
     }
 
     private suspend fun getPokemonList() {
-        updateState(ListUiState(
-            result = useCase.getPokemonList(),
-            loading = false
-        ))
+        updateState(
+            ListUiState(
+                result = useCase.getPokemonList(),
+                loading = false
+            )
+        )
     }
 
     private suspend fun getTypeList() {
@@ -41,24 +43,24 @@ internal class PokemonListViewModel(
     fun updateListByFilter(query: String) {
         var resetFilter = query
         val listType = this.uiState.value.typeList.map {
-            if(it.name == query){
-                if(it.enabled){
+            if (it.name == query) {
+                if (it.enabled) {
                     resetFilter = ""
                     it.copy(enabled = false)
-                }else {
+                } else {
                     it.copy(enabled = true)
                 }
-            }else{
+            } else {
                 it.copy(enabled = false)
             }
-
         }
         viewModelScope.launch(Dispatchers.IO) {
             updateState(
                 this@PokemonListViewModel.uiState.value.copy(
-                result = useCase.getPokemonList(resetFilter),
-                typeList = listType
-            ))
+                    result = useCase.getPokemonList(resetFilter),
+                    typeList = listType
+                )
+            )
         }
     }
 

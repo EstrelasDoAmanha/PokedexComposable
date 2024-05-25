@@ -9,8 +9,8 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
-import com.example.pokedexcompose.ui.list.presentation.PokemonListScreen
 import com.example.pokedexcompose.ui.list.presentation.ListUiState
+import com.example.pokedexcompose.ui.list.presentation.PokemonListScreen
 import com.example.pokedexcompose.ui.list.presentation.PokemonListViewModel
 import org.koin.androidx.compose.koinViewModel
 

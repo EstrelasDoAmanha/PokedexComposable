@@ -2,15 +2,15 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "60a9993be00e8df46eaf28cb27cfbd17",
+    "identityHash": "84957595f971958208a07e764a43126b",
     "entities": [
       {
         "tableName": "PokemonDb",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT, `url` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT, `url` TEXT, `gif` TEXT, `type` TEXT, PRIMARY KEY(`id`))",
         "fields": [
           {
-            "fieldPath": "uid",
-            "columnName": "uid",
+            "fieldPath": "id",
+            "columnName": "id",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -25,12 +25,24 @@
             "columnName": "url",
             "affinity": "TEXT",
             "notNull": false
+          },
+          {
+            "fieldPath": "gif",
+            "columnName": "gif",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "type",
+            "columnName": "type",
+            "affinity": "TEXT",
+            "notNull": false
           }
         ],
         "primaryKey": {
-          "autoGenerate": true,
+          "autoGenerate": false,
           "columnNames": [
-            "uid"
+            "id"
           ]
         },
         "indices": [],
@@ -40,7 +52,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '60a9993be00e8df46eaf28cb27cfbd17')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '84957595f971958208a07e764a43126b')"
     ]
   }
 }

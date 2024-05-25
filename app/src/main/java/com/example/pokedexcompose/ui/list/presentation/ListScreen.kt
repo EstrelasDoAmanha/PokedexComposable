@@ -54,7 +54,6 @@ internal fun PokemonListScreen(
         val lazyPokemon: LazyPagingItems<ResultListDomain> =
             uiState.result.collectAsLazyPagingItems()
         Column {
-
             Button(
                 modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
                 onClick = { query("") }
@@ -62,12 +61,15 @@ internal fun PokemonListScreen(
                 Text(text = "Limpar filtros")
             }
 
-            LazyRow(contentPadding = PaddingValues(
-                vertical = 8.dp,
-                horizontal = 16.dp
-            ), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            LazyRow(
+                contentPadding = PaddingValues(
+                    vertical = 8.dp,
+                    horizontal = 16.dp
+                ),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
                 items(uiState.typeList) {
-                    OptionFilter(it){
+                    OptionFilter(it) {
                         query(it.name)
                     }
                 }
@@ -120,22 +122,23 @@ internal fun PokemonListScreen(
 }
 
 @Composable
-fun OptionFilter(
-    tag: Type,
-    onClick:() -> Unit = {}
-){
+fun OptionFilter(tag: Type, onClick: () -> Unit = {}) {
     Box(
         Modifier
             .clickable { onClick() }
             .clip(RoundedCornerShape(10.dp))
-            .background(if (tag.enabled) Color.Blue else Color.Black),
+            .background(if (tag.enabled) Color.Blue else Color.Black)
     ) {
-        Text(text = tag.name, Modifier.padding(vertical = 2.dp, horizontal = 6.dp), color = Color.White)
+        Text(
+            text = tag.name,
+            Modifier.padding(vertical = 2.dp, horizontal = 6.dp),
+            color = Color.White
+        )
     }
 }
 
 @Preview
 @Composable
-fun OptionFilterPreview(){
+fun OptionFilterPreview() {
     OptionFilter(Type(name = "Fire", enabled = true))
 }

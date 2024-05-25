@@ -10,6 +10,6 @@ interface PokemonDataSource {
         limit: String = "",
         query: String = ""
     ): PokemonListDto
-    suspend fun  typeList(): ListPokemonTypesDto
+    suspend fun typeList(): ListPokemonTypesDto
     suspend fun getPokemonDetail(pokemonId: Int): PokemonDto
 }

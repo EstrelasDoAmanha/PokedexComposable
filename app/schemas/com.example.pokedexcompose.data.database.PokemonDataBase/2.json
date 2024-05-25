@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "d6e04a4258308f3818ed92643a2e3964",
+    "identityHash": "84957595f971958208a07e764a43126b",
     "entities": [
       {
         "tableName": "PokemonDb",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT, `url` TEXT, `gif` TEXT, `tipo` TEXT, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT, `url` TEXT, `gif` TEXT, `type` TEXT, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -34,7 +34,7 @@
           },
           {
             "fieldPath": "tipo",
-            "columnName": "tipo",
+            "columnName": "type",
             "affinity": "TEXT",
             "notNull": false
           }
@@ -52,7 +52,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd6e04a4258308f3818ed92643a2e3964')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '84957595f971958208a07e764a43126b')"
     ]
   }
 }

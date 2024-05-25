@@ -21,7 +21,7 @@ class AppKoinModules : KoinModules {
         )
     override val cache: List<Module>
         get() = listOf(
-            roomModule,
+            roomModule
         )
 
     override fun KoinApplication.load() {

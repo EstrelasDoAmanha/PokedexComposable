@@ -14,12 +14,10 @@ internal class PokemonListPagingSource(
     private val remoteDataSource: PokemonDataSource,
     private val mapper: PokemonListDtoToDomain,
     private val query: String,
-    private val daoPokemon: PokemonDao,
+    private val daoPokemon: PokemonDao
 ) : PagingSource<Int, ResultListDomain>() {
     private val limit = 20
-    override suspend fun load(
-        params: LoadParams<Int>
-    ): LoadResult<Int, ResultListDomain> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ResultListDomain> {
         return try {
             val offset = params.key ?: 0
             val response = remoteDataSource.getPokemonList(
@@ -34,7 +32,7 @@ internal class PokemonListPagingSource(
                     url = it.url,
                     gif = it.urlGif,
                     id = it.id.toInt(),
-                    tipo = query,
+                    type = query
                 )
             }
             daoPokemon.insertAll(fromDtoToEntity)

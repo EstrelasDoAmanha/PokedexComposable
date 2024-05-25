@@ -10,7 +10,7 @@ data class ResultListDto(
     @SerialName("name")
     val name: String,
     @SerialName("url")
-    val url: String,
+    val url: String
 ) {
     val urlGif by PokemonGifUrl(url)
     val id by PokemonId(url)

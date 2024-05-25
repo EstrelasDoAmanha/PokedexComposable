@@ -6,9 +6,9 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class PokemonDb(
-    @PrimaryKey val id:Int,
+    @PrimaryKey val id: Int,
     @ColumnInfo(name = "name") val name: String?,
     @ColumnInfo(name = "url") val url: String?,
     @ColumnInfo(name = "gif") val gif: String?,
-    @ColumnInfo(name = "tipo") val tipo: String?
+    @ColumnInfo(name = "type") val type: String?
 )
