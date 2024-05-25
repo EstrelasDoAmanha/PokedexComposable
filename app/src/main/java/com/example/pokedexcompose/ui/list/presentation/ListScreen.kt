@@ -18,22 +18,22 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Done
-import androidx.compose.material.icons.outlined.Settings
+import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.BottomSheetDefaults
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.SheetState
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -53,7 +53,9 @@ import com.example.pokedexcompose.domain.model.ResultListDomain
 import com.example.pokedexcompose.domain.model.Type
 import com.example.pokedexcompose.extensions.empty
 import com.pokedexcompose.designsystem.components.loading.Lottie
+import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalMaterial3Api::class)
 @RequiresApi(Build.VERSION_CODES.P)
 @Composable
 internal fun PokemonListScreen(
@@ -64,12 +66,11 @@ internal fun PokemonListScreen(
     if (uiState.loading) {
         Lottie(url = SHIMMER_LOTTIE_JSON)
     } else {
-        val lazyPokemon: LazyPagingItems<ResultListDomain> =
-            uiState.result.collectAsLazyPagingItems()
+        val lazyPokemon: LazyPagingItems<ResultListDomain> = uiState.result.collectAsLazyPagingItems()
         var isShowBottomSheet by remember { mutableStateOf(false) }
-
+        val scope = rememberCoroutineScope()
+        val sheetState = rememberModalBottomSheetState()
         Column {
-
             Row(
                 modifier = Modifier
                     .clickable {
@@ -82,12 +83,24 @@ internal fun PokemonListScreen(
                     )
             ) {
                 Text(text = "Filtro")
-                Icon(Icons.Outlined.Settings, contentDescription = null, modifier = Modifier)
+                Icon(
+                    Icons.Outlined.Settings,
+                    contentDescription = null,
+                    modifier = Modifier
+                )
             }
 
             if (isShowBottomSheet) {
-                BottomSheet(type = uiState.typeList, query = query) {
-                    isShowBottomSheet = false
+                BottomSheet(
+                    type = uiState.typeList,
+                    query = query,
+                    sheetState
+                ) {
+                    scope.launch { sheetState.hide() }.invokeOnCompletion {
+                        if (!sheetState.isVisible) {
+                            isShowBottomSheet = false
+                        }
+                    }
                 }
             }
             LazyVerticalGrid(
@@ -142,13 +155,12 @@ internal fun PokemonListScreen(
 fun BottomSheet(
     type: List<Type>,
     query: (String) -> Unit,
+    sheetState: SheetState,
     onDismiss: () -> Unit
 ) {
-    val modalBottomSheetState = rememberModalBottomSheetState()
-
     ModalBottomSheet(
-        onDismissRequest = { onDismiss() },
-        sheetState = modalBottomSheetState,
+        onDismissRequest = {  },
+        sheetState = sheetState,
         dragHandle = { BottomSheetDefaults.DragHandle() },
     ) {
         FilterOptionsList(type, query, onDismiss)
@@ -190,16 +202,24 @@ fun FilterOptionsList(
 }
 
 @Composable
-fun FilterOption(tag: Type, onClick: () -> Unit = {}) {
+fun FilterOption(
+    tag: Type,
+    onClick: () -> Unit = {}
+) {
     Box(
         Modifier
-            .clickable { onClick() }
+            .clickable {
+                onClick()
+            }
             .clip(RoundedCornerShape(10.dp))
             .background(if (tag.enabled) Color.Blue else Color.Black)
     ) {
         Text(
             text = tag.name,
-            Modifier.padding(vertical = 2.dp, horizontal = 6.dp),
+            Modifier.padding(
+                vertical = 2.dp,
+                horizontal = 6.dp
+            ),
             color = Color.White
         )
     }
@@ -208,5 +228,8 @@ fun FilterOption(tag: Type, onClick: () -> Unit = {}) {
 @Preview
 @Composable
 fun OptionFilterPreview() {
-    FilterOption(Type(name = "Fire", enabled = true))
+    FilterOption(Type(
+        name = "Fire",
+        enabled = true
+    ))
 }
