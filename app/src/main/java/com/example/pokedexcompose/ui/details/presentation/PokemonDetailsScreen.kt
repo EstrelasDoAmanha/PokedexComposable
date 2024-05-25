@@ -51,6 +51,7 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -60,8 +61,10 @@ import coil.compose.AsyncImage
 import coil.decode.ImageDecoderDecoder
 import coil.decode.SvgDecoder
 import coil.request.ImageRequest
+import com.example.pokedexcompose.R
 import com.example.pokedexcompose.common.SHIMMER_LOTTIE_JSON
 import com.example.pokedexcompose.common.getPokemonHomeSpriteUrl
+import com.example.pokedexcompose.common.ui.ErrorScreenComponent
 import com.example.pokedexcompose.domain.model.PokemonInfo
 import com.example.pokedexcompose.domain.model.PokemonStatistics
 import com.example.pokedexcompose.domain.model.PokemonType
@@ -77,7 +80,15 @@ fun PokemonDetailScreen(
 ) {
     when {
         uiState.isLoading -> LoadingCardContent()
-        uiState.isError -> ErrorCard(modifier, onRetryClick)
+        uiState.isError -> ErrorScreenComponent(
+            title = stringResource(R.string.details_error_title),
+            body = stringResource(R.string.details_error_message),
+            primaryButtonText = stringResource(R.string.try_again_button),
+            icon = Icons.Outlined.ErrorOutline,
+            modifier = modifier
+        ) {
+            onRetryClick()
+        }
         else -> DetailsMainContent(uiState, modifier)
     }
 }
@@ -121,7 +132,6 @@ private fun DetailsMainContent(uiState: PokemonDetailsUiState, modifier: Modifie
                     .align(Alignment.TopEnd)
                     .padding(top = 24.dp, end = 16.dp)
                     .alpha(0.5f)
-                // .offset(x = 20.dp)
 
             )
 

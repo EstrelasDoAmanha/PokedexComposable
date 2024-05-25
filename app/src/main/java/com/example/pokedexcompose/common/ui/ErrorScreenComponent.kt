@@ -9,6 +9,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ErrorOutline
+import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -30,9 +33,10 @@ import com.example.pokedexcompose.extensions.empty
 fun ErrorScreenComponent(
     title: String,
     body: String,
-    icon: ImageVector,
     primaryButtonText: String,
     modifier: Modifier = Modifier,
+    icon: ImageVector? = null,
+    iconTintColor: Color = MaterialTheme.colorScheme.error,
     secondButtonText: String = String.empty(),
     onSecondButtonClick: () -> Unit = {},
     onPrimaryButtonClick: () -> Unit
@@ -47,19 +51,33 @@ fun ErrorScreenComponent(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            AsyncImage(
-                alignment = Alignment.Center,
-                contentScale = ContentScale.Inside,
-                // contentScale = ContentScale.Fit,
-                model = getPokemonHomeSpriteUrl(),
-                contentDescription = null,
-                modifier = Modifier
-                    .fillMaxWidth(0.8f)
-                    .fillMaxHeight(0.4f)
-                    .padding(
-                        8.dp
-                    )
-            )
+            if (icon == null) {
+                AsyncImage(
+                    alignment = Alignment.Center,
+                    contentScale = ContentScale.Inside,
+                    // contentScale = ContentScale.Fit,
+                    model = getPokemonHomeSpriteUrl(),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .fillMaxWidth(0.8f)
+                        .fillMaxHeight(0.4f)
+                        .padding(
+                            8.dp
+                        )
+                )
+            } else {
+                Icon(
+                    imageVector = icon,
+                    contentDescription = "image",
+                    tint = iconTintColor,
+                    modifier = Modifier
+                        .fillMaxWidth(0.8f)
+                        .fillMaxHeight(0.4f)
+                        .padding(
+                            8.dp
+                        )
+                )
+            }
 
             Text(
                 textAlign = TextAlign.Center,
@@ -87,16 +105,37 @@ fun ErrorScreenComponent(
                     .fillMaxSize()
                     .padding(bottom = 8.dp)
             ) {
-                OutlinedButton(
-                    onClick = {
-                        onPrimaryButtonClick()
-                    }
+                Column(
+                    verticalArrangement = Arrangement.SpaceAround,
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(vertical = 72.dp)
                 ) {
-                    Text(
-                        text = primaryButtonText,
-                        modifier = Modifier
-                            .padding(8.dp)
-                    )
+                    OutlinedButton(
+                        onClick = {
+                            onPrimaryButtonClick()
+                        }
+                    ) {
+                        Text(
+                            text = primaryButtonText,
+                            modifier = Modifier
+                                .padding(8.dp)
+                        )
+                    }
+                    if (secondButtonText.isNotEmpty()) {
+                        Button(
+                            onClick = {
+                                onSecondButtonClick()
+                            }
+                        ) {
+                            Text(
+                                text = secondButtonText,
+                                modifier = Modifier
+                                    .padding(8.dp)
+                            )
+                        }
+                    }
                 }
             }
         }
@@ -107,10 +146,11 @@ fun ErrorScreenComponent(
 @Composable
 fun ErrorScreenComponentPreview() {
     ErrorScreenComponent(
-        "Ops!",
-        "Não encontramos o que buscavamos!\nQue tal tentar novamente?",
-        Icons.Outlined.ErrorOutline,
-        "Tentar Novamente"
+        title = "Ops!",
+        body = "Não encontramos o que buscavamos!\nQue tal tentar novamente?",
+        icon = Icons.Outlined.ErrorOutline,
+        iconTintColor = MaterialTheme.colorScheme.error,
+        primaryButtonText = "Tentar Novamente"
     ) {
     }
 }

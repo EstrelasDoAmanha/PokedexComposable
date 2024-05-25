@@ -71,6 +71,7 @@ class PokemonDetailsViewModel(
         _uiState.update {
             it.copy(
                 isLoading = false,
+                isError = false,
                 pokemonInfo = pokemonInfo
             )
         }
