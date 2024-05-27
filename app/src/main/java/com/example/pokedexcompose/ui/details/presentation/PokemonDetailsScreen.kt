@@ -85,7 +85,6 @@ fun PokemonDetailScreen(
             title = stringResource(R.string.details_error_title),
             body = stringResource(R.string.details_error_message),
             primaryButtonText = stringResource(R.string.try_again_button),
-            icon = Icons.Outlined.ErrorOutline,
             modifier = modifier
         ) {
             onRetryClick()
@@ -287,10 +286,11 @@ private fun PokemonTypeComponent(
     }
 }
 
-// Height informartion is in decimetros
+// Height information cames in decimetros
 fun getFormattedHeightInfo(height: Int) = "${height * 10}cm"
 
-fun getFormattedWeightInfo(weight: Int) = "${weight}Kg"
+// Weight information cames in hectograms
+fun getFormattedWeightInfo(weight: Int) = "${weight / 10}Kg"
 
 @Composable
 private fun ErrorCard(modifier: Modifier = Modifier, onRetryClick: () -> Unit) {
@@ -342,13 +342,6 @@ private fun ErrorCard(modifier: Modifier = Modifier, onRetryClick: () -> Unit) {
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun ErrorCardPreview() {
-    ErrorCard {
-    }
-}
-
 private fun getPokemonBgColor(type: List<PokemonType>): Color {
     return type.firstOrNull()?.let {
         TypeColor.parse(it.name).color
@@ -385,22 +378,6 @@ private fun PokemonInfoComp(icon: ImageVector, iconDescription: String, infoText
             text = infoText
         )
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PokemonIconTypeComponentPreview() {
-    PokemonTypeComponent(type = "Grass")
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PokemonInfoCompPreview() {
-    PokemonInfoComp(
-        icon = Icons.Filled.Balance,
-        iconDescription = "peso",
-        infoText = "6000Kg"
-    )
 }
 
 @Composable
@@ -460,11 +437,39 @@ fun PokemonAttributeComp(stat: PokemonStatistics) {
 private fun getStatsColor(stat: PokemonStatistics) =
     (if (stat.baseStat < 60) Color.Red else Color.Green).copy(alpha = 0.4f)
 
+fun getPokemonTypeUrl(type: String): String {
+    return "https://raw.githubusercontent.com/" +
+        "duiker101/pokemon-type-svg-icons/master/icons/$type.svg"
+}
+
 @RequiresApi(Build.VERSION_CODES.P)
 @Preview
 @Composable
 fun PokemonDetailScreenPreview() {
     PokemonDetailScreen(getUiState(), updateTopBarColor = {}) {}
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PokemonIconTypeComponentPreview() {
+    PokemonTypeComponent(type = "Grass")
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PokemonInfoCompPreview() {
+    PokemonInfoComp(
+        icon = Icons.Filled.Balance,
+        iconDescription = "peso",
+        infoText = "6000Kg"
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ErrorCardPreview() {
+    ErrorCard {
+    }
 }
 
 fun getUiState() = PokemonDetailsUiState(
@@ -516,9 +521,4 @@ fun getStatsList(): List<PokemonStatistics> {
             baseStat = 55
         )
     )
-}
-
-fun getPokemonTypeUrl(type: String): String {
-    return "https://raw.githubusercontent.com/" +
-        "duiker101/pokemon-type-svg-icons/master/icons/$type.svg"
 }
