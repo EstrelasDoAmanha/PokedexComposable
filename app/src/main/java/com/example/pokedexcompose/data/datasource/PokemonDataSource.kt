@@ -7,7 +7,9 @@ import com.example.pokedexcompose.data.model.PokemonListDto
 interface PokemonDataSource {
     suspend fun getPokemonList(
         offset: String = "",
-        limit: String = "",
+        limit: String = ""
+    ): PokemonListDto
+    suspend fun getPokemonListWithFilter(
         query: String = ""
     ): PokemonListDto
     suspend fun typeList(): TypeListDto

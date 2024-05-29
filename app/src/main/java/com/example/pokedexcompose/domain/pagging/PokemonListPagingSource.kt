@@ -20,11 +20,16 @@ internal class PokemonListPagingSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ResultListDomain> {
         return try {
             val offset = params.key ?: 0
-            val response = remoteDataSource.getPokemonList(
-                offset = "$offset",
-                limit = "$limit",
-                query = query
-            )
+            val response = if(query.isBlank()){
+               remoteDataSource.getPokemonList(
+                    offset = "$offset",
+                    limit = "$limit"
+                )
+            }else {
+                remoteDataSource.getPokemonListWithFilter(
+                    query = query
+                )
+            }
             val nextOffset = offset + limit
             val fromDtoToEntity = response.result.map {
                 PokemonDb(

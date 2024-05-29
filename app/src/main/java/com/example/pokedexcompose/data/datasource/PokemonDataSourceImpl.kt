@@ -15,20 +15,17 @@ class PokemonDataSourceImpl(
 
     override suspend fun getPokemonList(
         offset: String,
-        limit: String,
-        query: String
-    ): PokemonListDto {
-        return if (query.isBlank()) {
-            pokemonClient.httpClient.request<Any, PokemonListDto> {
-                url = "${pokemonClient.baseUrl}pokemon"
-                parameters = listOf("limit" to "$limit", "offset" to "$offset")
-            }
-        } else {
-            val response = pokemonClient.httpClient.request<Any, PokemonByTypesDto> {
-                url = "${pokemonClient.baseUrl}type/$query"
-            }
-            PokemonListDto(result = listPokemonByFilterToDomain.map(response))
+        limit: String
+    ) = pokemonClient.httpClient.request<Any, PokemonListDto> {
+        url = "${pokemonClient.baseUrl}pokemon"
+        parameters = listOf("limit" to "$limit", "offset" to "$offset")
+    }
+
+    override suspend fun getPokemonListWithFilter(query: String): PokemonListDto {
+        val response = pokemonClient.httpClient.request<Any, PokemonByTypesDto> {
+            url = "${pokemonClient.baseUrl}type/$query"
         }
+        return PokemonListDto(result = listPokemonByFilterToDomain.map(response))
     }
 
     override suspend fun typeList() = with(pokemonClient.httpClient) {
