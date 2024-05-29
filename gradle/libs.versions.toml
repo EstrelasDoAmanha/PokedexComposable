@@ -128,7 +128,7 @@ ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 androidxRoom = { id = "androidx.room", version.ref = "room" }
-kotlin-kapt = { id = "kotlin-kapt", version.ref = "kotlinKapt" }
+kotlin_kapt = { id = "kapt", version.ref = "kotlinKapt" }
 
 [bundles]
 

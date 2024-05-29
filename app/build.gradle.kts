@@ -6,7 +6,7 @@ plugins {
     alias(deps.plugins.kotlinSerialization)
     alias(deps.plugins.ktlint)
     alias(deps.plugins.androidxRoom)
-    kotlin("kapt")
+    kotlin(deps.plugins.kotlin.kapt.get().pluginId)
 }
 
 android {
