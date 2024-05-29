@@ -27,8 +27,10 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.SheetState
+import androidx.compose.material3.SheetValue
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
+import androidx.compose.material3.rememberStandardBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -91,7 +93,7 @@ internal fun PokemonListScreen(
             }
 
             if (isShowBottomSheet) {
-                BottomSheet(
+                FilterBottomSheet(
                     type = uiState.typeList,
                     query = query,
                     sheetState
@@ -152,24 +154,24 @@ internal fun PokemonListScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BottomSheet(
-    type: List<Type>,
-    query: (String) -> Unit,
-    sheetState: SheetState,
-    onDismiss: () -> Unit
+fun FilterBottomSheet(
+    type: List<Type> = emptyList(),
+    query: (String) -> Unit = {},
+    sheetState: SheetState = rememberModalBottomSheetState(),
+    onDismiss: () -> Unit = {}
 ) {
     ModalBottomSheet(
         onDismissRequest = {  },
         sheetState = sheetState,
         dragHandle = { BottomSheetDefaults.DragHandle() },
     ) {
-        FilterOptionsList(type, query, onDismiss)
+        FilterList(type, query, onDismiss)
     }
 }
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun FilterOptionsList(
+fun FilterList(
     type: List<Type>,
     query: (String) -> Unit,
     onDismiss: () -> Unit,
@@ -223,6 +225,21 @@ fun FilterOption(
             color = Color.White
         )
     }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Preview(showBackground = true)
+@Composable
+fun FilterBottomSheetPreview(){
+    FilterBottomSheet(
+        type = listOf(
+            Type("Teste 1"),
+            (Type("Teste 1")),
+            (Type("Teste 1")),
+            (Type("Teste 1"))
+        ),
+        sheetState = rememberStandardBottomSheetState(initialValue = SheetValue.Expanded)
+    )
 }
 
 @Preview
