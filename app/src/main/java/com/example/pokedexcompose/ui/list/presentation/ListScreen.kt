@@ -2,6 +2,7 @@ package com.example.pokedexcompose.ui.list.presentation
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -26,13 +27,18 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import coil.compose.AsyncImage
 import coil.decode.ImageDecoderDecoder
 import coil.request.ImageRequest
+import com.example.pokedexcompose.common.SHIMMER_LOTTIE_JSON
 import com.example.pokedexcompose.domain.model.ResultListDomain
 import com.example.pokedexcompose.extensions.empty
 import com.pokedexcompose.designsystem.components.loading.Lottie
 
 @RequiresApi(Build.VERSION_CODES.P)
 @Composable
-internal fun PokemonListScreen(uiState: PokemonListUiState, modifier: Modifier = Modifier) {
+internal fun PokemonListScreen(
+    uiState: PokemonListUiState,
+    modifier: Modifier = Modifier,
+    onItemClick: (String) -> Unit = {}
+) {
     if (uiState.loading) {
         Lottie(url = SHIMMER_LOTTIE_JSON)
     } else {
@@ -52,6 +58,13 @@ internal fun PokemonListScreen(uiState: PokemonListUiState, modifier: Modifier =
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(4.dp)
+                            .clickable {
+                                onItemClick(
+                                    index
+                                        .inc()
+                                        .toString()
+                                )
+                            }
                     ) {
                         Column(
                             horizontalAlignment = Alignment.CenterHorizontally

@@ -1,4 +1,4 @@
-package com.example.pokedexcompose.ui.list.presentation
+package com.example.pokedexcompose.common
 
 const val SHIMMER_LOTTIE_JSON = "https://lottie.host/" +
     "0e24c7b3-d349-4516-9eed-" +

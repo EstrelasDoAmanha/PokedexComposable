@@ -69,6 +69,7 @@ dependencies {
 
     implementation(deps.io.coil.kt.coil.compose)
     implementation(deps.io.coil.kt.coil.gif)
+    implementation(deps.io.coil.kt.coil.svg)
 
     implementation(platform(deps.koin.bom))
     implementation(deps.koin.compose)
@@ -78,6 +79,7 @@ dependencies {
 
     implementation(deps.ktor.client.core)
     implementation(deps.ktor.serialization)
+    implementation(deps.material.icons.extended)
 
     implementation(deps.pagingCompose)
     implementation(deps.pagingRuntime)
