@@ -5,6 +5,7 @@ import androidx.annotation.RequiresApi
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.NavOptions
@@ -17,17 +18,27 @@ import org.koin.androidx.compose.koinViewModel
 const val POKEMON_LIST_ROUTE = "pokemonList"
 
 @RequiresApi(Build.VERSION_CODES.P)
-fun NavGraphBuilder.pokemonList(modifier: Modifier = Modifier) {
+fun NavGraphBuilder.pokemonList(
+    navController: NavHostController,
+    modifier: Modifier = Modifier,
+    updateTitleTopBar: (String) -> Unit,
+    updateTopBarColor: (Color) -> Unit,
+    toPokemonDetails: (String) -> Unit
+) {
     composable(POKEMON_LIST_ROUTE) {
         val viewModel = koinViewModel<PokemonListViewModel>()
         val uiState by viewModel.uiState.collectAsState(initial = ListUiState())
+        updateTitleTopBar("")
+        updateTopBarColor(Color.White)
         PokemonListScreen(
             uiState = uiState,
             modifier = modifier,
             query = {
                 viewModel.updateListByFilter(it)
             }
-        )
+        ) { id ->
+            toPokemonDetails(id)
+        }
     }
 }
 

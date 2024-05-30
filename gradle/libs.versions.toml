@@ -34,6 +34,7 @@ room = "2.6.1"
 material = "1.11.0"
 kotlinKapt = "2.0.0"
 gson = "2.11.0"
+material-icons-extended = "1.6.2"
 
 # Third Party
 ktor = "2.3.9"
@@ -88,6 +89,7 @@ androidx_room_ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 # Google
 material = { module = "com.google.android.material:material", version.ref = "material" }
 google_code_gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
+material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "material-icons-extended" }
 
 # Third Party
 ktor_client_core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
@@ -103,6 +105,7 @@ koin_coroutines = { module = "io.insert-koin:koin-core-coroutines" }
 koin_navigation = { module = "io.insert-koin:koin-androidx-navigation" }
 io_coil_kt_coil_compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
 io_coil_kt_coil_gif = { module = "io.coil-kt:coil-gif", version.ref = "coilCompose" }
+io_coil_kt_coil_svg = {module = "io.coil-kt:coil-svg", version.ref="coilCompose"}
 lottie = { module = "com.airbnb.android:lottie-compose", version.ref = "lottie" }
 flipper = { module = "com.facebook.flipper:flipper", version.ref = "flipper" }
 soloader = { module = "com.facebook.soloader:soloader", version.ref = "soloader" }

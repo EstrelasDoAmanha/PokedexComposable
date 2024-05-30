@@ -1,12 +1,14 @@
 package com.example.pokedexcompose.domain.model
 
+import com.example.pokedexcompose.extensions.empty
+
 data class PokemonInfo(
-    val name: String,
-    val image: String,
-    val height: Int,
-    val id: Int,
-    val order: Int,
-    val weight: Int,
-    val stats: List<PokemonStatistics>,
-    val type: List<PokemonType>
+    val name: String = String.empty(),
+    val image: String = String.empty(),
+    val height: Int = 0,
+    val id: Int = 0,
+    val order: Int = 0,
+    val weight: Int = 0,
+    val stats: List<PokemonStatistics> = emptyList(),
+    val type: List<PokemonType> = emptyList()
 )

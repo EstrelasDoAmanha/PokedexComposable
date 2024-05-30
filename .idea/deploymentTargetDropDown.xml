@@ -2,6 +2,28 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
+      <entry key="ErrorCardPreview">
+        <State />
+      </entry>
+      <entry key="ErrorScreenComponentPreview">
+        <State />
+      </entry>
+      <entry key="PokemonDetailScreenPreview">
+        <State>
+          <runningDeviceTargetSelectedWithDropDown>
+            <Target>
+              <type value="RUNNING_DEVICE_TARGET" />
+              <deviceKey>
+                <Key>
+                  <type value="SERIAL_NUMBER" />
+                  <value value="adb-RQCX30BC9MK-dvAY5l._adb-tls-connect._tcp" />
+                </Key>
+              </deviceKey>
+            </Target>
+          </runningDeviceTargetSelectedWithDropDown>
+          <timeTargetWasSelectedWithDropDown value="2024-05-11T01:47:16.445832500Z" />
+        </State>
+      </entry>
       <entry key="app">
         <State />
       </entry>

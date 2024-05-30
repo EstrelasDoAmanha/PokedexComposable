@@ -5,5 +5,5 @@ data class ResultListDomain(
     var name: String = "",
     val url: String = "",
     val gif: String = "",
-    val types: List<PokemonType> = listOf(PokemonType(slot = 1, type = Type(name = "normal")))
+    val types: List<PokemonType> = listOf((PokemonType("fogo")))
 )

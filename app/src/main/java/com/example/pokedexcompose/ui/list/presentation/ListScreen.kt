@@ -51,6 +51,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import coil.compose.AsyncImage
 import coil.decode.ImageDecoderDecoder
 import coil.request.ImageRequest
+import com.example.pokedexcompose.common.SHIMMER_LOTTIE_JSON
 import com.example.pokedexcompose.domain.model.ResultListDomain
 import com.example.pokedexcompose.domain.model.Type
 import com.example.pokedexcompose.extensions.empty
@@ -63,7 +64,8 @@ import kotlinx.coroutines.launch
 internal fun PokemonListScreen(
     uiState: ListUiState,
     modifier: Modifier = Modifier,
-    query: (String) -> Unit
+    query: (String) -> Unit,
+    onItemClick: (String) -> Unit = {}
 ) {
     if (uiState.loading) {
         Lottie(url = SHIMMER_LOTTIE_JSON)
@@ -122,6 +124,11 @@ internal fun PokemonListScreen(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(4.dp)
+                                .clickable {
+                                    onItemClick(
+                                        index.inc().toString()
+                                    )
+                                }
                         ) {
                             Column(
                                 horizontalAlignment = Alignment.CenterHorizontally
