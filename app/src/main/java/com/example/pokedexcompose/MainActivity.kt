@@ -22,6 +22,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
@@ -41,8 +42,9 @@ class MainActivity : ComponentActivity() {
             PokedexComposeTheme {
                 val navController = rememberNavController()
                 val initialColor = MaterialTheme.colorScheme.surfaceContainer
+                val initialTitle = stringResource(R.string.main_title)
                 var title by remember {
-                    mutableStateOf("Pokemon")
+                    mutableStateOf(initialTitle)
                 }
                 var topBarColor by remember {
                     mutableStateOf(initialColor)

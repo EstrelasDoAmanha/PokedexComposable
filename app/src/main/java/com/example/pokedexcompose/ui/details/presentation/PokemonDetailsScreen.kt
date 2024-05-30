@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -28,15 +27,15 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Balance
 import androidx.compose.material.icons.filled.Expand
-import androidx.compose.material.icons.outlined.ErrorOutline
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -75,8 +74,8 @@ import kotlin.random.Random
 @Composable
 fun PokemonDetailScreen(
     uiState: PokemonDetailsUiState,
-    modifier: Modifier = Modifier,
     updateTopBarColor: (Color) -> Unit,
+    modifier: Modifier = Modifier,
     onRetryClick: () -> Unit = {}
 ) {
     when {
@@ -85,10 +84,10 @@ fun PokemonDetailScreen(
             title = stringResource(R.string.details_error_title),
             body = stringResource(R.string.details_error_message),
             primaryButtonText = stringResource(R.string.try_again_button),
+            onPrimaryButtonClick = onRetryClick,
             modifier = modifier
-        ) {
-            onRetryClick()
-        }
+        )
+
         else -> DetailsMainContent(uiState, modifier, updateTopBarColor)
     }
 }
@@ -120,17 +119,6 @@ private fun DetailsMainContent(
             modifier = Modifier
                 .fillMaxWidth()
         ) {
-//            Text(
-//                text = uiState.pokemonInfo.name.capitalize(),
-//                fontWeight = FontWeight.Black,
-//                fontSize = 28.sp,
-//                textAlign = TextAlign.Start,
-//                color = Color.White,
-//                modifier = Modifier
-//                    .align(Alignment.TopStart)
-//                    .padding(horizontal = 16.dp, vertical = 8.dp)
-//            )
-
             Text(
                 text = uiState.pokemonInfo.id.toString(),
                 fontWeight = FontWeight.Black,
@@ -286,61 +274,11 @@ private fun PokemonTypeComponent(
     }
 }
 
-// Height information cames in decimetros
-fun getFormattedHeightInfo(height: Int) = "${height * 10}cm"
-
-// Weight information cames in hectograms
-fun getFormattedWeightInfo(weight: Int) = "${weight / 10}Kg"
+@Composable
+fun getFormattedHeightInfo(height: Int) = stringResource(R.string.height_in_centimeter, height * 10)
 
 @Composable
-private fun ErrorCard(modifier: Modifier = Modifier, onRetryClick: () -> Unit) {
-    Column(
-        verticalArrangement = Arrangement.Top,
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier
-            .fillMaxSize()
-            .padding(top = 128.dp)
-    ) {
-        Column(
-            verticalArrangement = Arrangement.SpaceEvenly,
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier
-                .fillMaxWidth(0.6f)
-                .clip(
-                    shape = RoundedCornerShape(16.dp)
-                )
-                .background(color = MaterialTheme.colorScheme.surfaceContainer)
-        ) {
-            // Lottie(url = " https://lottie.host/08afaf2e-95bd-4c78-b6a3-7a8935da558e/gNwFOOwGx6.json")
-            Icon(
-                imageVector = Icons.Outlined.ErrorOutline,
-                contentDescription = "Alerta",
-                tint = MaterialTheme.colorScheme.error,
-                modifier = Modifier
-                    .size(100.dp)
-                    .align(Alignment.CenterHorizontally)
-                    .padding(16.dp)
-            )
-            Spacer(modifier = Modifier.padding(16.dp))
-            Text(
-                text = "ERROU",
-                modifier = Modifier
-                    .align(Alignment.CenterHorizontally)
-            )
-            Spacer(modifier = Modifier.padding(16.dp))
-            OutlinedButton(
-                onClick = {
-                    onRetryClick()
-                },
-                modifier = Modifier
-                    .align(Alignment.CenterHorizontally)
-                    .padding(bottom = 24.dp)
-            ) {
-                Text(text = "Tentar novamente")
-            }
-        }
-    }
-}
+fun getFormattedWeightInfo(weight: Int) = stringResource(R.string.weight_in_kilo, weight / 10)
 
 private fun getPokemonBgColor(type: List<PokemonType>): Color {
     return type.firstOrNull()?.let {
@@ -382,6 +320,9 @@ private fun PokemonInfoComp(icon: ImageVector, iconDescription: String, infoText
 
 @Composable
 fun PokemonAttributeComp(stat: PokemonStatistics) {
+    val maxStatsValue by remember { mutableFloatStateOf(252f) }
+    val animDuration by remember { mutableIntStateOf(1500) }
+
     Row(
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically,
@@ -390,13 +331,12 @@ fun PokemonAttributeComp(stat: PokemonStatistics) {
         var animationPlayed by remember {
             mutableStateOf(false)
         }
-        val percent = stat.baseStat / 252f
+        val percent = stat.baseStat / maxStatsValue
         val currentPercent = animateFloatAsState(
-            label = "stats percent" +
-                "",
+            label = stringResource(R.string.pokemon_stats_animation_label),
             targetValue = if (animationPlayed) percent else 0f,
             animationSpec = tween(
-                durationMillis = 1500,
+                durationMillis = animDuration,
                 delayMillis = 0
             )
         )
@@ -423,7 +363,6 @@ fun PokemonAttributeComp(stat: PokemonStatistics) {
             textAlign = TextAlign.Center
         )
 
-        // 252 is the maximum stats value
         LinearProgressIndicator(
             progress = { currentPercent.value },
             color = getStatsColor(stat),
@@ -463,13 +402,6 @@ fun PokemonInfoCompPreview() {
         iconDescription = "peso",
         infoText = "6000Kg"
     )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun ErrorCardPreview() {
-    ErrorCard {
-    }
 }
 
 fun getUiState() = PokemonDetailsUiState(

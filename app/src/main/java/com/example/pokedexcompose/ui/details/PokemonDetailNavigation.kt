@@ -6,7 +6,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.capitalize
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.NavOptions
@@ -35,7 +34,11 @@ fun NavGraphBuilder.pokemonDetails(
         val viewModel = koinViewModel<PokemonDetailsViewModel>()
         val uiState by viewModel.uiState.collectAsState(initial = PokemonDetailsUiState())
         updateTitleTopBar(uiState.pokemonInfo.name.capitalize())
-        PokemonDetailScreen(uiState, modifier, updateTopBarColor) {
+        PokemonDetailScreen(
+            uiState = uiState,
+            updateTopBarColor = updateTopBarColor,
+            modifier = modifier
+        ) {
             viewModel.retry()
         }
     }

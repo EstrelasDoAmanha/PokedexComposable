@@ -34,12 +34,12 @@ fun ErrorScreenComponent(
     title: String,
     body: String,
     primaryButtonText: String,
+    onPrimaryButtonClick: () -> Unit,
     modifier: Modifier = Modifier,
     icon: ImageVector? = null,
     iconTintColor: Color = MaterialTheme.colorScheme.error,
     secondButtonText: String = String.empty(),
-    onSecondButtonClick: () -> Unit = {},
-    onPrimaryButtonClick: () -> Unit
+    onSecondButtonClick: () -> Unit = {}
 ) {
     Box(
         contentAlignment = Alignment.TopCenter,
@@ -51,13 +51,11 @@ fun ErrorScreenComponent(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            if (icon == null) {
-                AsyncImage(
-                    alignment = Alignment.Center,
-                    contentScale = ContentScale.Inside,
-                    // contentScale = ContentScale.Fit,
-                    model = getPokemonHomeSpriteUrl(),
-                    contentDescription = null,
+            icon?.let {
+                Icon(
+                    imageVector = it,
+                    contentDescription = "image",
+                    tint = iconTintColor,
                     modifier = Modifier
                         .fillMaxWidth(0.8f)
                         .fillMaxHeight(0.4f)
@@ -65,11 +63,12 @@ fun ErrorScreenComponent(
                             8.dp
                         )
                 )
-            } else {
-                Icon(
-                    imageVector = icon,
-                    contentDescription = "image",
-                    tint = iconTintColor,
+            } ?: run {
+                AsyncImage(
+                    alignment = Alignment.Center,
+                    contentScale = ContentScale.Inside,
+                    model = getPokemonHomeSpriteUrl(),
+                    contentDescription = null,
                     modifier = Modifier
                         .fillMaxWidth(0.8f)
                         .fillMaxHeight(0.4f)
@@ -150,7 +149,7 @@ fun ErrorScreenComponentPreview() {
         body = "Não encontramos o que buscavamos!\nQue tal tentar novamente?",
         icon = Icons.Outlined.ErrorOutline,
         iconTintColor = MaterialTheme.colorScheme.error,
-        primaryButtonText = "Tentar Novamente"
-    ) {
-    }
+        primaryButtonText = "Tentar Novamente",
+        onPrimaryButtonClick = {}
+    )
 }

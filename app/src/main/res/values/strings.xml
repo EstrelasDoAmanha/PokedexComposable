@@ -3,4 +3,9 @@
     <string name="details_error_title">Ops!</string>
     <string name="details_error_message">Error ao buscar os detalhes do Pokemon!\nQue tal tentar novamente?</string>
     <string name="try_again_button">Tentar Novamente</string>
+    <string name="main_title">Pokemon</string>
+    <string name="content_desc_alert">Alerta</string>
+    <string name="pokemon_stats_animation_label">pokemon stats animation</string>
+    <string name="height_in_centimeter">%1$scm</string>
+    <string name="weight_in_kilo">%1$sKg</string>
 </resources>
