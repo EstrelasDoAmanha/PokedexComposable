@@ -23,19 +23,23 @@ fun NavGraphBuilder.pokemonList(
     modifier: Modifier = Modifier,
     updateTitleTopBar: (String) -> Unit,
     updateTopBarColor: (Color) -> Unit,
+    iShowFilterActionSheet: Boolean,
+    iShowFilterActionSheetChange: (Boolean) -> Unit,
     toPokemonDetails: (String) -> Unit
 ) {
     composable(POKEMON_LIST_ROUTE) {
         val viewModel = koinViewModel<PokemonListViewModel>()
         val uiState by viewModel.uiState.collectAsState(initial = ListUiState())
-        updateTitleTopBar("")
+        updateTitleTopBar("Lista de Pokémons")
         updateTopBarColor(Color.White)
         PokemonListScreen(
             uiState = uiState,
             modifier = modifier,
+            iShowFilterActionSheet = iShowFilterActionSheet,
             query = {
                 viewModel.updateListByFilter(it)
-            }
+            },
+            iShowFilterActionSheetChange = iShowFilterActionSheetChange,
         ) { id ->
             toPokemonDetails(id)
         }

@@ -16,6 +16,8 @@ import com.example.pokedexcompose.ui.list.pokemonList
 @Composable
 fun PokemonNavHost(
     navController: NavHostController,
+    iShowFilterActionSheet: Boolean,
+    iShowFilterActionSheetChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
     updateTitleTopBar: (String) -> Unit,
     updateTopBarColor: (Color) -> Unit
@@ -29,6 +31,8 @@ fun PokemonNavHost(
             modifier = modifier,
             updateTitleTopBar = updateTitleTopBar,
             updateTopBarColor = updateTopBarColor,
+            iShowFilterActionSheet = iShowFilterActionSheet,
+            iShowFilterActionSheetChange = iShowFilterActionSheetChange
         ) { pokemonId ->
             navController.navigateToPokemonDetails(pokemonId)
         }

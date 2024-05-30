@@ -16,7 +16,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.BottomSheetDefaults
@@ -32,6 +34,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.material3.rememberStandardBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -65,36 +68,25 @@ internal fun PokemonListScreen(
     uiState: ListUiState,
     modifier: Modifier = Modifier,
     query: (String) -> Unit,
-    onItemClick: (String) -> Unit = {}
+    iShowFilterActionSheetChange: (Boolean) -> Unit = {},
+    iShowFilterActionSheet: Boolean,
+    onItemClick: (String) -> Unit = {},
 ) {
-    if (uiState.loading) {
-        Lottie(url = SHIMMER_LOTTIE_JSON)
-    } else {
-        val lazyPokemon: LazyPagingItems<ResultListDomain> = uiState.result.collectAsLazyPagingItems()
-        var isShowBottomSheet by remember { mutableStateOf(false) }
-        val scope = rememberCoroutineScope()
-        val sheetState = rememberModalBottomSheetState()
-        Column {
-            Row(
-                modifier = Modifier
-                    .clickable {
-                        isShowBottomSheet = true
-                    }
-                    .padding(
-                        end = 16.dp,
-                        start = 16.dp,
-                        top = 16.dp
-                    )
-            ) {
-                Text(text = "Filtro")
-                Icon(
-                    Icons.Outlined.Settings,
-                    contentDescription = null,
-                    modifier = Modifier
-                )
+    Column (Modifier.background(Color.White)) {
+
+        if (uiState.loading) {
+            Lottie(url = SHIMMER_LOTTIE_JSON)
+        } else {
+            val lazyPokemon: LazyPagingItems<ResultListDomain> =
+                uiState.result.collectAsLazyPagingItems()
+            val scope = rememberCoroutineScope()
+            val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+
+            LaunchedEffect(key1 = Unit) {
+                sheetState.expand()
             }
 
-            if (isShowBottomSheet) {
+            if (iShowFilterActionSheet) {
                 FilterBottomSheet(
                     type = uiState.typeList,
                     query = query,
@@ -102,7 +94,7 @@ internal fun PokemonListScreen(
                 ) {
                     scope.launch { sheetState.hide() }.invokeOnCompletion {
                         if (!sheetState.isVisible) {
-                            isShowBottomSheet = false
+                            iShowFilterActionSheetChange(false)
                         }
                     }
                 }
@@ -126,7 +118,9 @@ internal fun PokemonListScreen(
                                 .padding(4.dp)
                                 .clickable {
                                     onItemClick(
-                                        index.inc().toString()
+                                        index
+                                            .inc()
+                                            .toString()
                                     )
                                 }
                         ) {
@@ -164,11 +158,12 @@ internal fun PokemonListScreen(
 fun FilterBottomSheet(
     type: List<Type> = emptyList(),
     query: (String) -> Unit = {},
-    sheetState: SheetState = rememberModalBottomSheetState(),
+    sheetState: SheetState,
     onDismiss: () -> Unit = {}
 ) {
+
     ModalBottomSheet(
-        onDismissRequest = {  },
+        onDismissRequest = { },
         sheetState = sheetState,
         dragHandle = { BottomSheetDefaults.DragHandle() },
     ) {
@@ -237,7 +232,7 @@ fun FilterOption(
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true)
 @Composable
-fun FilterBottomSheetPreview(){
+fun FilterBottomSheetPreview() {
     FilterBottomSheet(
         type = listOf(
             Type("Teste 1"),
@@ -252,8 +247,10 @@ fun FilterBottomSheetPreview(){
 @Preview
 @Composable
 fun OptionFilterPreview() {
-    FilterOption(Type(
-        name = "Fire",
-        enabled = true
-    ))
+    FilterOption(
+        Type(
+            name = "Fire",
+            enabled = true
+        )
+    )
 }

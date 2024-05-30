@@ -41,6 +41,7 @@ internal class PokemonRepositoryImpl(
     }
 
     override suspend fun getTypeList(): TypeListDomain {
-        return typeListToDomain.map(pokemonDataSource.typeList())
+        val result = pokemonDataSource.typeList()
+        return typeListToDomain.map(result)
     }
 }
