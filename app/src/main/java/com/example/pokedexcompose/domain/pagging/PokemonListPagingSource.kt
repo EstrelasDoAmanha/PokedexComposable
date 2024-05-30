@@ -6,29 +6,34 @@ import coil.network.HttpException
 import com.example.pokedexcompose.data.database.PokemonDao
 import com.example.pokedexcompose.data.database.PokemonDb
 import com.example.pokedexcompose.data.datasource.PokemonDataSource
+import com.example.pokedexcompose.data.mappers.PokemonListByFilterDtoToDomain
+import com.example.pokedexcompose.data.model.PokemonListDto
 import com.example.pokedexcompose.domain.mapper.PokemonListDtoToDomain
 import com.example.pokedexcompose.domain.model.ResultListDomain
 import io.ktor.utils.io.errors.IOException
 
 internal class PokemonListPagingSource(
+    private val daoPokemon: PokemonDao,
     private val remoteDataSource: PokemonDataSource,
     private val mapper: PokemonListDtoToDomain,
-    private val query: String,
-    private val daoPokemon: PokemonDao
+    private val listPokemonByFilterToDomain: PokemonListByFilterDtoToDomain,
 ) : PagingSource<Int, ResultListDomain>() {
     private val limit = 20
+    private val query: String = ""
+
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ResultListDomain> {
         return try {
             val offset = params.key ?: 0
-            val response = if(query.isBlank()){
-               remoteDataSource.getPokemonList(
+            val response = if (query.isBlank()) {
+                remoteDataSource.getPokemonList(
                     offset = "$offset",
                     limit = "$limit"
                 )
-            }else {
-                remoteDataSource.getPokemonListWithFilter(
+            } else {
+                val result = remoteDataSource.getPokemonListWithFilter(
                     query = query
                 )
+                PokemonListDto(result = listPokemonByFilterToDomain.map(result))
             }
             val nextOffset = offset + limit
             val fromDtoToEntity = response.result.map {
@@ -40,9 +45,9 @@ internal class PokemonListPagingSource(
                     type = query
                 )
             }
-            daoPokemon.insertAll(fromDtoToEntity)
+            daoPokemon.insertPokemons(fromDtoToEntity)
             val fromEntityToDomain = mapper.map(
-                daoPokemon.getAll(
+                daoPokemon.getPokemonList(
                     offset = offset,
                     limit = limit,
                     search = query

@@ -13,8 +13,8 @@ interface PokemonDao {
             ":search IS NOT NULL AND type " +
             "like '%'||:search||'%' LIMIT :limit OFFSET :offset"
     )
-    fun getAll(offset: Int = 0, limit: Int = 20, search: String = ""): List<PokemonDb>
+    fun getPokemonList(offset: Int = 0, limit: Int = 20, search: String = ""): List<PokemonDb>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(pokemons: List<PokemonDb>)
+    fun insertPokemons(pokemons: List<PokemonDb>)
 }

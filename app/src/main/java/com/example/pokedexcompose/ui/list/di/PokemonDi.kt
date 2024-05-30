@@ -1,5 +1,7 @@
 package com.example.pokedexcompose.ui.list.di
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
 import androidx.room.Room
 import com.example.pokedexcompose.data.database.PokemonDao
 import com.example.pokedexcompose.data.database.PokemonDataBase
@@ -12,6 +14,9 @@ import com.example.pokedexcompose.data.mappers.PokemonTypeDtoToDomain
 import com.example.pokedexcompose.data.mappers.TypeListDtoToDomain
 import com.example.pokedexcompose.data.repository.PokemonRepositoryImpl
 import com.example.pokedexcompose.domain.mapper.PokemonListDtoToDomain
+import com.example.pokedexcompose.domain.pagging.PagingModel
+import com.example.pokedexcompose.domain.pagging.PagingModelImpl
+import com.example.pokedexcompose.domain.pagging.PokemonListPagingSource
 import com.example.pokedexcompose.domain.repository.PokemonRepository
 import com.example.pokedexcompose.domain.usecase.GetPokemonDetailsUseCase
 import com.example.pokedexcompose.domain.usecase.PokemonUseCase
@@ -21,6 +26,7 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModelOf
 import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.factoryOf
+import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 
 val viewModel = module {
@@ -30,6 +36,16 @@ val viewModel = module {
 val domainModule = module {
     factoryOf(::GetPokemonDetailsUseCase)
     factory<PokemonUseCase> { PokemonUseCaseImpl(get()) }
+}
+
+val paging = module {
+    factoryOf(::PokemonListPagingSource)
+    single {
+        PagingConfig(pageSize = 20)
+    }
+    single {
+        Pager(config = get(), pagingSourceFactory = { get<PokemonListPagingSource>() })
+    }
 }
 
 val roomModule = module {
@@ -52,7 +68,7 @@ val roomModule = module {
 val dataModule = module {
     factoryOf(::TypeListDtoToDomain)
     factoryOf(::PokemonListByFilterDtoToDomain)
-    factoryOf(::PokemonRepositoryImpl) { bind<PokemonRepository>() }
+    singleOf(::PokemonRepositoryImpl) { bind<PokemonRepository>() }
     factoryOf(::PokemonDtoToDomain)
     factoryOf(::PokemonStatsDtoToDomain)
     factoryOf(::PokemonTypeDtoToDomain)

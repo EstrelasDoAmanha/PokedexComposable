@@ -9,8 +9,7 @@ import com.pokedexcompose.network.client.KtorHttpClient
 import com.pokedexcompose.network.dsl.request
 
 class PokemonDataSourceImpl(
-    private val pokemonClient: KtorHttpClient,
-    private val listPokemonByFilterToDomain: PokemonListByFilterDtoToDomain
+    private val pokemonClient: KtorHttpClient
 ) : PokemonDataSource {
 
     override suspend fun getPokemonList(
@@ -21,12 +20,9 @@ class PokemonDataSourceImpl(
         parameters = listOf("limit" to "$limit", "offset" to "$offset")
     }
 
-    override suspend fun getPokemonListWithFilter(query: String): PokemonListDto {
-        val response = pokemonClient.httpClient.request<Any, PokemonByTypesDto> {
+    override suspend fun getPokemonListWithFilter(query: String) = pokemonClient.httpClient.request<Any, PokemonByTypesDto> {
             url = "${pokemonClient.baseUrl}type/$query"
         }
-        return PokemonListDto(result = listPokemonByFilterToDomain.map(response))
-    }
 
     override suspend fun typeList() = with(pokemonClient.httpClient) {
         request<Any, TypeListDto> {
