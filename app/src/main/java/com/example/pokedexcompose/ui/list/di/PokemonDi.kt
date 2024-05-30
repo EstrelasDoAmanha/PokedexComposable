@@ -14,8 +14,6 @@ import com.example.pokedexcompose.data.mappers.PokemonTypeDtoToDomain
 import com.example.pokedexcompose.data.mappers.TypeListDtoToDomain
 import com.example.pokedexcompose.data.repository.PokemonRepositoryImpl
 import com.example.pokedexcompose.domain.mapper.PokemonListDtoToDomain
-import com.example.pokedexcompose.domain.pagging.PagingModel
-import com.example.pokedexcompose.domain.pagging.PagingModelImpl
 import com.example.pokedexcompose.domain.pagging.PokemonListPagingSource
 import com.example.pokedexcompose.domain.repository.PokemonRepository
 import com.example.pokedexcompose.domain.usecase.GetPokemonDetailsUseCase

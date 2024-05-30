@@ -9,6 +9,7 @@ import com.example.pokedexcompose.data.mappers.TypeListDtoToDomain
 import com.example.pokedexcompose.domain.model.PokemonInfo
 import com.example.pokedexcompose.domain.model.ResultListDomain
 import com.example.pokedexcompose.domain.model.TypeListDomain
+import com.example.pokedexcompose.domain.pagging.PokemonListPagingSource
 import com.example.pokedexcompose.domain.repository.PokemonRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
@@ -17,11 +18,12 @@ internal class PokemonRepositoryImpl(
     private val pokemonDataSource: PokemonDataSource,
     private val pokemonDetailsToDomain: PokemonDtoToDomain,
     private val typeListToDomain: TypeListDtoToDomain,
-    private val pager: Pager<PagingConfig, ResultListDomain>,
+    private val pokemonListPagingSource: PokemonListPagingSource
 ) : PokemonRepository {
 
     override suspend fun getPokemonList(query: String): Flow<PagingData<ResultListDomain>> {
-       return pager.flow
+        pokemonListPagingSource.query = query
+       return  Pager(config = PagingConfig(pageSize = 20), pagingSourceFactory = { pokemonListPagingSource }).flow
     }
 
     override suspend fun getPokemonDetail(pokemonId: Int): Flow<PokemonInfo> {

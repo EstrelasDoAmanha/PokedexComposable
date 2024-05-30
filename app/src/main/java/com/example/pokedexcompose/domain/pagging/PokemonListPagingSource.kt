@@ -1,5 +1,6 @@
 package com.example.pokedexcompose.domain.pagging
 
+import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import coil.network.HttpException
@@ -11,15 +12,17 @@ import com.example.pokedexcompose.data.model.PokemonListDto
 import com.example.pokedexcompose.domain.mapper.PokemonListDtoToDomain
 import com.example.pokedexcompose.domain.model.ResultListDomain
 import io.ktor.utils.io.errors.IOException
+import okhttp3.internal.notify
 
 internal class PokemonListPagingSource(
     private val daoPokemon: PokemonDao,
     private val remoteDataSource: PokemonDataSource,
     private val mapper: PokemonListDtoToDomain,
-    private val listPokemonByFilterToDomain: PokemonListByFilterDtoToDomain,
+    private val listPokemonByFilterToDomain: PokemonListByFilterDtoToDomain
 ) : PagingSource<Int, ResultListDomain>() {
+
     private val limit = 20
-    private val query: String = ""
+    var query: String = ""
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ResultListDomain> {
         return try {
@@ -63,6 +66,10 @@ internal class PokemonListPagingSource(
         } catch (exception: HttpException) {
             return LoadResult.Error(exception)
         }
+    }
+
+    suspend fun resetList() {
+       this.invalidate()
     }
 
     override fun getRefreshKey(state: PagingState<Int, ResultListDomain>): Int? {
