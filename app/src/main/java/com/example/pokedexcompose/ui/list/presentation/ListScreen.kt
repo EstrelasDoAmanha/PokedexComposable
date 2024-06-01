@@ -10,22 +10,17 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.SheetState
@@ -36,8 +31,6 @@ import androidx.compose.material3.rememberStandardBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -70,10 +63,9 @@ internal fun PokemonListScreen(
     query: (String) -> Unit,
     iShowFilterActionSheetChange: (Boolean) -> Unit = {},
     iShowFilterActionSheet: Boolean,
-    onItemClick: (String) -> Unit = {},
+    onItemClick: (String) -> Unit = {}
 ) {
-    Column (Modifier.background(Color.White)) {
-
+    Column(Modifier.background(Color.White)) {
         if (uiState.loading) {
             Lottie(url = SHIMMER_LOTTIE_JSON)
         } else {
@@ -117,11 +109,11 @@ internal fun PokemonListScreen(
                                 .fillMaxWidth()
                                 .padding(4.dp)
                                 .clickable {
-                                    onItemClick(
-                                        index
-                                            .inc()
-                                            .toString()
-                                    )
+                                    lazyPokemon[index]?.let {
+                                        onItemClick(
+                                            it.id.toString()
+                                        )
+                                    }
                                 }
                         ) {
                             Column(
@@ -161,11 +153,10 @@ fun FilterBottomSheet(
     sheetState: SheetState,
     onDismiss: () -> Unit = {}
 ) {
-
     ModalBottomSheet(
         onDismissRequest = { },
         sheetState = sheetState,
-        dragHandle = { BottomSheetDefaults.DragHandle() },
+        dragHandle = { BottomSheetDefaults.DragHandle() }
     ) {
         FilterList(type, query, onDismiss)
     }
@@ -173,11 +164,7 @@ fun FilterBottomSheet(
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun FilterList(
-    type: List<Type>,
-    query: (String) -> Unit,
-    onDismiss: () -> Unit,
-) {
+fun FilterList(type: List<Type>, query: (String) -> Unit, onDismiss: () -> Unit) {
     Column(
         modifier = Modifier.padding(
             top = 0.dp,
@@ -202,14 +189,10 @@ fun FilterList(
             }
         }
     }
-
 }
 
 @Composable
-fun FilterOption(
-    tag: Type,
-    onClick: () -> Unit = {}
-) {
+fun FilterOption(tag: Type, onClick: () -> Unit = {}) {
     Box(
         Modifier
             .clickable {
