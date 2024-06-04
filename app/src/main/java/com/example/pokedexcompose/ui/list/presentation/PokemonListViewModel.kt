@@ -3,6 +3,7 @@ package com.example.pokedexcompose.ui.list.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.pokedexcompose.domain.usecase.PokemonListInteract
+import com.example.pokedexcompose.extensions.empty
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.map
@@ -35,20 +36,23 @@ internal class PokemonListViewModel(
         )
     }
 
-    private suspend fun getTypeList() {
-        updateState(
-            this.uiState.value.copy(
-                typeList = useCase.getTypeListUseCase.invoke().results
+    fun updateListByFilter(query: String) {
+        updateState(uiState.value.copy(filterSelected = query))
+        viewModelScope.launch(Dispatchers.IO) {
+            updateState(
+                uiState.value.copy(
+                    typeList = markFilterSelected(query),
+                    result = useCase.getPokemonListUseCase(uiState.value.filterSelected)
+                )
             )
-        )
+        }
     }
 
-    fun updateListByFilter(query: String) {
-        var resetFilter = query
-        val listType = this.uiState.value.typeList.map {
+    private fun markFilterSelected(query: String) = uiState
+        .value.typeList.map {
             if (it.name == query) {
                 if (it.enabled) {
-                    resetFilter = ""
+                    updateState(uiState.value.copy(filterSelected = String.empty()))
                     it.copy(enabled = false)
                 } else {
                     it.copy(enabled = true)
@@ -57,19 +61,18 @@ internal class PokemonListViewModel(
                 it.copy(enabled = false)
             }
         }
-        viewModelScope.launch(Dispatchers.IO) {
-            updateState(
-                this@PokemonListViewModel.uiState.value.copy(
-                    result = useCase.getPokemonListUseCase(resetFilter),
-                    typeList = listType
-                )
+
+    private suspend fun getTypeList() {
+        updateState(
+            this.uiState.value.copy(
+                typeList = useCase.getTypeListUseCase.invoke().results
             )
-        }
+        )
     }
 
     private fun receiverPositionState() {
         viewModelScope.launch(dispatcher.IO) {
-            useCase.saveStateUseCase.invoke().map {
+            useCase.receiverStateUseCase.invoke().map {
                 updateState(uiState.value.copy(lastStateList = it.first to it.second))
             }
         }
@@ -77,11 +80,12 @@ internal class PokemonListViewModel(
 
     fun updatePositionState(position: Pair<Int, Int>) {
         viewModelScope.launch(dispatcher.IO) {
-            useCase.saveStateUseCase.updatePositionState(position)
+            useCase.saveStateUseCase(position)
         }
     }
 
     private fun updateState(state: ListUiState) {
         uiState.update { state }
     }
+
 }

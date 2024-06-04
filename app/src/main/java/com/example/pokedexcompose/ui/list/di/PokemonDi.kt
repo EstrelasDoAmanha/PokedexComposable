@@ -30,10 +30,12 @@ import org.koin.dsl.module
 import com.example.pokedexcompose.domain.usecase.PokemonListInteract
 import com.example.pokedexcompose.domain.usecase.typelist.GetTypesListUseCase
 import com.example.pokedexcompose.domain.usecase.typelist.TypesListUseCaseImpl
-import com.example.pokedexcompose.domain.usecase.storagestate.StorageStateCaseImpl
+import com.example.pokedexcompose.domain.usecase.storagestate.SaveStateCaseImpl
 import com.example.pokedexcompose.domain.usecase.storagestate.SaveStateUseCase
 import com.example.pokedexcompose.domain.usecase.pokemonlist.GetListUseCase
 import com.example.pokedexcompose.domain.usecase.pokemonlist.ListUseCaseImpl
+import com.example.pokedexcompose.domain.usecase.storagestate.ReceiverStateUseCase
+import com.example.pokedexcompose.domain.usecase.storagestate.ReceiverStateCaseImpl
 import kotlinx.coroutines.Dispatchers
 
 val viewModel = module {
@@ -80,7 +82,8 @@ val storageModule = module {
 
 val dataModule = module {
     factory{ Dispatchers }
-    factoryOf(::StorageStateCaseImpl){ bind<SaveStateUseCase>() }
+    factoryOf(::SaveStateCaseImpl){ bind<SaveStateUseCase>() }
+    factoryOf(::ReceiverStateCaseImpl){ bind<ReceiverStateUseCase>() }
     factoryOf(::PokemonListInteract)
     factoryOf(::ListUseCaseImpl) { bind<GetListUseCase>() }
     factoryOf(::TypesListUseCaseImpl) { bind<GetTypesListUseCase>() }

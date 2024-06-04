@@ -1,10 +1,7 @@
 package com.example.pokedexcompose.domain.usecase.storagestate
 
-import kotlinx.coroutines.flow.Flow
-
 internal interface SaveStateUseCase {
-    fun invoke(): Flow<Pair<Int, Int>>
-    suspend fun updatePositionState(
+    suspend operator fun invoke(
         position: Pair<Int, Int>
     )
 }
