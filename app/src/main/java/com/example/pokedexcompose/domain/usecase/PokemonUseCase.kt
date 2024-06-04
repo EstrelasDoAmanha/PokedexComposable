@@ -8,4 +8,8 @@ import kotlinx.coroutines.flow.Flow
 internal interface PokemonUseCase {
     suspend fun getPokemonList(query: String = ""): Flow<PagingData<ResultListDomain>>
     suspend fun getTypeList(): TypeListDomain
+    fun receiverPositionState(): Flow<Pair<Int, Int>>
+    suspend fun updatePositionState(
+        position: Pair<Int, Int>
+    )
 }

@@ -1,6 +1,7 @@
 package com.example.pokedexcompose.app.initializer.koin.modules
 
 import com.example.pokedexcompose.ui.list.di.dataModule
+import com.example.pokedexcompose.ui.list.di.storageModule
 import com.example.pokedexcompose.ui.list.di.domainModule
 import com.example.pokedexcompose.ui.list.di.paging
 import com.example.pokedexcompose.ui.list.di.roomModule
@@ -23,7 +24,8 @@ class AppKoinModules : KoinModules {
     override val cache: List<Module>
         get() = listOf(
             roomModule,
-            paging
+            paging,
+            storageModule
         )
 
     override fun KoinApplication.load() {

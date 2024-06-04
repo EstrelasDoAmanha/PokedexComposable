@@ -1,10 +1,13 @@
 package com.example.pokedexcompose.ui.list.presentation
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.pokedexcompose.domain.usecase.PokemonUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -20,8 +23,15 @@ internal class PokemonListViewModel(
             updateState(ListUiState(loading = true))
             getPokemonList()
             getTypeList()
+            receiverPositionState()
         }
     }
+
+    override fun onCleared() {
+        super.onCleared()
+        Log.d("TAG", "view modeld onCleared: ")
+    }
+
 
     private suspend fun getPokemonList() {
         updateState(
@@ -61,6 +71,20 @@ internal class PokemonListViewModel(
                     typeList = listType
                 )
             )
+        }
+    }
+
+    private fun receiverPositionState() {
+        viewModelScope.launch(Dispatchers.IO) {
+            useCase.receiverPositionState().map {
+                updateState(uiState.value.copy(lastStateList = it.first to it.second))
+            }
+        }
+    }
+
+    fun updatePositionState(position: Pair<Int, Int>) {
+        viewModelScope.launch(Dispatchers.IO) {
+            useCase.updatePositionState(position)
         }
     }
 

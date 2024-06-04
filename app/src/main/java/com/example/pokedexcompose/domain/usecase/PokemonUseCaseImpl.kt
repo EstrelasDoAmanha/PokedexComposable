@@ -15,4 +15,12 @@ internal class PokemonUseCaseImpl(
     override suspend fun getTypeList(): TypeListDomain {
         return repository.getTypeList()
     }
+
+    override fun receiverPositionState(): Flow<Pair<Int, Int>> {
+        return repository.receiverPositionState()
+    }
+
+    override suspend fun updatePositionState(position: Pair<Int, Int>) {
+        repository.updatePositionState(position)
+    }
 }

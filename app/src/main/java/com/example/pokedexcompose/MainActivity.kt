@@ -26,20 +26,30 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.navigation.compose.rememberNavController
 import com.example.pokedexcompose.ui.list.pokemonListRoute
 import com.example.pokedexcompose.ui.navigation.PokemonNavHost
 import com.example.pokedexcompose.ui.theme.PokedexComposeTheme
 import com.pokedexcompose.designsystem.components.bottomnavigation.BottomNavigationBar
 import com.pokedexcompose.designsystem.components.bottomnavigation.tabs.model.BottomNavigationTabModel
+import java.util.prefs.Preferences
 
 @ExperimentalMaterial3Api
 class MainActivity : ComponentActivity() {
+
+    val pref by lazy {
+        applicationContext.getSharedPreferences("prefsettings", ComponentActivity.MODE_PRIVATE)
+    }
+
+
     @RequiresApi(Build.VERSION_CODES.P)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -103,7 +113,8 @@ class MainActivity : ComponentActivity() {
                             ), navController = navController
                         )
                     }) { padding ->
-                        PokemonNavHost(navController = navController,
+                        PokemonNavHost(
+                            navController = navController,
                             updateTitleTopBar = { newTitle ->
                                 title = newTitle
                             },
@@ -111,7 +122,9 @@ class MainActivity : ComponentActivity() {
                                 topBarColor = color
                             },
                             iShowFilterActionSheet = iShowFilterActionSheet,
-                            iShowFilterActionSheetChange = { iShowFilterActionSheet = it },
+                            iShowFilterActionSheetChange = {
+                                iShowFilterActionSheet = it
+                            },
                             modifier = Modifier.padding(padding)
                         )
                     }

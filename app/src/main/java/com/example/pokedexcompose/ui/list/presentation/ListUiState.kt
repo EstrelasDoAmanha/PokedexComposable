@@ -10,5 +10,6 @@ data class ListUiState(
     val loading: Boolean = false,
     var result: Flow<PagingData<ResultListDomain>> = flowOf(),
     var typeList: List<Type> = emptyList(),
-    val itemsFiltered: List<ResultListDomain> = emptyList()
+    val itemsFiltered: List<ResultListDomain> = emptyList(),
+    val lastStateList: Pair<Int, Int> = Pair(0, 0)
 )

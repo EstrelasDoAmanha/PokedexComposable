@@ -1,5 +1,9 @@
 package com.example.pokedexcompose.ui.list.di
 
+import androidx.datastore.core.handlers.ReplaceFileCorruptionHandler
+import androidx.datastore.preferences.core.PreferenceDataStoreFactory
+import androidx.datastore.preferences.core.emptyPreferences
+import androidx.datastore.preferences.preferencesDataStoreFile
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.room.Room
@@ -49,7 +53,6 @@ val paging = module {
 }
 
 val roomModule = module {
-
     single {
         Room.databaseBuilder(
             androidContext(),
@@ -58,10 +61,17 @@ val roomModule = module {
         ).allowMainThreadQueries()
             .build()
     }
-
     single<PokemonDao> {
         val database = get<PokemonDataBase>()
         database.pokemonDao()
+    }
+}
+
+val storageModule = module {
+    single {
+        PreferenceDataStoreFactory.create(
+            produceFile = { androidContext().preferencesDataStoreFile("pokemon_cache") }
+        )
     }
 }
 

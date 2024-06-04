@@ -10,4 +10,8 @@ interface PokemonRepository {
     suspend fun getPokemonDetail(pokemonId: Int): Flow<PokemonInfo>
     suspend fun getTypeList(): TypeListDomain
     suspend fun getPokemonList(query: String): Flow<PagingData<ResultListDomain>>
+    fun receiverPositionState(): Flow<Pair<Int, Int>>
+    suspend fun updatePositionState(
+        position: Pair<Int, Int>
+    )
 }

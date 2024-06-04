@@ -95,6 +95,7 @@ dependencies {
     implementation(deps.androidx.room.ktx)
     annotationProcessor(deps.androidx.room.compiler)
     kapt(deps.androidx.room.compiler)
+    implementation(deps.androidx.datastore)
 
     debugImplementation(deps.leakcanary)
 
