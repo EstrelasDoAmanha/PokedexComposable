@@ -27,7 +27,7 @@ import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
-import com.example.pokedexcompose.domain.usecase.PokemonInteraction
+import com.example.pokedexcompose.domain.usecase.PokemonInteract
 import com.example.pokedexcompose.domain.usecase.typelist.TypesListUseCase
 import com.example.pokedexcompose.domain.usecase.typelist.TypesListUseCaseImpl
 import com.example.pokedexcompose.domain.usecase.storagestate.StorageStateCaseImpl
@@ -62,8 +62,7 @@ val roomModule = module {
             androidContext(),
             PokemonDataBase::class.java,
             "pokemon.db"
-        ).allowMainThreadQueries()
-            .build()
+        ).allowMainThreadQueries().build()
     }
     single<PokemonDao> {
         val database = get<PokemonDataBase>()
@@ -84,7 +83,7 @@ val dataModule = module {
         Dispatchers
     }
     factoryOf(::StorageStateCaseImpl){ bind<StorageStateUseCase>() }
-    factoryOf(::PokemonInteraction)
+    factoryOf(::PokemonInteract)
     factoryOf(::ListUseCaseImpl) { bind<ListUseCase>() }
     factoryOf(::TypesListUseCaseImpl) { bind<TypesListUseCase>() }
     factoryOf(::TypeListDtoToDomain)

@@ -2,7 +2,7 @@ package com.example.pokedexcompose.ui.list.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.pokedexcompose.domain.usecase.PokemonInteraction
+import com.example.pokedexcompose.domain.usecase.PokemonInteract
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.map
@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 internal class PokemonListViewModel(
-    private val useCase: PokemonInteraction,
+    private val useCase: PokemonInteract,
     private val dispatcher: Dispatchers
 ) : ViewModel() {
 
