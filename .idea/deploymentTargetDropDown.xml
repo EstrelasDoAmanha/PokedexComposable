@@ -25,6 +25,22 @@
         </State>
       </entry>
       <entry key="app">
+        <State>
+          <runningDeviceTargetSelectedWithDropDown>
+            <Target>
+              <type value="RUNNING_DEVICE_TARGET" />
+              <deviceKey>
+                <Key>
+                  <type value="SERIAL_NUMBER" />
+                  <value value="adb-RQCX30BC9MK-dvAY5l._adb-tls-connect._tcp" />
+                </Key>
+              </deviceKey>
+            </Target>
+          </runningDeviceTargetSelectedWithDropDown>
+          <timeTargetWasSelectedWithDropDown value="2024-06-04T01:22:52.489050300Z" />
+        </State>
+      </entry>
+      <entry key="features.details.implementation">
         <State />
       </entry>
     </value>

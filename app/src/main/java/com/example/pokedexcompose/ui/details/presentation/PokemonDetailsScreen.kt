@@ -67,6 +67,7 @@ import com.example.pokedexcompose.common.ui.ErrorScreenComponent
 import com.example.pokedexcompose.domain.model.PokemonInfo
 import com.example.pokedexcompose.domain.model.PokemonStatistics
 import com.example.pokedexcompose.domain.model.PokemonType
+import com.example.pokedexcompose.extensions.getAbbreviation
 import com.pokedexcompose.designsystem.components.loading.Lottie
 import kotlin.random.Random
 
@@ -322,16 +323,26 @@ private fun PokemonInfoComp(icon: ImageVector, iconDescription: String, infoText
 fun PokemonAttributeComp(stat: PokemonStatistics) {
     val maxStatsValue by remember { mutableFloatStateOf(252f) }
     val animDuration by remember { mutableIntStateOf(1500) }
-
+    val percent by remember {
+        mutableFloatStateOf(stat.baseStat / maxStatsValue)
+    }
+    val statsColor by remember {
+        mutableStateOf(getStatsColor(stat))
+    }
+    val statsAbbreviation by remember {
+        mutableStateOf(stat.getAbbreviation())
+    }
     Row(
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 4.dp)
     ) {
         var animationPlayed by remember {
             mutableStateOf(false)
         }
-        val percent = stat.baseStat / maxStatsValue
+
         val currentPercent = animateFloatAsState(
             label = stringResource(R.string.pokemon_stats_animation_label),
             targetValue = if (animationPlayed) percent else 0f,
@@ -346,7 +357,7 @@ fun PokemonAttributeComp(stat: PokemonStatistics) {
         }
 
         Text(
-            text = stat.name.uppercase(),
+            text = statsAbbreviation,
             color = MaterialTheme.colorScheme.secondary,
             modifier =
             Modifier.width(90.dp),
@@ -365,10 +376,12 @@ fun PokemonAttributeComp(stat: PokemonStatistics) {
 
         LinearProgressIndicator(
             progress = { currentPercent.value },
-            color = getStatsColor(stat),
+            color = statsColor,
             trackColor = Color.LightGray,
             strokeCap = StrokeCap.Round,
-            modifier = Modifier.fillMaxWidth(0.7f)
+            modifier = Modifier
+                .fillMaxWidth(0.7f)
+                .height(18.dp)
         )
     }
 }
