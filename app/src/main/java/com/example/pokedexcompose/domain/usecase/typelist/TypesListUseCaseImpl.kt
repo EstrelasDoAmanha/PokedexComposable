@@ -5,7 +5,7 @@ import com.example.pokedexcompose.domain.repository.PokemonRepository
 
 internal class TypesListUseCaseImpl(
     private val repository: PokemonRepository
-) : TypesListUseCase {
+) : GetTypesListUseCase {
     override suspend fun invoke(): TypeListDomain {
         return repository.getTypeList()
     }

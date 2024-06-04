@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 
 internal class ListUseCaseImpl(
     private val repository: PokemonRepository
-) : ListUseCase {
+) : GetListUseCase {
     override suspend fun invoke(query: String): Flow<PagingData<ResultListDomain>> =
         repository.getPokemonList(query)
 }

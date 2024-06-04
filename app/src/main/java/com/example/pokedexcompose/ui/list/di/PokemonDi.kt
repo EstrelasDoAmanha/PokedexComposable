@@ -27,12 +27,12 @@ import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
-import com.example.pokedexcompose.domain.usecase.PokemonInteract
-import com.example.pokedexcompose.domain.usecase.typelist.TypesListUseCase
+import com.example.pokedexcompose.domain.usecase.PokemonListInteract
+import com.example.pokedexcompose.domain.usecase.typelist.GetTypesListUseCase
 import com.example.pokedexcompose.domain.usecase.typelist.TypesListUseCaseImpl
 import com.example.pokedexcompose.domain.usecase.storagestate.StorageStateCaseImpl
-import com.example.pokedexcompose.domain.usecase.storagestate.StorageStateUseCase
-import com.example.pokedexcompose.domain.usecase.pokemonlist.ListUseCase
+import com.example.pokedexcompose.domain.usecase.storagestate.SaveStateUseCase
+import com.example.pokedexcompose.domain.usecase.pokemonlist.GetListUseCase
 import com.example.pokedexcompose.domain.usecase.pokemonlist.ListUseCaseImpl
 import kotlinx.coroutines.Dispatchers
 
@@ -43,7 +43,7 @@ val viewModel = module {
 
 val domainModule = module {
     factoryOf(::GetPokemonDetailsUseCase)
-    factory<ListUseCase> { ListUseCaseImpl(get()) }
+    factory<GetListUseCase> { ListUseCaseImpl(get()) }
 }
 
 val paging = module {
@@ -62,7 +62,7 @@ val roomModule = module {
             androidContext(),
             PokemonDataBase::class.java,
             "pokemon.db"
-        ).allowMainThreadQueries().build()
+        ).build()
     }
     single<PokemonDao> {
         val database = get<PokemonDataBase>()
@@ -79,13 +79,11 @@ val storageModule = module {
 }
 
 val dataModule = module {
-    factory{
-        Dispatchers
-    }
-    factoryOf(::StorageStateCaseImpl){ bind<StorageStateUseCase>() }
-    factoryOf(::PokemonInteract)
-    factoryOf(::ListUseCaseImpl) { bind<ListUseCase>() }
-    factoryOf(::TypesListUseCaseImpl) { bind<TypesListUseCase>() }
+    factory{ Dispatchers }
+    factoryOf(::StorageStateCaseImpl){ bind<SaveStateUseCase>() }
+    factoryOf(::PokemonListInteract)
+    factoryOf(::ListUseCaseImpl) { bind<GetListUseCase>() }
+    factoryOf(::TypesListUseCaseImpl) { bind<GetTypesListUseCase>() }
     factoryOf(::TypeListDtoToDomain)
     factoryOf(::PokemonListByFilterDtoToDomain)
     factoryOf(::PokemonDtoToDomain)

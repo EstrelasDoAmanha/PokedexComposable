@@ -2,7 +2,7 @@ package com.example.pokedexcompose.ui.list.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.pokedexcompose.domain.usecase.PokemonInteract
+import com.example.pokedexcompose.domain.usecase.PokemonListInteract
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.map
@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 internal class PokemonListViewModel(
-    private val useCase: PokemonInteract,
+    private val useCase: PokemonListInteract,
     private val dispatcher: Dispatchers
 ) : ViewModel() {
 
@@ -29,7 +29,7 @@ internal class PokemonListViewModel(
     private suspend fun getPokemonList() {
         updateState(
             ListUiState(
-                result = useCase.pokemonListUseCase(),
+                result = useCase.getPokemonListUseCase(),
                 loading = false
             )
         )
@@ -38,7 +38,7 @@ internal class PokemonListViewModel(
     private suspend fun getTypeList() {
         updateState(
             this.uiState.value.copy(
-                typeList = useCase.typeListUseCase.invoke().results
+                typeList = useCase.getTypeListUseCase.invoke().results
             )
         )
     }
@@ -60,7 +60,7 @@ internal class PokemonListViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             updateState(
                 this@PokemonListViewModel.uiState.value.copy(
-                    result = useCase.pokemonListUseCase(resetFilter),
+                    result = useCase.getPokemonListUseCase(resetFilter),
                     typeList = listType
                 )
             )
@@ -69,7 +69,7 @@ internal class PokemonListViewModel(
 
     private fun receiverPositionState() {
         viewModelScope.launch(dispatcher.IO) {
-            useCase.storageStateUseCase.invoke().map {
+            useCase.saveStateUseCase.invoke().map {
                 updateState(uiState.value.copy(lastStateList = it.first to it.second))
             }
         }
@@ -77,7 +77,7 @@ internal class PokemonListViewModel(
 
     fun updatePositionState(position: Pair<Int, Int>) {
         viewModelScope.launch(dispatcher.IO) {
-            useCase.storageStateUseCase.updatePositionState(position)
+            useCase.saveStateUseCase.updatePositionState(position)
         }
     }
 

@@ -1,18 +1,16 @@
 package com.example.pokedexcompose.domain.pagging
 
-import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import coil.network.HttpException
 import com.example.pokedexcompose.data.database.PokemonDao
-import com.example.pokedexcompose.data.database.PokemonDb
+import com.example.pokedexcompose.data.database.PokemonEntity
 import com.example.pokedexcompose.data.datasource.PokemonDataSource
 import com.example.pokedexcompose.data.mappers.PokemonListByFilterDtoToDomain
 import com.example.pokedexcompose.data.model.PokemonListDto
 import com.example.pokedexcompose.domain.mapper.PokemonListDtoToDomain
 import com.example.pokedexcompose.domain.model.ResultListDomain
 import io.ktor.utils.io.errors.IOException
-import okhttp3.internal.notify
 
 internal class PokemonListPagingSource(
     private val daoPokemon: PokemonDao,
@@ -40,7 +38,7 @@ internal class PokemonListPagingSource(
             }
             val nextOffset = offset + limit
             val fromDtoToEntity = response.result.map {
-                PokemonDb(
+                PokemonEntity(
                     name = it.name,
                     url = it.url,
                     gif = it.urlGif,
@@ -50,7 +48,7 @@ internal class PokemonListPagingSource(
             }
             daoPokemon.insertPokemons(fromDtoToEntity)
             val fromEntityToDomain = mapper.map(
-                daoPokemon.getPokemonList(
+                daoPokemon.getPokemonListByFilter(
                     offset = offset,
                     limit = limit,
                     search = query

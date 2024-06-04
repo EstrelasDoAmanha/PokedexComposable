@@ -9,12 +9,12 @@ import androidx.room.Query
 interface PokemonDao {
 
     @Query(
-        "SELECT * FROM PokemonDb WHERE :search IS NULL OR " +
+        "SELECT * FROM PokemonEntity WHERE :search IS NULL OR " +
             ":search IS NOT NULL AND type " +
             "like '%'||:search||'%' LIMIT :limit OFFSET :offset"
     )
-    fun getPokemonList(offset: Int = 0, limit: Int = 20, search: String = ""): List<PokemonDb>
+    suspend fun getPokemonListByFilter(offset: Int = 0, limit: Int = 20, search: String = ""): List<PokemonEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertPokemons(pokemons: List<PokemonDb>)
+    suspend fun insertPokemons(pokemons: List<PokemonEntity>)
 }
