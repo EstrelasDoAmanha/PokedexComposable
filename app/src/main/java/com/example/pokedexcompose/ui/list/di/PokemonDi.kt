@@ -1,8 +1,6 @@
 package com.example.pokedexcompose.ui.list.di
 
-import androidx.datastore.core.handlers.ReplaceFileCorruptionHandler
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
-import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.preferencesDataStoreFile
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
@@ -21,8 +19,6 @@ import com.example.pokedexcompose.domain.mapper.PokemonListDtoToDomain
 import com.example.pokedexcompose.domain.pagging.PokemonListPagingSource
 import com.example.pokedexcompose.domain.repository.PokemonRepository
 import com.example.pokedexcompose.domain.usecase.GetPokemonDetailsUseCase
-import com.example.pokedexcompose.domain.usecase.PokemonUseCase
-import com.example.pokedexcompose.domain.usecase.PokemonUseCaseImpl
 import com.example.pokedexcompose.ui.details.presentation.PokemonDetailsViewModel
 import com.example.pokedexcompose.ui.list.presentation.PokemonListViewModel
 import org.koin.android.ext.koin.androidContext
@@ -31,6 +27,14 @@ import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
+import com.example.pokedexcompose.domain.usecase.PokemonInteraction
+import com.example.pokedexcompose.domain.usecase.typelist.TypesListUseCase
+import com.example.pokedexcompose.domain.usecase.typelist.TypesListUseCaseImpl
+import com.example.pokedexcompose.domain.usecase.storagestate.StorageStateCaseImpl
+import com.example.pokedexcompose.domain.usecase.storagestate.StorageStateUseCase
+import com.example.pokedexcompose.domain.usecase.pokemonlist.ListUseCase
+import com.example.pokedexcompose.domain.usecase.pokemonlist.ListUseCaseImpl
+import kotlinx.coroutines.Dispatchers
 
 val viewModel = module {
     viewModelOf(::PokemonListViewModel)
@@ -39,7 +43,7 @@ val viewModel = module {
 
 val domainModule = module {
     factoryOf(::GetPokemonDetailsUseCase)
-    factory<PokemonUseCase> { PokemonUseCaseImpl(get()) }
+    factory<ListUseCase> { ListUseCaseImpl(get()) }
 }
 
 val paging = module {
@@ -76,12 +80,19 @@ val storageModule = module {
 }
 
 val dataModule = module {
+    factory{
+        Dispatchers
+    }
+    factoryOf(::StorageStateCaseImpl){ bind<StorageStateUseCase>() }
+    factoryOf(::PokemonInteraction)
+    factoryOf(::ListUseCaseImpl) { bind<ListUseCase>() }
+    factoryOf(::TypesListUseCaseImpl) { bind<TypesListUseCase>() }
     factoryOf(::TypeListDtoToDomain)
     factoryOf(::PokemonListByFilterDtoToDomain)
-    singleOf(::PokemonRepositoryImpl) { bind<PokemonRepository>() }
     factoryOf(::PokemonDtoToDomain)
     factoryOf(::PokemonStatsDtoToDomain)
     factoryOf(::PokemonTypeDtoToDomain)
     factoryOf(::PokemonListDtoToDomain)
     factoryOf(::PokemonDataSourceImpl) { bind<PokemonDataSource>() }
+    singleOf(::PokemonRepositoryImpl) { bind<PokemonRepository>() }
 }

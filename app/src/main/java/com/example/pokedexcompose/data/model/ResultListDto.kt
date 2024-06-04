@@ -14,4 +14,5 @@ data class ResultListDto(
 ) {
     val urlGif by PokemonGifUrl(url)
     val id by PokemonId(url)
+    val imageUrl by PokemonId(url)
 }

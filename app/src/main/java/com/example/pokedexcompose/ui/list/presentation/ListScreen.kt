@@ -1,7 +1,6 @@
 package com.example.pokedexcompose.ui.list.presentation
 
 import android.os.Build
-import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -36,6 +35,7 @@ import androidx.compose.ui.unit.dp
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.pokedexcompose.common.SHIMMER_LOTTIE_JSON
 import com.example.pokedexcompose.domain.model.Type
+import com.example.pokedexcompose.ui.list.presentation.component.FilterBottomSheet
 import com.example.pokedexcompose.ui.list.presentation.component.PokemonItem
 import com.pokedexcompose.designsystem.components.loading.Lottie
 import kotlinx.coroutines.FlowPreview
@@ -52,7 +52,7 @@ internal fun PokemonListScreen(
     query: (String) -> Unit,
     iShowFilterActionSheetChange: (Boolean) -> Unit = {},
     iShowFilterActionSheet: Boolean,
-    updatePositionState:(Pair<Int, Int>) -> Unit = { },
+    updatePositionState: (Pair<Int, Int>) -> Unit = { },
     onItemClick: (String) -> Unit = {}
 ) {
     Column(Modifier.background(Color.White)) {
@@ -71,7 +71,7 @@ internal fun PokemonListScreen(
                 FilterBottomSheet(
                     type = uiState.typeList,
                     query = query,
-                    sheetState
+                    sheetState = sheetState
                 ) {
                     scope.launch {
                         sheetState.hide()
@@ -88,8 +88,6 @@ internal fun PokemonListScreen(
                     rememberLazyGridState.firstVisibleItemIndex to
                             rememberLazyGridState.firstVisibleItemScrollOffset
                 }.debounce(500L).collectLatest { snapshot ->
-                    Log.d("TAG", "Saving IndexState: ${snapshot.first}")
-                    Log.d("TAG", "Saving Offset: ${snapshot.second}")
                     updatePositionState(snapshot.first to snapshot.second)
                 }
             }
@@ -115,106 +113,4 @@ internal fun PokemonListScreen(
             )
         }
     }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun FilterBottomSheet(
-    type: List<Type> = emptyList(),
-    query: (String) -> Unit = {},
-    sheetState: SheetState,
-    onDismiss: () -> Unit = {}
-) {
-    ModalBottomSheet(
-        onDismissRequest = { onDismiss() },
-        sheetState = sheetState,
-        dragHandle = { BottomSheetDefaults.DragHandle() },
-    ) {
-        FilterList(type, query, onDismiss)
-    }
-}
-
-@OptIn(ExperimentalLayoutApi::class)
-@Composable
-fun FilterList(
-    type: List<Type>,
-    query: (String) -> Unit,
-    onDismiss: () -> Unit,
-) {
-    Column(
-        modifier = Modifier.padding(
-            top = 0.dp,
-            bottom = 60.dp,
-            start = 8.dp,
-            end = 8.dp
-        )
-    ) {
-        Text(
-            text = "Selecione o tipo do pokemon",
-            modifier = Modifier.padding(bottom = 16.dp)
-        )
-        FlowRow(
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            type.forEach { type ->
-                FilterOption(tag = type) {
-                    query(type.name)
-                    onDismiss()
-                }
-            }
-        }
-    }
-
-}
-
-
-@Composable
-fun FilterOption(
-    tag: Type,
-    onClick: () -> Unit = {}
-) {
-    Box(
-        Modifier
-            .clickable {
-                onClick()
-            }
-            .clip(RoundedCornerShape(10.dp))
-            .background(if (tag.enabled) Color.Blue else Color.Black)
-    ) {
-        Text(
-            text = tag.name,
-            Modifier.padding(
-                vertical = 2.dp,
-                horizontal = 6.dp
-            ),
-            color = Color.White
-        )
-    }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Preview(showBackground = true)
-@Composable
-fun FilterBottomSheetPreview() {
-    FilterBottomSheet(
-        type = listOf(
-            Type("Teste 1"),
-            (Type("Teste 1")),
-            (Type("Teste 1")),
-            (Type("Teste 1"))
-        ),
-        sheetState = rememberStandardBottomSheetState(initialValue = SheetValue.Expanded)
-    )
-}
-
-@Preview
-@Composable
-fun OptionFilterPreview() {
-    FilterOption(
-        Type(
-            name = "Fire",
-            enabled = true
-        )
-    )
 }

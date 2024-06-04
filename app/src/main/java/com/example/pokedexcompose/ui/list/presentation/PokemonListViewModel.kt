@@ -1,10 +1,8 @@
 package com.example.pokedexcompose.ui.list.presentation
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.pokedexcompose.domain.usecase.PokemonUseCase
+import com.example.pokedexcompose.domain.usecase.PokemonInteraction
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.map
@@ -12,14 +10,15 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 internal class PokemonListViewModel(
-    private val useCase: PokemonUseCase
+    private val useCase: PokemonInteraction,
+    private val dispatcher: Dispatchers
 ) : ViewModel() {
 
     var uiState: MutableStateFlow<ListUiState> = MutableStateFlow(ListUiState())
         private set
 
     init {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatcher.IO) {
             updateState(ListUiState(loading = true))
             getPokemonList()
             getTypeList()
@@ -27,16 +26,10 @@ internal class PokemonListViewModel(
         }
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        Log.d("TAG", "view modeld onCleared: ")
-    }
-
-
     private suspend fun getPokemonList() {
         updateState(
             ListUiState(
-                result = useCase.getPokemonList(),
+                result = useCase.pokemonUseCase(),
                 loading = false
             )
         )
@@ -45,7 +38,7 @@ internal class PokemonListViewModel(
     private suspend fun getTypeList() {
         updateState(
             this.uiState.value.copy(
-                typeList = useCase.getTypeList().results
+                typeList = useCase.typeListUseCase.invoke().results
             )
         )
     }
@@ -67,7 +60,7 @@ internal class PokemonListViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             updateState(
                 this@PokemonListViewModel.uiState.value.copy(
-                    result = useCase.getPokemonList(resetFilter),
+                    result = useCase.pokemonUseCase(resetFilter),
                     typeList = listType
                 )
             )
@@ -75,16 +68,16 @@ internal class PokemonListViewModel(
     }
 
     private fun receiverPositionState() {
-        viewModelScope.launch(Dispatchers.IO) {
-            useCase.receiverPositionState().map {
+        viewModelScope.launch(dispatcher.IO) {
+            useCase.storageStateUseCase.invoke().map {
                 updateState(uiState.value.copy(lastStateList = it.first to it.second))
             }
         }
     }
 
     fun updatePositionState(position: Pair<Int, Int>) {
-        viewModelScope.launch(Dispatchers.IO) {
-            useCase.updatePositionState(position)
+        viewModelScope.launch(dispatcher.IO) {
+            useCase.storageStateUseCase.updatePositionState(position)
         }
     }
 
