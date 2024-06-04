@@ -29,7 +29,7 @@ internal class PokemonListViewModel(
     private suspend fun getPokemonList() {
         updateState(
             ListUiState(
-                result = useCase.pokemonUseCase(),
+                result = useCase.pokemonListUseCase(),
                 loading = false
             )
         )
@@ -60,7 +60,7 @@ internal class PokemonListViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             updateState(
                 this@PokemonListViewModel.uiState.value.copy(
-                    result = useCase.pokemonUseCase(resetFilter),
+                    result = useCase.pokemonListUseCase(resetFilter),
                     typeList = listType
                 )
             )

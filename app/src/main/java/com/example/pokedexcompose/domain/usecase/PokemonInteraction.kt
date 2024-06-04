@@ -5,7 +5,7 @@ import com.example.pokedexcompose.domain.usecase.storagestate.StorageStateUseCas
 import com.example.pokedexcompose.domain.usecase.typelist.TypesListUseCase
 
 internal class PokemonInteraction(
-   val pokemonUseCase: ListUseCase,
+   val pokemonListUseCase: ListUseCase,
    val typeListUseCase: TypesListUseCase,
    val storageStateUseCase: StorageStateUseCase,
 )
