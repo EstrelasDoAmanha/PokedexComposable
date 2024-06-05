@@ -9,10 +9,7 @@ import coil.request.ImageRequest
 import coil.request.SuccessResult
 
 object PaletteGenerator {
-    suspend fun convertImageUrlToBitmap(
-        imageUrl: String,
-        context: Context
-    ): Bitmap? {
+    suspend fun convertImageUrlToBitmap(imageUrl: String, context: Context): Bitmap? {
         val loader = ImageLoader(context = context)
         val request = ImageRequest.Builder(context = context)
             .data(imageUrl)
@@ -60,7 +57,7 @@ object PaletteGenerator {
             "darkMuted" to parseColorSwatch(
                 color = Palette.from(bitmap).maximumColorCount(maximumColorCount)
                     .generate().darkMutedSwatch
-            ),
+            )
         )
     }
 

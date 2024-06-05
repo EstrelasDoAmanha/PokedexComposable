@@ -24,7 +24,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.pokedexcompose.domain.model.Type
 
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FilterBottomSheet(
@@ -36,7 +35,7 @@ fun FilterBottomSheet(
     ModalBottomSheet(
         onDismissRequest = { onDismiss() },
         sheetState = sheetState,
-        dragHandle = { BottomSheetDefaults.DragHandle() },
+        dragHandle = { BottomSheetDefaults.DragHandle() }
     ) {
         FilterList(type, query, onDismiss)
     }
@@ -44,11 +43,7 @@ fun FilterBottomSheet(
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
-fun FilterList(
-    type: List<Type>,
-    query: (String) -> Unit,
-    onDismiss: () -> Unit,
-) {
+fun FilterList(type: List<Type>, query: (String) -> Unit, onDismiss: () -> Unit) {
     Column(
         modifier = Modifier.padding(
             top = 0.dp,
@@ -73,15 +68,10 @@ fun FilterList(
             }
         }
     }
-
 }
 
-
 @Composable
-fun FilterOption(
-    tag: Type,
-    onClick: () -> Unit = {}
-) {
+fun FilterOption(tag: Type, onClick: () -> Unit = {}) {
     Box(
         Modifier
             .clickable {

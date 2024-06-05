@@ -67,7 +67,7 @@ internal class PokemonListPagingSource(
     }
 
     suspend fun resetList() {
-       this.invalidate()
+        this.invalidate()
     }
 
     override fun getRefreshKey(state: PagingState<Int, ResultListDomain>): Int? {

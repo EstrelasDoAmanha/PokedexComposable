@@ -5,5 +5,5 @@ import kotlinx.coroutines.flow.Flow
 internal class ReceiverStateCaseImpl(
     private val repository: PokemonRepository
 ) : ReceiverStateUseCase {
-    override fun invoke(): Flow<Pair<Int, Int>>  = repository.receiverPositionState()
+    override fun invoke(): Flow<Pair<Int, Int>> = repository.receiverPositionState()
 }

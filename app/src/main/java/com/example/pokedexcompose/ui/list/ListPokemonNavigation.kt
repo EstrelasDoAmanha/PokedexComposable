@@ -25,7 +25,7 @@ fun NavGraphBuilder.pokemonList(
     updateTopBarColor: (Color) -> Unit,
     iShowFilterActionSheet: Boolean,
     iShowFilterActionSheetChange: (Boolean) -> Unit,
-    toPokemonDetails: (String) -> Unit,
+    toPokemonDetails: (String) -> Unit
 ) {
     composable(POKEMON_LIST_ROUTE) {
         val viewModel = koinViewModel<PokemonListViewModel>()

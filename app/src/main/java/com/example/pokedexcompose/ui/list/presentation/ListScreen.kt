@@ -1,7 +1,6 @@
 package com.example.pokedexcompose.ui.list.presentation
 
 import android.os.Build
-import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -72,16 +71,8 @@ internal fun PokemonListScreen(
             LaunchedEffect(rememberLazyGridState) {
                 snapshotFlow {
                     rememberLazyGridState.firstVisibleItemIndex to
-                            rememberLazyGridState.firstVisibleItemScrollOffset
+                        rememberLazyGridState.firstVisibleItemScrollOffset
                 }.debounce(500L).collectLatest { snapshot ->
-                    Log.d(
-                        "TAG",
-                        "salvando.. firstVisibleItemIndex: ${rememberLazyGridState.firstVisibleItemIndex}"
-                    )
-                    Log.d(
-                        "TAG",
-                        "salvando.. firstVisibleItemScrollOffset: ${rememberLazyGridState.firstVisibleItemScrollOffset}"
-                    )
                     updatePositionState(snapshot.first to snapshot.second)
                 }
             }

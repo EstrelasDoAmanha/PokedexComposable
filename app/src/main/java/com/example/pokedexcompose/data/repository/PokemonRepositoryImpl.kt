@@ -34,7 +34,8 @@ internal class PokemonRepositoryImpl(
         pokemonListPagingSource.query = query
         return Pager(
             config = PagingConfig(pageSize = 20),
-            pagingSourceFactory = { pokemonListPagingSource }).flow
+            pagingSourceFactory = { pokemonListPagingSource }
+        ).flow
     }
 
     override suspend fun getPokemonDetail(pokemonId: Int): Flow<PokemonInfo> {
@@ -58,7 +59,7 @@ internal class PokemonRepositoryImpl(
 
     override fun receiverPositionState() = dataStore.data.map { preference ->
         (preference[firstVisibleItemIndexState] ?: 0) to
-                (preference[firstVisibleItemScrollOffset] ?: 0)
+            (preference[firstVisibleItemScrollOffset] ?: 0)
     }
 
     override suspend fun updatePositionState(position: Pair<Int, Int>) {
@@ -67,5 +68,4 @@ internal class PokemonRepositoryImpl(
             dataStore[firstVisibleItemScrollOffset] = position.second
         }
     }
-
 }

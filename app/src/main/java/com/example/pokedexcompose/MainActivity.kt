@@ -5,7 +5,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.RequiresApi
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
@@ -26,29 +25,20 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.preferencesDataStore
 import androidx.navigation.compose.rememberNavController
 import com.example.pokedexcompose.ui.list.pokemonListRoute
 import com.example.pokedexcompose.ui.navigation.PokemonNavHost
 import com.example.pokedexcompose.ui.theme.PokedexComposeTheme
 import com.pokedexcompose.designsystem.components.bottomnavigation.BottomNavigationBar
 import com.pokedexcompose.designsystem.components.bottomnavigation.tabs.model.BottomNavigationTabModel
-import java.util.prefs.Preferences
 
 @ExperimentalMaterial3Api
 class MainActivity : ComponentActivity() {
-
-    val pref by lazy {
-        applicationContext.getSharedPreferences("prefsettings", ComponentActivity.MODE_PRIVATE)
-    }
-
 
     @RequiresApi(Build.VERSION_CODES.P)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,36 +59,39 @@ class MainActivity : ComponentActivity() {
                 }
                 Surface {
                     Scaffold(topBar = {
-                        TopAppBar(title = {
-                            Text(
-                                text = title,
-                                fontWeight = FontWeight.Black,
-                                fontSize = 28.sp,
-                                textAlign = TextAlign.Start,
-                                color = Color.White
-                            )
-                        }, actions = {
-                            IconButton(
-                                onClick = {
-                                    iShowFilterActionSheet = !iShowFilterActionSheet
-                                },
-                                modifier = Modifier
-                                    .padding(horizontal = 16.dp)
-
-                            ) {
-                                Icon(
-                                    Icons.Outlined.Settings,
-                                    contentDescription = "Navigation icon",
-                                    tint = Color.Gray
+                        TopAppBar(
+                            title = {
+                                Text(
+                                    text = title,
+                                    fontWeight = FontWeight.Black,
+                                    fontSize = 28.sp,
+                                    textAlign = TextAlign.Start,
+                                    color = Color.White
                                 )
-                            }
-                        }, colors = TopAppBarColors(
-                            containerColor = topBarColor,
-                            scrolledContainerColor = initialColor,
-                            navigationIconContentColor = initialColor,
-                            titleContentColor = initialColor,
-                            actionIconContentColor = initialColor
-                        )
+                            },
+                            actions = {
+                                IconButton(
+                                    onClick = {
+                                        iShowFilterActionSheet = !iShowFilterActionSheet
+                                    },
+                                    modifier = Modifier
+                                        .padding(horizontal = 16.dp)
+
+                                ) {
+                                    Icon(
+                                        Icons.Outlined.Settings,
+                                        contentDescription = "Navigation icon",
+                                        tint = Color.Gray
+                                    )
+                                }
+                            },
+                            colors = TopAppBarColors(
+                                containerColor = topBarColor,
+                                scrolledContainerColor = initialColor,
+                                navigationIconContentColor = initialColor,
+                                titleContentColor = initialColor,
+                                actionIconContentColor = initialColor
+                            )
                         )
                     }, bottomBar = {
                         BottomNavigationBar(
@@ -110,7 +103,8 @@ class MainActivity : ComponentActivity() {
                                     badgeAmount = null,
                                     navigateTo = navController.pokemonListRoute()
                                 )
-                            ), navController = navController
+                            ),
+                            navController = navController
                         )
                     }) { padding ->
                         PokemonNavHost(

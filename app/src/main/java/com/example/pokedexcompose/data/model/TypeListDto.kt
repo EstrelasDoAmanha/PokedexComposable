@@ -7,6 +7,7 @@ data class TypeListDto(
     @SerialName("results")
     val results: List<FilterListByTypeDto>
 )
+
 @Serializable
 data class FilterListByTypeDto(
     @SerialName("name")

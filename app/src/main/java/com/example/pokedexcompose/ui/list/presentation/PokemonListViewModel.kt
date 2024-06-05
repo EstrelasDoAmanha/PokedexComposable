@@ -87,5 +87,4 @@ internal class PokemonListViewModel(
     private fun updateState(state: ListUiState) {
         uiState.update { state }
     }
-
 }
