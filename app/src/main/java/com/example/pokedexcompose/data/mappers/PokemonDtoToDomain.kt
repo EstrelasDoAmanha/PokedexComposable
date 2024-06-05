@@ -3,7 +3,7 @@ package com.example.pokedexcompose.data.mappers
 import com.example.pokedexcompose.data.model.PokemonDto
 import com.example.pokedexcompose.domain.model.PokemonInfo
 
-class PokemonDtotoDomain(
+class PokemonDtoToDomain(
     private val pokemonStatsDtoToDomain: PokemonStatsDtoToDomain,
     private val pokemonTypeDtoToDomain: PokemonTypeDtoToDomain
 ) : Mapper<PokemonDto, PokemonInfo> {

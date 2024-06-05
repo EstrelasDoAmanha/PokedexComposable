@@ -32,6 +32,8 @@ include(
     ":features:home:implementation",
     ":features:details:public",
     ":features:details:implementation",
+    ":features:list:public",
+    ":features:list:implementation",
     ":core:coreandroid",
     ":core:corekotlin",
 )
