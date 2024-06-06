@@ -123,7 +123,7 @@ private fun DetailsMainContent(
             Text(
                 text = uiState.pokemonInfo.id.toString(),
                 fontWeight = FontWeight.Black,
-                fontSize = 120.sp,
+                fontSize = 100.sp,
                 textAlign = TextAlign.End,
                 color = Color.White,
                 modifier = Modifier
@@ -337,7 +337,7 @@ fun PokemonAttributeComp(stat: PokemonStatistics) {
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 4.dp)
+            .padding(4.dp)
     ) {
         var animationPlayed by remember {
             mutableStateOf(false)
@@ -360,7 +360,7 @@ fun PokemonAttributeComp(stat: PokemonStatistics) {
             text = statsAbbreviation,
             color = MaterialTheme.colorScheme.secondary,
             modifier =
-            Modifier.width(90.dp),
+            Modifier.width(60.dp),
             textAlign = TextAlign.Start
         )
 
@@ -380,7 +380,7 @@ fun PokemonAttributeComp(stat: PokemonStatistics) {
             trackColor = Color.LightGray,
             strokeCap = StrokeCap.Round,
             modifier = Modifier
-                .fillMaxWidth(0.7f)
+                .fillMaxWidth(0.9f)
                 .height(18.dp)
         )
     }
@@ -450,11 +450,11 @@ fun getStatsList(): List<PokemonStatistics> {
             baseStat = 90
         ),
         PokemonStatistics(
-            name = "Spc Defense",
+            name = "Special-defense",
             baseStat = 50
         ),
         PokemonStatistics(
-            name = "Spc Attack",
+            name = "Special-attack",
             baseStat = 50
         ),
         PokemonStatistics(
