@@ -37,8 +37,6 @@ abstract class BaseCache<K, V>(
         }
     }
 
-
     private fun isValidCache(result: CacheData<out V>?): Boolean =
         cachePolicies.isEmpty() || cachePolicies.all { it.isNotExperied(result) }
-
 }

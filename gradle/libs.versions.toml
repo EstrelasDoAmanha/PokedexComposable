@@ -23,15 +23,20 @@ coreKtx = "1.12.0"
 lifecycleRuntimeKtx = "2.7.0"
 activityCompose = "1.8.2"
 appCompat = "1.6.1"
-composeBom = "2023.08.00"
+composeBom = "2024.05.00"
 pagingVersion = "3.2.1"
 pagingComposeVersion = "3.3.0-alpha05"
 navigationRuntimeKtx = "2.7.7"
 appStartup = "1.1.1"
+room = "2.6.1"
+palette = "1.0.0"
 
 # Google
 material = "1.11.0"
+kotlinKapt = "2.0.0"
+gson = "2.11.0"
 material-icons-extended = "1.6.2"
+data-store = "1.1.1"
 
 # Third Party
 ktor = "2.3.9"
@@ -79,9 +84,15 @@ navigationCompose = { module = "androidx.navigation:navigation-compose" }
 pagingCompose = { module = "androidx.paging:paging-compose", version.ref = "pagingComposeVersion" }
 pagingRuntime = { module = "androidx.paging:paging-runtime", version.ref = "pagingVersion" }
 appStartup = { module = "androidx.startup:startup-runtime", version.ref = "appStartup" }
+androidx_room_runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
+androidx_room_compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+androidx_room_ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
+androidx_datastore = { module = "androidx.datastore:datastore-preferences", version.ref = "data-store" }
+androidx_palette = { module = "androidx.palette:palette-ktx", version.ref = "palette" }
 
 # Google
 material = { module = "com.google.android.material:material", version.ref = "material" }
+google_code_gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "material-icons-extended" }
 
 # Third Party
@@ -123,6 +134,8 @@ kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", versio
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
+androidxRoom = { id = "androidx.room", version.ref = "room" }
+kotlin_kapt = { id = "kapt", version.ref = "kotlinKapt" }
 
 [bundles]
 

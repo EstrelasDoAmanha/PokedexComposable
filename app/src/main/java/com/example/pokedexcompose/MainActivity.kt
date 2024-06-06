@@ -9,7 +9,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -25,6 +28,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.compose.rememberNavController
 import com.example.pokedexcompose.ui.list.pokemonListRoute
@@ -35,6 +39,7 @@ import com.pokedexcompose.designsystem.components.bottomnavigation.tabs.model.Bo
 
 @ExperimentalMaterial3Api
 class MainActivity : ComponentActivity() {
+
     @RequiresApi(Build.VERSION_CODES.P)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,52 +54,70 @@ class MainActivity : ComponentActivity() {
                 var topBarColor by remember {
                     mutableStateOf(initialColor)
                 }
+                var iShowFilterActionSheet by remember {
+                    mutableStateOf(false)
+                }
                 Surface {
-                    Scaffold(
-                        topBar = {
-                            TopAppBar(
-                                title = {
-                                    Text(
-                                        text = title,
-                                        fontWeight = FontWeight.Black,
-                                        fontSize = 28.sp,
-                                        textAlign = TextAlign.Start,
-                                        color = Color.White
-                                    )
-                                },
-                                colors = TopAppBarColors(
-                                    containerColor = topBarColor,
-                                    scrolledContainerColor = initialColor,
-                                    navigationIconContentColor = initialColor,
-                                    titleContentColor = initialColor,
-                                    actionIconContentColor = initialColor
+                    Scaffold(topBar = {
+                        TopAppBar(
+                            title = {
+                                Text(
+                                    text = title,
+                                    fontWeight = FontWeight.Black,
+                                    fontSize = 28.sp,
+                                    textAlign = TextAlign.Start,
+                                    color = Color.White
                                 )
-                            )
-                        },
-                        bottomBar = {
-                            BottomNavigationBar(
-                                tabs = listOf(
-                                    BottomNavigationTabModel(
-                                        title = "Home",
-                                        selectedIcon = Icons.Filled.Home,
-                                        unselectedIcon = Icons.Outlined.Home,
-                                        badgeAmount = null,
-                                        navigateTo = navController.pokemonListRoute()
+                            },
+                            actions = {
+                                IconButton(
+                                    onClick = {
+                                        iShowFilterActionSheet = !iShowFilterActionSheet
+                                    },
+                                    modifier = Modifier
+                                        .padding(horizontal = 16.dp)
+
+                                ) {
+                                    Icon(
+                                        Icons.Outlined.Settings,
+                                        contentDescription = "Navigation icon",
+                                        tint = Color.Gray
                                     )
-                                ),
-                                navController = navController
+                                }
+                            },
+                            colors = TopAppBarColors(
+                                containerColor = topBarColor,
+                                scrolledContainerColor = initialColor,
+                                navigationIconContentColor = initialColor,
+                                titleContentColor = initialColor,
+                                actionIconContentColor = initialColor
                             )
-                        }
-                    ) { padding ->
+                        )
+                    }, bottomBar = {
+                        BottomNavigationBar(
+                            tabs = listOf(
+                                BottomNavigationTabModel(
+                                    title = "Home",
+                                    selectedIcon = Icons.Filled.Home,
+                                    unselectedIcon = Icons.Outlined.Home,
+                                    badgeAmount = null,
+                                    navigateTo = navController.pokemonListRoute()
+                                )
+                            ),
+                            navController = navController
+                        )
+                    }) { padding ->
                         PokemonNavHost(
                             navController = navController,
-                            updateTitleTopBar =
-                            { newTitle ->
+                            updateTitleTopBar = { newTitle ->
                                 title = newTitle
                             },
-                            updateTopBarColor =
-                            { color ->
+                            updateTopBarColor = { color ->
                                 topBarColor = color
+                            },
+                            iShowFilterActionSheet = iShowFilterActionSheet,
+                            iShowFilterActionSheetChange = {
+                                iShowFilterActionSheet = it
                             },
                             modifier = Modifier.padding(padding)
                         )
