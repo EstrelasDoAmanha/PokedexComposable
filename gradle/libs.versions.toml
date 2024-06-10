@@ -39,7 +39,7 @@ material-icons-extended = "1.6.2"
 data-store = "1.1.1"
 
 # Third Party
-ktor = "2.3.9"
+ktor = "2.3.10"
 koinBom = "3.5.3"
 coilCompose = "2.5.0"
 detekt = "1.23.6"
