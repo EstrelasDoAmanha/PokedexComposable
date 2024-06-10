@@ -41,7 +41,7 @@ data-store = "1.1.1"
 # Third Party
 ktor = "2.3.9"
 koinBom = "3.5.3"
-coilCompose = "2.5.0"
+coilCompose = "2.6.0"
 detekt = "1.23.6"
 lottie = "6.4.0"
 flipper = "0.250.0"
