@@ -1,9 +1,12 @@
 package com.example.pokedexcompose.data.database
 
+import androidx.paging.PagingData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.example.pokedexcompose.domain.model.ResultListDomain
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface PokemonDao {

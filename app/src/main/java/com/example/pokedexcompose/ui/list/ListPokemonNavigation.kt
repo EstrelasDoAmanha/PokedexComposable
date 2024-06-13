@@ -36,13 +36,10 @@ fun NavGraphBuilder.pokemonList(
             uiState = uiState,
             modifier = modifier,
             iShowFilterActionSheet = iShowFilterActionSheet,
-            query = {
-                viewModel.updateListByFilter(it)
+            uiAction = {
+                viewModel.dispatcher(it)
             },
             iShowFilterActionSheetChange = iShowFilterActionSheetChange,
-            updatePositionState = {
-                viewModel.updatePositionState(it.first to it.second)
-            }
         ) { id ->
             toPokemonDetails(id)
         }

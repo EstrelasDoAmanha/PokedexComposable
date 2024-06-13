@@ -3,7 +3,6 @@ package com.example.pokedexcompose.ui.list.di
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.preferencesDataStoreFile
 import androidx.paging.Pager
-import androidx.paging.PagingConfig
 import androidx.room.Room
 import com.example.pokedexcompose.data.database.PokemonDao
 import com.example.pokedexcompose.data.database.PokemonDataBase
@@ -16,7 +15,7 @@ import com.example.pokedexcompose.data.mappers.PokemonTypeDtoToDomain
 import com.example.pokedexcompose.data.mappers.TypeListDtoToDomain
 import com.example.pokedexcompose.data.repository.PokemonRepositoryImpl
 import com.example.pokedexcompose.domain.mapper.PokemonListDtoToDomain
-import com.example.pokedexcompose.domain.pagging.PokemonListPagingSource
+import com.example.pokedexcompose.ui.details.presentation.pagging.PokemonListPagingSource
 import com.example.pokedexcompose.domain.repository.PokemonRepository
 import com.example.pokedexcompose.domain.usecase.GetPokemonDetailsUseCase
 import com.example.pokedexcompose.domain.usecase.PokemonListInteract
@@ -27,6 +26,10 @@ import com.example.pokedexcompose.domain.usecase.storagestate.ReceiverStateUseCa
 import com.example.pokedexcompose.domain.usecase.storagestate.SaveStateCaseImpl
 import com.example.pokedexcompose.domain.usecase.storagestate.SaveStateUseCase
 import com.example.pokedexcompose.domain.usecase.typelist.GetTypesListUseCase
+import com.example.pokedexcompose.domain.usecase.receiverPagingState.SavePagingStateUseCase
+import com.example.pokedexcompose.domain.usecase.receiverPagingState.SavePagingStateUseCaseImpl
+import com.example.pokedexcompose.domain.usecase.receiverPagingState.ReceivePagingStateUseCase
+import com.example.pokedexcompose.domain.usecase.receiverPagingState.ReceiverPagingStateUseCaseImpl
 import com.example.pokedexcompose.domain.usecase.typelist.TypesListUseCaseImpl
 import com.example.pokedexcompose.ui.details.presentation.PokemonDetailsViewModel
 import com.example.pokedexcompose.ui.list.presentation.PokemonListViewModel
@@ -50,9 +53,6 @@ val domainModule = module {
 
 val paging = module {
     factoryOf(::PokemonListPagingSource)
-    single {
-        PagingConfig(pageSize = 20)
-    }
     single {
         Pager(config = get(), pagingSourceFactory = { get<PokemonListPagingSource>() })
     }
@@ -82,6 +82,9 @@ val storageModule = module {
 
 val dataModule = module {
     factory { Dispatchers }
+    factoryOf(::SavePagingStateUseCaseImpl) { bind<SavePagingStateUseCase>() }
+    factoryOf(::ReceiverPagingStateUseCaseImpl) { bind<ReceivePagingStateUseCase>() }
+    factoryOf(::SaveStateCaseImpl) { bind<SaveStateUseCase>() }
     factoryOf(::SaveStateCaseImpl) { bind<SaveStateUseCase>() }
     factoryOf(::ReceiverStateCaseImpl) { bind<ReceiverStateUseCase>() }
     factoryOf(::PokemonListInteract)

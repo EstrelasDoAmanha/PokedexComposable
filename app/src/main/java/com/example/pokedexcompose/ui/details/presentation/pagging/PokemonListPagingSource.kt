@@ -1,4 +1,4 @@
-package com.example.pokedexcompose.domain.pagging
+package com.example.pokedexcompose.ui.details.presentation.pagging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
@@ -66,9 +66,6 @@ internal class PokemonListPagingSource(
         }
     }
 
-    suspend fun resetList() {
-        this.invalidate()
-    }
 
     override fun getRefreshKey(state: PagingState<Int, ResultListDomain>): Int? {
         return state.anchorPosition?.let { anchorPosition ->

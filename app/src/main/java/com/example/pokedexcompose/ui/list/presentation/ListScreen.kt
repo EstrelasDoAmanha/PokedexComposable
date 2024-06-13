@@ -18,8 +18,11 @@ import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.paging.LoadState
+import androidx.paging.LoadType
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.pokedexcompose.common.SHIMMER_LOTTIE_JSON
+import com.example.pokedexcompose.ui.list.UiAction
 import com.example.pokedexcompose.ui.list.presentation.component.FilterBottomSheet
 import com.example.pokedexcompose.ui.list.presentation.component.PokemonItem
 import com.pokedexcompose.designsystem.components.loading.Lottie
@@ -34,10 +37,9 @@ import kotlinx.coroutines.launch
 internal fun PokemonListScreen(
     uiState: ListUiState,
     modifier: Modifier = Modifier,
-    query: (String) -> Unit,
+    uiAction: (UiAction) -> Unit,
     iShowFilterActionSheetChange: (Boolean) -> Unit = {},
     iShowFilterActionSheet: Boolean,
-    updatePositionState: (Pair<Int, Int>) -> Unit = { },
     onItemClick: (String) -> Unit = {}
 ) {
     Column(Modifier.background(Color.White)) {
@@ -55,7 +57,9 @@ internal fun PokemonListScreen(
             if (iShowFilterActionSheet) {
                 FilterBottomSheet(
                     type = uiState.typeList,
-                    query = query,
+                    query = {
+                        uiAction(UiAction.SearchPokemon(it))
+                    },
                     sheetState = sheetState
                 ) {
                     scope.launch {
@@ -71,11 +75,11 @@ internal fun PokemonListScreen(
             LaunchedEffect(rememberLazyGridState) {
                 snapshotFlow {
                     rememberLazyGridState.firstVisibleItemIndex to
-                        rememberLazyGridState.firstVisibleItemScrollOffset
+                            rememberLazyGridState.firstVisibleItemScrollOffset
                 }.debounce(500L).collectLatest { snapshot ->
-                    updatePositionState(snapshot.first to snapshot.second)
                 }
             }
+
 
             LazyVerticalGrid(
                 columns = GridCells.Adaptive(128.dp),

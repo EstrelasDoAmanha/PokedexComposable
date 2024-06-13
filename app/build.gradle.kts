@@ -45,6 +45,7 @@ android {
     }
     kotlinOptions {
         jvmTarget = deps.versions.jvmTarget.get()
+        freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
     }
     buildFeatures {
         compose = deps.versions.composeProject.get().toBoolean()
