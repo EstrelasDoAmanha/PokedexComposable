@@ -5,6 +5,8 @@ plugins {
     alias(deps.plugins.kotlinAndroid)
     alias(deps.plugins.kotlinSerialization)
     alias(deps.plugins.ktlint)
+    alias(deps.plugins.androidxRoom)
+    kotlin(deps.plugins.kotlin.kapt.get().pluginId)
 }
 
 android {
@@ -22,6 +24,10 @@ android {
         vectorDrawables {
             useSupportLibrary = deps.versions.useSupportLibrary.get().toBoolean()
         }
+    }
+
+    room {
+        schemaDirectory("$projectDir/schemas")
     }
 
     buildTypes {
@@ -54,7 +60,6 @@ android {
 }
 
 dependencies {
-
     implementation(deps.coreKtx)
     implementation(deps.lifecycleRuntimeKtx)
     implementation(deps.activityCompose)
@@ -69,6 +74,7 @@ dependencies {
 
     implementation(deps.io.coil.kt.coil.compose)
     implementation(deps.io.coil.kt.coil.gif)
+    implementation(deps.io.coil.kt.coil.svg)
 
     implementation(platform(deps.koin.bom))
     implementation(deps.koin.compose)
@@ -78,10 +84,21 @@ dependencies {
 
     implementation(deps.ktor.client.core)
     implementation(deps.ktor.serialization)
+    implementation(deps.material.icons.extended)
 
     implementation(deps.pagingCompose)
     implementation(deps.pagingRuntime)
     implementation(deps.appStartup)
+
+    implementation(deps.google.code.gson)
+    implementation(deps.androidx.room.runtime)
+    implementation(deps.androidx.room.ktx)
+    annotationProcessor(deps.androidx.room.compiler)
+    kapt(deps.androidx.room.compiler)
+    implementation(deps.androidx.datastore)
+    implementation(deps.androidx.palette)
+
+    debugImplementation(deps.leakcanary)
 
     testImplementation(deps.junit)
     androidTestImplementation(deps.junitExt)
@@ -90,11 +107,12 @@ dependencies {
     androidTestImplementation(deps.junitUiTest4)
     debugImplementation(deps.compose.ui.tooling)
     debugImplementation(deps.compose.ui.test.manifest)
-
     implementation(project(":network"))
     implementation(project(":designsystem"))
     implementation(project(":features:home:public"))
     implementation(project(":features:home:implementation"))
+    implementation(project(":core:coreandroid"))
+    implementation(project(":core:corekotlin"))
     implementation(project(":features:details:public"))
     implementation(project(":features:details:implementation"))
     implementation(project(":flipper"))
@@ -111,10 +129,15 @@ tasks.register<Copy>("installPreCommitHook") {
 
     doLast {
         println("⚈ ⚈ ⚈ Adding permissions to Pre Commit Git Hook Script on Build ⚈ ⚈ ⚈")
-        exec {
-            commandLine("chmod", "+x", "$rootDir/.git/hooks/pre-commit")
+        if (System.getProperty("os.name").toLowerCase().contains("windows")) {
+            println("✅ its windows")
+        } else {
+            println("✅ its linux - Permissions added to Pre Commit Git Hook Script.")
+            exec {
+                commandLine("chmod", "+x", "$rootDir/.git/hooks/pre-commit")
+            }
+            println("✅ Permissions added to Pre Commit Git Hook Script.")
         }
-        println("✅ Permissions added to Pre Commit Git Hook Script.")
     }
     fileMode = 777
 }

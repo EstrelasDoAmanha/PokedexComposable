@@ -2,6 +2,9 @@ package com.example.pokedexcompose.app.initializer.koin.modules
 
 import com.example.pokedexcompose.ui.list.di.dataModule
 import com.example.pokedexcompose.ui.list.di.domainModule
+import com.example.pokedexcompose.ui.list.di.paging
+import com.example.pokedexcompose.ui.list.di.roomModule
+import com.example.pokedexcompose.ui.list.di.storageModule
 import com.example.pokedexcompose.ui.list.di.viewModel
 import com.pokedexcompose.network.di.networkModule
 import org.koin.core.KoinApplication
@@ -19,9 +22,13 @@ class AppKoinModules : KoinModules {
             networkModule
         )
     override val cache: List<Module>
-        get() = listOf()
+        get() = listOf(
+            roomModule,
+            paging,
+            storageModule
+        )
 
     override fun KoinApplication.load() {
-        this.modules(features + libraries + cache)
+        this.modules(cache + features + libraries)
     }
 }
