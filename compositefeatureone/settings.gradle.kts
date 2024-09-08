@@ -10,7 +10,7 @@ pluginManagement {
 dependencyResolutionManagement {
     versionCatalogs {
         create("deps") {
-            from(files("./gradle/libs.versions.toml"))
+            from(files("./gradle/composite.versions.toml"))
         }
     }
 
@@ -25,18 +25,4 @@ dependencyResolutionManagement {
 rootProject.name = "PokedexCompose"
 include(
     ":app",
-    ":network",
-    ":designsystem",
-    ":flipper",
-    ":features:home:public",
-    ":features:home:implementation",
-    ":features:details:public",
-    ":features:details:implementation",
-    ":features:list:public",
-    ":features:list:implementation",
-    ":core:coreandroid",
-    ":core:corekotlin",
 )
-
-includeBuild("compositebuildsrc")
-includeBuild("compositefeatureone")

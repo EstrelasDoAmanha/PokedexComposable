@@ -1,0 +1,1 @@
+/Users/gabrielestrela/Projects/Personal/Android/PokedexComposable/compositebuildsrc/build/classes/kotlin/main/plugins/ClassLoaderPlugin.class:/Users/gabrielestrela/Projects/Personal/Android/PokedexComposable/compositebuildsrc/build/classes/kotlin/main/plugins/Deps.class

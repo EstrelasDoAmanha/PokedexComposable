@@ -1,0 +1,142 @@
+[versions]
+
+# Android Build Info
+namespace = "com.example.pokedexcompose"
+compileSdk = "34"
+applicationId = "com.example.pokedexcompose"
+minSdk = "24"
+targetSdk = "34"
+versionCode = "1"
+versionName = "1.0"
+testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+useSupportLibrary = "true"
+releaseMinify = "false"
+jvmTarget = "17"
+composeProject = "true"
+kotlinCompilerExtVersion = "1.5.1"
+
+#JetBrains
+kotlinSerialization = "1.8.10"
+
+# AndroidX
+coreKtx = "1.12.0"
+lifecycleRuntimeKtx = "2.7.0"
+activityCompose = "1.8.2"
+appCompat = "1.6.1"
+composeBom = "2024.05.00"
+pagingVersion = "3.2.1"
+pagingComposeVersion = "3.3.0-alpha05"
+navigationRuntimeKtx = "2.7.7"
+appStartup = "1.1.1"
+room = "2.6.1"
+palette = "1.0.0"
+
+# Google
+material = "1.11.0"
+kotlinKapt = "2.0.0"
+gson = "2.11.0"
+material-icons-extended = "1.6.2"
+data-store = "1.1.1"
+
+# Third Party
+ktor = "2.3.9"
+koinBom = "3.5.3"
+coilCompose = "2.5.0"
+detekt = "1.23.6"
+lottie = "6.4.0"
+flipper = "0.250.0"
+soloader = "0.10.5"
+flipperGlenn = "0.11.4"
+leakcanary = "2.13"
+
+# Test
+junit = "4.13.2"
+junitExt = "1.1.5"
+espresso = "3.5.1"
+
+# Plugins
+androidApplication = "8.2.2"
+kotlinAndroid = "1.9.0"
+kotlinJvm = "1.9.0"
+ktlint = "12.1.0"
+coroutinesAndroidVersion = "1.3.9"
+dokka = "1.9.20"
+
+[libraries]
+
+# Jetbrains
+kotlinx_coroutines_android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutinesAndroidVersion" }
+# AndroidX
+coreKtx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
+lifecycleRuntimeKtx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
+activityCompose = { module = "androidx.activity:activity-compose", version.ref = "activityCompose" }
+appCompat = { module = "androidx.appcompat:appcompat", version.ref = "appCompat" }
+navigation_runtime_ktx = { module = "androidx.navigation:navigation-runtime-ktx", version.ref = "navigationRuntimeKtx" }
+compose_bom = { module = "androidx.compose:compose-bom", version.ref = "composeBom" }
+compose_ui = { module = "androidx.compose.ui:ui" }
+compose_ui_graphics = { module = "androidx.compose.ui:ui-graphics" }
+compose_ui_tooling = { module = "androidx.compose.ui:ui-tooling" }
+compose_text = { module = "androidx.compose.ui:ui-text-android" }
+compose_ui_test_manifest = { module = "androidx.compose.ui:ui-test-manifest" }
+compose_ui_tooling_preview = { module = "androidx.compose.ui:ui-tooling-preview" }
+compose_material3 = { module = "androidx.compose.material3:material3" }
+navigationCompose = { module = "androidx.navigation:navigation-compose" }
+pagingCompose = { module = "androidx.paging:paging-compose", version.ref = "pagingComposeVersion" }
+pagingRuntime = { module = "androidx.paging:paging-runtime", version.ref = "pagingVersion" }
+appStartup = { module = "androidx.startup:startup-runtime", version.ref = "appStartup" }
+androidx_room_runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
+androidx_room_compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+androidx_room_ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
+androidx_datastore = { module = "androidx.datastore:datastore-preferences", version.ref = "data-store" }
+androidx_palette = { module = "androidx.palette:palette-ktx", version.ref = "palette" }
+
+# Google
+material = { module = "com.google.android.material:material", version.ref = "material" }
+google_code_gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
+material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "material-icons-extended" }
+
+# Third Party
+ktor_client_core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+ktor_client_logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
+ktor_client_android = { module = "io.ktor:ktor-client-android", version.ref = "ktor" }
+ktor_client_negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
+ktor_serialization = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
+koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koinBom" }
+koin_core = { module = "io.insert-koin:koin-core" }
+koin_android = { module = "io.insert-koin:koin-android" }
+koin_compose = { module = "io.insert-koin:koin-androidx-compose" }
+koin_coroutines = { module = "io.insert-koin:koin-core-coroutines" }
+koin_navigation = { module = "io.insert-koin:koin-androidx-navigation" }
+io_coil_kt_coil_compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
+io_coil_kt_coil_gif = { module = "io.coil-kt:coil-gif", version.ref = "coilCompose" }
+io_coil_kt_coil_svg = {module = "io.coil-kt:coil-svg", version.ref="coilCompose"}
+lottie = { module = "com.airbnb.android:lottie-compose", version.ref = "lottie" }
+flipper = { module = "com.facebook.flipper:flipper", version.ref = "flipper" }
+soloader = { module = "com.facebook.soloader:soloader", version.ref = "soloader" }
+flipper_noop = { module = "com.facebook.flipper:flipper-noop", version.ref = "flipper" }
+flipper_noop_glenn = { module = "com.github.theGlenn:flipper-android-no-op", version.ref = "flipperGlenn" }
+leakcanary = { module = "com.squareup.leakcanary:leakcanary-android", version.ref = "leakcanary" }
+
+# Test
+junit = { module = "junit:junit", version.ref = "junit" }
+junitExt = { module = "androidx.test.ext:junit", version.ref = "junitExt" }
+junitUiTest4 = { module = "androidx.compose.ui:ui-test-junit4" }
+espressoCore = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso" }
+
+[plugins]
+
+androidApplication = { id = "com.android.application", version.ref = "androidApplication" }
+androidLibrary = { id = "com.android.library", version.ref = "androidApplication" }
+kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlinAndroid" }
+javaLibrary = { id = "java-library" }
+kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlinJvm" }
+kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinSerialization" }
+ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
+dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
+androidxRoom = { id = "androidx.room", version.ref = "room" }
+kotlin_kapt = { id = "kapt", version.ref = "kotlinKapt" }
+
+[bundles]
+
+flipper_bundle = ["flipper", "soloader"]

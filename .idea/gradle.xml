@@ -4,12 +4,38 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
+        <compositeConfiguration>
+          <compositeBuild compositeDefinitionSource="SCRIPT">
+            <builds>
+              <build path="$PROJECT_DIR$/compositebuildsrc" name="compositebuildsrc">
+                <projects>
+                  <project path="$PROJECT_DIR$/compositebuildsrc" />
+                </projects>
+              </build>
+              <build path="$PROJECT_DIR$/compositebuildsrc/buildSrc" name="buildSrc">
+                <projects>
+                  <project path="$PROJECT_DIR$/compositebuildsrc/buildSrc" />
+                </projects>
+              </build>
+              <build path="$PROJECT_DIR$/compositefeatureone" name="PokedexCompose">
+                <projects>
+                  <project path="$PROJECT_DIR$/compositefeatureone" />
+                  <project path="$PROJECT_DIR$/compositefeatureone/app" />
+                </projects>
+              </build>
+            </builds>
+          </compositeBuild>
+        </compositeConfiguration>
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="gradleJvm" value="#GRADLE_LOCAL_JAVA_HOME" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/compositebuildsrc" />
+            <option value="$PROJECT_DIR$/compositebuildsrc/buildSrc" />
+            <option value="$PROJECT_DIR$/compositefeatureone" />
+            <option value="$PROJECT_DIR$/compositefeatureone/app" />
             <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/core/coreandroid" />
             <option value="$PROJECT_DIR$/core/corekotlin" />

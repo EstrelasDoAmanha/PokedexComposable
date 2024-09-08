@@ -1,0 +1,110 @@
+import com.android.build.gradle.internal.tasks.factory.dependsOn
+
+plugins {
+    alias(deps.plugins.androidApplication)
+    alias(deps.plugins.kotlinAndroid)
+    alias(deps.plugins.kotlinSerialization)
+    alias(deps.plugins.ktlint)
+    alias(deps.plugins.androidxRoom)
+    kotlin(deps.plugins.kotlin.kapt.get().pluginId)
+}
+
+android {
+    namespace = deps.versions.namespace.get()
+    compileSdk = deps.versions.compileSdk.get().toInt()
+
+    defaultConfig {
+        applicationId = deps.versions.applicationId.get()
+        minSdk = deps.versions.minSdk.get().toInt()
+        targetSdk = deps.versions.targetSdk.get().toInt()
+        versionCode = deps.versions.versionCode.get().toInt()
+        versionName = deps.versions.versionName.get()
+
+        testInstrumentationRunner = deps.versions.testInstrumentationRunner.get()
+        vectorDrawables {
+            useSupportLibrary = deps.versions.useSupportLibrary.get().toBoolean()
+        }
+    }
+
+    room {
+        schemaDirectory("$projectDir/schemas")
+    }
+
+    buildTypes {
+        release {
+            isMinifyEnabled = deps.versions.releaseMinify.get().toBoolean()
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = deps.versions.jvmTarget.get()
+    }
+    buildFeatures {
+        compose = deps.versions.composeProject.get().toBoolean()
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = deps.versions.kotlinCompilerExtVersion.get()
+    }
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
+    }
+}
+
+dependencies {
+    implementation(deps.coreKtx)
+    implementation(deps.lifecycleRuntimeKtx)
+    implementation(deps.activityCompose)
+
+    implementation(platform(deps.compose.bom))
+    implementation(deps.compose.ui)
+    implementation(deps.compose.ui.graphics)
+    implementation(deps.compose.ui.tooling.preview)
+    implementation(deps.compose.material3)
+
+    implementation(deps.navigationCompose)
+
+    implementation(deps.io.coil.kt.coil.compose)
+    implementation(deps.io.coil.kt.coil.gif)
+    implementation(deps.io.coil.kt.coil.svg)
+
+    implementation(platform(deps.koin.bom))
+    implementation(deps.koin.compose)
+    implementation(deps.koin.android)
+    implementation(deps.koin.coroutines)
+    implementation(deps.koin.navigation)
+
+    implementation(deps.ktor.client.core)
+    implementation(deps.ktor.serialization)
+    implementation(deps.material.icons.extended)
+
+    implementation(deps.pagingCompose)
+    implementation(deps.pagingRuntime)
+    implementation(deps.appStartup)
+
+    implementation(deps.google.code.gson)
+    implementation(deps.androidx.room.runtime)
+    implementation(deps.androidx.room.ktx)
+    annotationProcessor(deps.androidx.room.compiler)
+    kapt(deps.androidx.room.compiler)
+    implementation(deps.androidx.datastore)
+    implementation(deps.androidx.palette)
+
+    debugImplementation(deps.leakcanary)
+
+    testImplementation(deps.junit)
+    androidTestImplementation(deps.junitExt)
+    androidTestImplementation(deps.espressoCore)
+    androidTestImplementation(platform(deps.compose.bom))
+    androidTestImplementation(deps.junitUiTest4)
+    debugImplementation(deps.compose.ui.tooling)
+    debugImplementation(deps.compose.ui.test.manifest)
+}
